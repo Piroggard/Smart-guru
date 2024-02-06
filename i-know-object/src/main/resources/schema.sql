@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS address
 (
   address_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  url VARCHAR(255) NOT NULL,
   city VARCHAR(255) NOT NULL,
   street VARCHAR(255) NOT NULL,
   house VARCHAR(255) NOT NULL
@@ -9,8 +8,7 @@ CREATE TABLE IF NOT EXISTS address
 
 CREATE TABLE IF NOT EXISTS photos_course
 (
-  address_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  photos_course_id VARCHAR(255) NOT NULL,
+  photos_course_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   photos VARCHAR(255) NOT NULL
 );
 
@@ -36,5 +34,5 @@ CREATE TABLE IF NOT EXISTS course
 
   CONSTRAINT fk_course_to_reviews FOREIGN KEY (reviews_id) REFERENCES reviews (reviews_id) ON DELETE CASCADE,
   CONSTRAINT fk_course_to_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON DELETE CASCADE,
-  CONSTRAINT fk_course_to_photos FOREIGN KEY (photos_course_id) REFERENCES photos_course (address_id) ON DELETE CASCADE
+  CONSTRAINT fk_course_to_photos FOREIGN KEY (photos_course_id) REFERENCES photos_course (photos_course_id) ON DELETE CASCADE
 );

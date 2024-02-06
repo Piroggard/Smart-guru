@@ -1,5 +1,6 @@
 package org.example.model;
 
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,23 +12,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode()
-@Table(name = "address")
+@Table(name = "reviews")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Address {
+public class Photos {
     @Id
-    @Column(name = "address_id")
+    @Column(name = "photos_course_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "city", nullable = false)
-    String city;
-
-    @Column(name = "street", nullable = false)
-    String street;
-
-    @Column(name = "house", nullable = false)
-    String house;
+    @Column(name = "photos", nullable = false)
+    String photos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id") // Убедитесь, что имя колонки соответствует имени в базе данных
