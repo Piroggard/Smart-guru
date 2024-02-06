@@ -10,17 +10,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/course")
+
 @Slf4j
 @RequiredArgsConstructor
 public class CourseController {
 
     @GetMapping
+
     public String test (){
         return "Я работаю!";
     }
 
 
     @PostMapping
+
     @ResponseStatus(HttpStatus.CREATED)
     public ApiError add (@RequestBody CourseDto courseDto){
         System.out.printf("" + courseDto);
