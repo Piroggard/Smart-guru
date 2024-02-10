@@ -13,6 +13,7 @@ import javax.persistence.*;
 @EqualsAndHashCode()
 @Table(name = "address")
 @Builder
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Address {
     @Id
@@ -29,7 +30,10 @@ public class Address {
     @Column(name = "house", nullable = false)
     String house;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id") // Убедитесь, что имя колонки соответствует имени в базе данных
-    private Course course;
+    public Address(String city, String street, String house) {
+        this.city = city;
+        this.street = street;
+        this.house = house;
+    }
+
 }
