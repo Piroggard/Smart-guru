@@ -1,21 +1,24 @@
 package org.example.dto;
 
-import lombok.Data;
+import lombok.*;
 import org.example.model.Address;
 import org.example.model.Review;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class CourseDto {
-
-    String name; //
+    String name;
     String url;
     String type;
-    Address address;
+    AddressDto address = new AddressDto();
     long numberSeats;
     long price;
     String photo;
-    List<String> photosCourse;
-    List <Review> reviews;
-
+    List<PhotosDto> photosCourse = new ArrayList<>();
+    List <ReviewDto> reviews = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package org.example.model;
 
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,34 +13,28 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode()
-@Table(name = "reviews")
+@Table(name = "photos_course")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Review {
+public class Photos {
 
-    public Review(String name, String description, Long courseId) {
-        this.name = name;
-        this.description = description;
+   public Photos(String photos, Long courseId) {
+        this.photos = photos;
         this.courseId = courseId;
     }
 
     @Id
-    @Column(name = "reviews_id")
+    @Column(name = "PHOTOS_COURSE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name", nullable = false)
-    String name;
-
-    @Column(name = "description", nullable = false)
-    String description;
+    @Column(name = "photos", nullable = false)
+    String photos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id") // Внешний ключ указывающий на курс
     private Long courseId;
-
-    /*@ManyToOne(fetch = FetchType.LAZY)
+   /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id") // Убедитесь, что имя колонки соответствует имени в базе данных
     private Course course;*/
-
 }
