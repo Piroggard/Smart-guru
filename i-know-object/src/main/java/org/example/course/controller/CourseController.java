@@ -13,6 +13,8 @@ import org.example.repository.CourseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @RequestMapping("/course")
 @Slf4j
 @AllArgsConstructor
@@ -25,4 +27,12 @@ public class CourseController {
         log.info("Меттод add " + courseDto);
         return courseServise.addCourse(courseDto);
     }
+
+    @GetMapping("{courseId}")
+    public CourseDto getCourse (@PathVariable Long courseId){
+        log.info("Меттод get " + courseId);
+        return courseServise.get(courseId);
+
+    }
+
 }

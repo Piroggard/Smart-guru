@@ -3,5 +3,9 @@ package org.example.repository;
 import org.example.model.Photos;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PhotosRepository extends JpaRepository <Photos, Long> {
+import java.util.List;
+
+public interface PhotosRepository extends JpaRepository<Photos, Long> {
+    List<Photos> findByCourse_Id(Long id);
+
 }
