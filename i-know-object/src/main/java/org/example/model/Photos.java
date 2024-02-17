@@ -8,20 +8,15 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@ToString
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode()
+@EqualsAndHashCode
 @Table(name = "photos_course")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Photos {
-
-   public Photos(String photos, Long courseId) {
-        this.photos = photos;
-        this.courseId = courseId;
-    }
 
     @Id
     @Column(name = "PHOTOS_COURSE_ID")
@@ -32,9 +27,11 @@ public class Photos {
     String photos;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id") // Внешний ключ указывающий на курс
-    private Long courseId;
-   /* @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id") // Убедитесь, что имя колонки соответствует имени в базе данных
-    private Course course;*/
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    public Photos(String photos, Course course) {
+        this.photos = photos;
+        this.course = course;
+    }
 }

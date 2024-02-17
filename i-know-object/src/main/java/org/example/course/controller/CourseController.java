@@ -13,35 +13,26 @@ import org.example.repository.CourseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @RequestMapping("/course")
 @Slf4j
 @AllArgsConstructor
 @RestController
 public class CourseController {
     CourseServise courseServise;
-
-
-    @GetMapping
-
-    public String test (){
-        return "Я работаю!";
-    }
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Course add (@RequestBody CourseDto courseDto){
+    public ApiError add (@RequestBody CourseDto courseDto){
         log.info("Меттод add " + courseDto);
-
-
         return courseServise.addCourse(courseDto);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    public void add (@RequestBody AddressDto courseDto){
-        System.out.printf("" + courseDto);
+    @GetMapping("{courseId}")
+    public CourseDto getCourse (@PathVariable Long courseId){
+        log.info("Меттод get " + courseId);
+        return courseServise.get(courseId);
 
     }
-
 
 }

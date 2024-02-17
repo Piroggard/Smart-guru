@@ -8,13 +8,14 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode()
+@EqualsAndHashCode
 @Table(name = "course")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -42,30 +43,15 @@ public class Course {
     @Column(name = "photo_profile", nullable = false)
     String photo;
 
-
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     @Fetch(FetchMode.JOIN)
     Address address;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    // @Fetch(FetchMode.JOIN)
-    List<Photos> photosCourse = new ArrayList<>();
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    List<Photos> photosCourse;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reviews_id")
-    //@Fetch(FetchMode.JOIN)
-    List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    List<Review> reviews;
 
-    public Course(String name, String url, String type, long numberSeats, long price, String photo, Address address, List<Photos> photosCourse, List<Review> reviews) {
-        this.name = name;
-        this.url = url;
-        this.type = type;
-        this.numberSeats = numberSeats;
-        this.price = price;
-        this.photo = photo;
-        this.address = address;
-    }
 }

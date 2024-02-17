@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode()
+@EqualsAndHashCode
 @Table(name = "address")
 @Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Address {
     @Id
@@ -21,19 +21,14 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "city", nullable = false)
-    String city;
-
     @Column(name = "street", nullable = false)
     String street;
+
+    @Column(name = "city", nullable = false)
+    String city;
 
     @Column(name = "house", nullable = false)
     String house;
 
-    public Address(String city, String street, String house) {
-        this.city = city;
-        this.street = street;
-        this.house = house;
-    }
 
 }
