@@ -8,4 +8,7 @@ public class News {
     String description;
     Long courseId;
 
+
+
+
 }
