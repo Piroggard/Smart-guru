@@ -36,5 +36,4 @@ public class News {
 
     @Column(name = "description", nullable = false)
     String description;
-
 }
