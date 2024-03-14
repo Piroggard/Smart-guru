@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS news
+(
+    course_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    direction VARCHAR(255) NOT NULL,
+    publication_date TIMESTAMP NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    heading VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL
+    );
