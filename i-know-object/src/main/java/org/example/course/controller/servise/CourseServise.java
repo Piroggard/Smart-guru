@@ -103,8 +103,6 @@ public class CourseServise {
         }
 
 
-
-
         return CourseDto.builder()
                 .name(course.getName())
                 .url(course.getUrl())
