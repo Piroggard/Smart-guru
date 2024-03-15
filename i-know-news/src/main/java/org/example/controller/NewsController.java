@@ -19,7 +19,7 @@ public class NewsController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public News addNews (@RequestBody NewsDto newsDto){
-
+        log.info("Меттод get " + newsDto);
         return newServise.addNews(newsDto);
     }
 

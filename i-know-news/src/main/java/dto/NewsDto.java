@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewsDto {
+    Long courseId;
     String direction;
     String image;
     String heading;
