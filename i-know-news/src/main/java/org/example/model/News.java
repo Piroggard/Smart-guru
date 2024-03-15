@@ -18,8 +18,11 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class News {
     @Id
-    @Column(name = "course_id")
+    @Column(name = "news_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long newsId;
+
+    @Column(name = "course_id", nullable = false)
     Long courseId;
 
     @Column(name = "direction", nullable = false) //Направление
