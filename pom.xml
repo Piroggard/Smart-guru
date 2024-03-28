@@ -20,6 +20,7 @@
     <module>i-know-users-app</module>
     <module>i-know-object</module>
       <module>i-know-news</module>
+      <module>i-know-review</module>
   </modules>
 
   <dependencyManagement>
