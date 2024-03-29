@@ -1,10 +1,7 @@
 package org.example.user.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.example.course.model.CompletedCourse;
+import lombok.*;
+import org.example.course.model.Course;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
     @Builder(toBuilder = true)
     @Entity
     @Table(name = "users")
+    @EqualsAndHashCode(exclude = {"id"})
     public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +21,7 @@ import java.util.Set;
         private String name;
         @Column(name = "email")
         private String email;
-        @OneToMany(mappedBy = "course")
-        private Set<CompletedCourse> completedCourses;
+    @ManyToMany(mappedBy = "studentsWhoCompleted")
+    private Set<Course> completedCourses;
 
 }

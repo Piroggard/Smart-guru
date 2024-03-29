@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS completed_courses
   completed_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   course_id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
-  completion_date TIMESTAMP NOT NULL,
   CONSTRAINT fk_course_to_completed_courses FOREIGN KEY (course_id) REFERENCES courses (course_id) ON DELETE CASCADE,
   CONSTRAINT fk_user_to_completed_courses FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
