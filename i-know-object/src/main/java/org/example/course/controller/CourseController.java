@@ -32,7 +32,7 @@ public class CourseController {
     public CourseDto getCourse (@PathVariable Long courseId){
         log.info("Меттод get " + courseId);
         return courseServise.get(courseId);
-
     }
+
 
 }
