@@ -31,5 +31,11 @@ public class NewsController {
         log.info("Меттод getAllByCourseId " + courseId);
         return newServise.getAllByCourseId(courseId);
     }
+    @PatchMapping
+    public News patchNews (@RequestBody News news){
+        log.info("Меттод patch " + news);
+        return newServise.patchNews(news);
+    }
+
 
 }
