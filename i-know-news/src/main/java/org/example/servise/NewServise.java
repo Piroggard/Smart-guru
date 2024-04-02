@@ -20,7 +20,6 @@ public class NewServise {
     private final NewsRepository newsRepository;
 
     public News addNews(NewsDto newsDto) {
-
         News news = News.builder()
                 .courseId(newsDto.getCourseId())
                 .publicationDate(LocalDateTime.now())
@@ -58,5 +57,9 @@ public class NewServise {
                     .build());
         }
         return newsDtoResponses;
+    }
+
+    public News patchNews (News news){
+        return newsRepository.save(news);
     }
 }
