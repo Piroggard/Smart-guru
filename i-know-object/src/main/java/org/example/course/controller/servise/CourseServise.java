@@ -10,17 +10,15 @@ import org.example.dto.ReviewDto;
 import org.example.model.Address;
 import org.example.model.Course;
 import org.example.model.Photos;
-import org.example.model.Review;
+import org.example.model.Reviews;
 import org.example.repository.AddressRepository;
 import org.example.repository.CourseRepository;
 import org.example.repository.PhotosRepository;
 import org.example.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -47,10 +45,10 @@ public class CourseServise {
                     .photo(courseDto.getPhoto())
                     .address(address)
                     .build());
-            List<Review> reviews = new ArrayList<>();
+            List<Reviews> reviews = new ArrayList<>();
             List<ReviewDto> reviewDtoList = courseDto.getReviews();
             for (ReviewDto reviewDto : reviewDtoList) {
-                Review review = Review.builder()
+                Reviews review = Reviews.builder()
                         .name(reviewDto.getName())
                         .course(course)
                         .description(reviewDto.getDescription()).build();
@@ -86,7 +84,7 @@ public class CourseServise {
     public CourseDto get(Long courseId) {
         Course course = courseRepository.getReferenceById(courseId);
         List<Photos> photos = photosRepository.findByCourse_Id(courseId);
-        List<Review> reviews = reviewRepository.findByCourse_Id(courseId);
+        List<Reviews> reviews = reviewRepository.findByCourse_Id(courseId);
         List<PhotosDto> photosDtoList = new ArrayList<>();
         List<ReviewDto> reviewDtoList = new ArrayList<>();
 
@@ -95,7 +93,7 @@ public class CourseServise {
                     .photos(photo.getPhotos())
                     .build());
         }
-        for (Review review : reviews) {
+        for (Reviews review : reviews) {
             reviewDtoList.add(ReviewDto.builder()
                     .name(review.getName())
                     .description(review.getDescription())

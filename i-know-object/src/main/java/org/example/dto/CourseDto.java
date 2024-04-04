@@ -1,8 +1,6 @@
 package org.example.dto;
 
 import lombok.*;
-import org.example.model.Address;
-import org.example.model.Review;
 
 import java.util.ArrayList;
 import java.util.List;

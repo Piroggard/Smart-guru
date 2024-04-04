@@ -6,7 +6,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -52,6 +51,6 @@ public class Course {
     List<Photos> photosCourse;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    List<Review> reviews;
+    List<Reviews> reviews;
 
 }
