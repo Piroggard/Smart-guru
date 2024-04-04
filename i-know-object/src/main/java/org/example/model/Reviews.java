@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "reviews")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Review {
+public class Reviews {
     @Id
     @Column(name = "reviews_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

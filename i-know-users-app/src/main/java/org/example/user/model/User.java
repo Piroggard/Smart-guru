@@ -1,10 +1,8 @@
 package org.example.user.model;
 
 import lombok.*;
-import org.example.course.model.Course;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
     @AllArgsConstructor
@@ -21,7 +19,5 @@ import java.util.Set;
         private String name;
         @Column(name = "email")
         private String email;
-    @ManyToMany(mappedBy = "studentsWhoCompleted")
-    private Set<Course> completedCourses;
 
 }

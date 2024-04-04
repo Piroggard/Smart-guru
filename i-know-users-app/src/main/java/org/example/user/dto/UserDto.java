@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.Email;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -16,7 +15,6 @@ import java.util.Set;
 public class UserDto {
     private Long id;
     private String name;
-    @Email
     @Nullable
     private String email;
     private Set<Long> completedCourses;
