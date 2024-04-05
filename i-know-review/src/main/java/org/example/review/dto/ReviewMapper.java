@@ -5,9 +5,7 @@ import org.example.user.db.UserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReviewMapper {
-    @Autowired
-    private static UserStorage userStorage;
-    public static ReviewDto toDto(Review review) {
+    public ReviewDto toDto(Review review) {
         if (review == null) {
             return null;
         }
