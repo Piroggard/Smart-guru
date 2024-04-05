@@ -31,4 +31,8 @@ public class ReviewStorage {
         Review review = ReviewMapper.toEntity(reviewDto);
         return reviewMapper.toDto(jpaReviewRepository.save(review));
     }
+
+    public void deleteReview(Long reviewId) {
+        jpaReviewRepository.deleteReviewById(reviewId);
+    }
 }

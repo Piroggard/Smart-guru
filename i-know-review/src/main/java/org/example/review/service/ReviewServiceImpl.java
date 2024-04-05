@@ -29,4 +29,12 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
         }
         return reviewStorage.updateReview(reviewDto);
     }
+
+    public void deleteReview(Long reviewId) {
+        if(reviewStorage.getReviewById(reviewId).equals(null)) {
+            throw new BadRequestException(HttpStatus.BAD_REQUEST, "Такого отзыва не существует" + reviewId);
+        } else {
+            reviewStorage.deleteReview(reviewId);
+        }
+    }
 }
