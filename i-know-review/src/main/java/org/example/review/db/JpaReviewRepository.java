@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Set;
 
 @Repository
-public interface JpaReviewRepository extends PagingAndSortingRepository<Review, Integer> {
+public interface JpaReviewRepository extends PagingAndSortingRepository<Review, Long> {
 
     Review getReviewById(Long reviewId);
+
+    void deleteReviewById(Long reviewId);
 }
