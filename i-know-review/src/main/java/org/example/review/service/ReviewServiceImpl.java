@@ -8,6 +8,8 @@ import org.example.review.exception.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -36,5 +38,9 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
         } else {
             reviewStorage.deleteReview(reviewId);
         }
+    }
+
+    public List<ReviewDto> getAllReviewsByUserId(Long userId) {
+        return reviewStorage.getAllReviewsByUserId(userId);
     }
 }

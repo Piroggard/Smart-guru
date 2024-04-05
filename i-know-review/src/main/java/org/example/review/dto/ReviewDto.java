@@ -16,4 +16,5 @@ public class ReviewDto {
     private String title;
     private String description;
     private LocalDateTime postDate;
+    private Long userId;
 }

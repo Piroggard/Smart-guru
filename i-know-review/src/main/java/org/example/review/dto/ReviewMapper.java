@@ -14,6 +14,7 @@ public class ReviewMapper {
                 .title(review.getTitle())
                 .description(review.getDescription())
                 .postDate(review.getPostDate())
+                .userId(review.getUserId())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class ReviewMapper {
                 .title(reviewDto.getTitle())
                 .description(reviewDto.getDescription())
                 .postDate(reviewDto.getPostDate())
+                .userId(reviewDto.getUserId())
                 .build();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/review")
@@ -23,6 +24,12 @@ public class ReviewController {
       log.info("Getting review by id " + reviewId);
       return reviewService.getReviewById(reviewId);
    }
+    @GetMapping("/{id}")
+    public List<ReviewDto> getReviewsByUserId(@PathVariable Long userId) {
+        log.info("Getting all reviews from user " + userId);
+        return reviewService.getAllReviewsByUserId(userId);
+    }
+
 
    @PostMapping
     public ReviewDto addReview(@RequestBody @Valid ReviewDto reviewDto) {

@@ -4,6 +4,7 @@ import org.example.review.model.Review;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -12,4 +13,6 @@ public interface JpaReviewRepository extends PagingAndSortingRepository<Review, 
     Review getReviewById(Long reviewId);
 
     void deleteReviewById(Long reviewId);
+
+    List<Review> getAllReviewsByUserId(Long userId);
 }

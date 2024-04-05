@@ -22,5 +22,7 @@ public class Review {
     private String description;
     @Column(name = "post_date",nullable = false)
     private LocalDateTime postDate;
+    @Column(name = "user_id",nullable = false)
+    private Long userId;
 
 }
