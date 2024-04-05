@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.review.db.ReviewStorage;
 import org.example.review.dto.ReviewDto;
+import org.example.review.exception.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -19,5 +21,12 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
 
     public ReviewDto addReview(ReviewDto reviewDto) {
         return reviewStorage.addReview(reviewDto);
+    }
+
+    public ReviewDto updateReview(ReviewDto reviewDto, Long reviewId) {
+        if(reviewStorage.getReviewById(reviewId).equals(null)) {
+            throw new BadRequestException(HttpStatus.BAD_REQUEST, "Такого отзыва не существует" + reviewId);
+        }
+        return reviewStorage.updateReview(reviewDto);
     }
 }

@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class ReviewStorage {
     @Autowired
     private final JpaReviewRepository jpaReviewRepository;
-    private ReviewMapper reviewMapper;
+    @Autowired
+    private final ReviewMapper reviewMapper;
 
 
     public ReviewDto getReviewById(Long reviewId) {
@@ -22,6 +23,11 @@ public class ReviewStorage {
     }
 
     public ReviewDto addReview(ReviewDto reviewDto) {
+        Review review = ReviewMapper.toEntity(reviewDto);
+        return reviewMapper.toDto(jpaReviewRepository.save(review));
+    }
+
+    public ReviewDto updateReview(ReviewDto reviewDto) {
         Review review = ReviewMapper.toEntity(reviewDto);
         return reviewMapper.toDto(jpaReviewRepository.save(review));
     }

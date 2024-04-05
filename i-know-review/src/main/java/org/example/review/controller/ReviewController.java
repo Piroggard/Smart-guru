@@ -30,5 +30,11 @@ public class ReviewController {
       return reviewService.addReview(reviewDto);
    }
 
+   @PatchMapping("/{id}")
+    public ReviewDto updateReview(@RequestBody @Valid ReviewDto reviewDto, @PathVariable Long reviewId) {
+        log.info("Updating review " + reviewId);
+        return reviewService.updateReview(reviewDto, reviewId);
+        }
+
 
 }

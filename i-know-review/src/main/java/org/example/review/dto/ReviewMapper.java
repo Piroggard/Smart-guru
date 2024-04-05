@@ -1,9 +1,9 @@
 package org.example.review.dto;
 
 import org.example.review.model.Review;
-import org.example.user.db.UserStorage;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReviewMapper {
     public ReviewDto toDto(Review review) {
         if (review == null) {
@@ -21,8 +21,6 @@ public class ReviewMapper {
         if (reviewDto == null) {
             return null;
         }
-
-
         return Review.builder()
                 .id(reviewDto.getId())
                 .title(reviewDto.getTitle())
