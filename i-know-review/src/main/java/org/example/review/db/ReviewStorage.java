@@ -8,6 +8,9 @@ import org.example.review.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @Slf4j
 @AllArgsConstructor
@@ -34,5 +37,13 @@ public class ReviewStorage {
 
     public void deleteReview(Long reviewId) {
         jpaReviewRepository.deleteReviewById(reviewId);
+    }
+
+    public List<ReviewDto> getAllReviewsByUserId(Long userId) {
+        List<Review> reviewList = jpaReviewRepository.getAllReviewsByUserId(userId);
+        List<ReviewDto> reviewDtoList = reviewList.stream()
+                .map(review -> reviewMapper.toDto(review))
+                .collect(Collectors.toList());
+        return reviewDtoList;
     }
 }
