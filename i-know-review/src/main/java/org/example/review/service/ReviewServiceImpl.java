@@ -16,4 +16,8 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
     public ReviewDto getReviewById(Long reviewId) {
         return reviewStorage.getReviewById(reviewId);
     }
+
+    public ReviewDto addReview(ReviewDto reviewDto) {
+        return reviewStorage.addReview(reviewDto);
+    }
 }

@@ -6,10 +6,9 @@ import org.example.review.dto.ReviewDto;
 import org.example.review.service.ReviewServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/review")
@@ -21,7 +20,15 @@ public class ReviewController {
    private final ReviewServiceImpl reviewService;
    @GetMapping("/{id}")
     public ReviewDto getReviewById(@PathVariable Long reviewId) {
-       return reviewService.getReviewById(reviewId);
+      log.info("Getting review by id " + reviewId);
+      return reviewService.getReviewById(reviewId);
    }
+
+   @PostMapping
+    public ReviewDto addReview(@RequestBody @Valid ReviewDto reviewDto) {
+      log.info("Adding review " + reviewDto.getTitle());
+      return reviewService.addReview(reviewDto);
+   }
+
 
 }
