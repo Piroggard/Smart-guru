@@ -20,4 +20,9 @@ public class ReviewStorage {
     public ReviewDto getReviewById(Long reviewId) {
         return reviewMapper.toDto(jpaReviewRepository.getReviewById(reviewId));
     }
+
+    public ReviewDto addReview(ReviewDto reviewDto) {
+        Review review = ReviewMapper.toEntity(reviewDto);
+        return reviewMapper.toDto(jpaReviewRepository.save(review));
+    }
 }
