@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.model.News;
 import org.springframework.stereotype.Service;
 import org.example.repository.NewsRepository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +18,11 @@ import java.util.List;
 public class NewServise {
     private final NewsRepository newsRepository;
 
+
+
+
     public News addNews(NewsDto newsDto) {
+
         News news = News.builder()
                 .courseId(newsDto.getCourseId())
                 .publicationDate(LocalDateTime.now())
