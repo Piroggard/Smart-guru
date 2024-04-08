@@ -31,7 +31,9 @@ public class NewsController {
     }
 
     @GetMapping("{courseId}")
-    public List<News> getAllByCourseId(@PathVariable Long courseId) {
+    public List<News> getAllByCourseId(@PathVariable Long courseId,
+                                       @RequestParam(required = false, defaultValue = "0") int page,
+                                       @RequestParam(required = false, defaultValue = "0") int size) {
         log.info("Меттод getAllByCourseId " + courseId);
         return newServise.getAllByCourseId(courseId);
     }
@@ -44,8 +46,7 @@ public class NewsController {
 
     @DeleteMapping("{newsId}/{courseId}")
     public List<News> deleteNews(@PathVariable Long newsId, @PathVariable Long courseId) {
+        log.info("Удаление новости " + newsId);
         return newServise.deleteNews(newsId, courseId);
     }
-
-
-    }
+}
