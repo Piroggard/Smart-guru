@@ -25,21 +25,27 @@ public class NewsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public News addNews ( @Valid @RequestBody NewsDto newsDto){
+    public News addNews(@Valid @RequestBody NewsDto newsDto) {
         log.info("Меттод get " + newsDto);
-            return newServise.addNews(newsDto);
+        return newServise.addNews(newsDto);
     }
 
     @GetMapping("{courseId}")
-    public List<NewsDtoResponse> getAllByCourseId (@PathVariable Long courseId){
+    public List<News> getAllByCourseId(@PathVariable Long courseId) {
         log.info("Меттод getAllByCourseId " + courseId);
         return newServise.getAllByCourseId(courseId);
     }
+
     @PatchMapping
-    public News patchNews (@RequestBody News news){
+    public News patchNews(@RequestBody News news) {
         log.info("Меттод patch " + news);
         return newServise.patchNews(news);
     }
 
+    @DeleteMapping("{newsId}/{courseId}")
+    public List<News> deleteNews(@PathVariable Long newsId, @PathVariable Long courseId) {
+        return newServise.deleteNews(newsId, courseId);
+    }
 
-}
+
+    }

@@ -41,9 +41,9 @@ public class NewServise {
         return null;
     }
 
-    public List<NewsDtoResponse> getAllByCourseId(Long courseId) {
-        List<News> listNews = newsRepository.findByCourseId(courseId);
-        return mappingNewsToNewsDtoResponse(listNews);
+    public List<News> getAllByCourseId(Long courseId) {
+        return newsRepository.findByCourseId(courseId);
+        //return mappingNewsToNewsDtoResponse(listNews);
 
     }
 
@@ -64,5 +64,12 @@ public class NewServise {
 
     public News patchNews (News news){
         return newsRepository.save(news);
+    }
+
+    public List<News> deleteNews (Long newsId, Long courseId){
+        newsRepository.deleteById(newsId);
+        log.info("Удаляем - " + newsId + "из курса " + courseId);
+        return newsRepository.findByCourseId(courseId);
+
     }
 }
