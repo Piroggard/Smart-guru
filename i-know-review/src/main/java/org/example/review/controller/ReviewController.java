@@ -20,11 +20,11 @@ public class ReviewController {
 
    private final ReviewServiceImpl reviewService;
    @GetMapping("/{id}")
-    public ReviewDto getReviewById(@PathVariable Long reviewId) {
+    public ReviewDto getReviewById(@PathVariable("id") Long reviewId) {
       log.info("Getting review by id " + reviewId);
       return reviewService.getReviewById(reviewId);
    }
-    @GetMapping("/{id}")
+    @GetMapping("/user/{userId}")
     public List<ReviewDto> getReviewsByUserId(@PathVariable Long userId) {
         log.info("Getting all reviews from user " + userId);
         return reviewService.getAllReviewsByUserId(userId);
@@ -38,12 +38,12 @@ public class ReviewController {
    }
 
    @PatchMapping("/{id}")
-    public ReviewDto updateReview(@RequestBody @Valid ReviewDto reviewDto, @PathVariable Long reviewId) {
+    public ReviewDto updateReview(@RequestBody @Valid ReviewDto reviewDto, @PathVariable("id") Long reviewId) {
         log.info("Updating review " + reviewId);
         return reviewService.updateReview(reviewDto, reviewId);
    }
 
-   @DeleteMapping("/reviewId")
+   @DeleteMapping("/{reviewId}")
     public void deleteReview(@PathVariable Long reviewId) {
        log.info("Deleting review " + reviewId);
        reviewService.deleteReview(reviewId);

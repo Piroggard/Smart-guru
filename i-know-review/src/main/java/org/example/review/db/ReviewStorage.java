@@ -8,6 +8,7 @@ import org.example.review.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ public class ReviewStorage {
         return reviewMapper.toDto(jpaReviewRepository.save(review));
     }
 
+    @Transactional
     public void deleteReview(Long reviewId) {
         jpaReviewRepository.deleteReviewById(reviewId);
     }
