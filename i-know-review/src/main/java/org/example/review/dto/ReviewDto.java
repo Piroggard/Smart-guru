@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -14,13 +12,10 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class ReviewDto {
-    @NotNull(message = "Идентификатор курса не должен быть пустым")
     private Long id;
-    @NotBlank(message = "Название не должно быть пустым")
     private String title;
-    @NotBlank(message = "Описание не должно быть пустым")
     private String description;
     private LocalDateTime postDate;
-    @NotNull @NotBlank (message = "Идентификатор пользователя не должен быть пустым")
+    private Long courseId;
     private Long userId;
 }

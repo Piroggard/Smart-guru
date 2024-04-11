@@ -1,22 +1,17 @@
-package org.example.user.dto;
+package org.example.course.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
-
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class UserDto {
+public class CourseDto {
     private Long id;
     private String name;
-    @Nullable
-    private String email;
-    private Set<Long> completedCourses;
+    private String type;
 
 }
