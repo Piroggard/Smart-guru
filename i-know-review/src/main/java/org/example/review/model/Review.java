@@ -1,13 +1,9 @@
 package org.example.review.model;
 
 import lombok.*;
-import org.example.course.model.CompletedCourse;
-import org.example.course.model.Course;
-import org.example.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -26,11 +22,7 @@ public class Review {
     private String description;
     @Column(name = "post_date",nullable = false)
     private LocalDateTime postDate;
-    @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id",nullable = false)
+    private Long userId;
 
 }
