@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS address
+(
+  address_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  city VARCHAR(255) NOT NULL,
+  street VARCHAR(255) NOT NULL,
+  house VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS course
+(
+  course_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  url VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  type VARCHAR(255) NOT NULL,
+  number_seats FLOAT NOT NULL,
+  price FLOAT NOT NULL,
+  photo_profile VARCHAR(255) NOT NULL,
+  address_id FLOAT NOT NULL,
+  CONSTRAINT fk_course_to_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON DELETE CASCADE
+
+);
+CREATE TABLE IF NOT EXISTS photos_course
+(
+  photos_course_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  photos VARCHAR(255) NOT NULL,
+  course_id FLOAT NOT NULL,
+  CONSTRAINT fk_course_to_photos FOREIGN KEY (course_id) REFERENCES course (course_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS reviews
+(
+  reviews_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  course_id FLOAT NOT NULL,
+  CONSTRAINT fk_course_to_reviews FOREIGN KEY (course_id) REFERENCES course (course_id) ON DELETE CASCADE
+);

@@ -3,12 +3,7 @@ package org.example.review.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.review.db.ReviewStorage;
-import org.example.review.dto.ReviewDto;
-import org.example.review.exception.BadRequestException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,30 +12,4 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
     private final ReviewStorage reviewStorage;
 
 
-    public ReviewDto getReviewById(Long reviewId) {
-        return reviewStorage.getReviewById(reviewId);
-    }
-
-    public ReviewDto addReview(ReviewDto reviewDto) {
-        return reviewStorage.addReview(reviewDto);
-    }
-
-    public ReviewDto updateReview(ReviewDto reviewDto, Long reviewId) {
-        if(reviewStorage.getReviewById(reviewId).equals(null)) {
-            throw new BadRequestException(HttpStatus.BAD_REQUEST, "Такого отзыва не существует" + reviewId);
-        }
-        return reviewStorage.updateReview(reviewDto);
-    }
-
-    public void deleteReview(Long reviewId) {
-        if(reviewStorage.getReviewById(reviewId).equals(null)) {
-            throw new BadRequestException(HttpStatus.BAD_REQUEST, "Такого отзыва не существует" + reviewId);
-        } else {
-            reviewStorage.deleteReview(reviewId);
-        }
-    }
-
-    public List<ReviewDto> getAllReviewsByUserId(Long userId) {
-        return reviewStorage.getAllReviewsByUserId(userId);
-    }
 }
