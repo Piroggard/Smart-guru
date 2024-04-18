@@ -5,6 +5,7 @@ import dto.NewsDtoResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.News;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.example.repository.NewsRepository;
 
@@ -41,8 +42,9 @@ public class NewServise {
         return null;
     }
 
-    public List<News> getAllByCourseId(Long courseId) {
-        return newsRepository.findByCourseId(courseId);
+    public List<News> getAllByCourseId(Long courseId, int page, int size) {
+        return newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
+        //return newsRepository.findByCourseId(courseId);
         //return mappingNewsToNewsDtoResponse(listNews);
 
     }

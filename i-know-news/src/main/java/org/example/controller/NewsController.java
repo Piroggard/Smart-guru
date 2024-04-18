@@ -35,7 +35,7 @@ public class NewsController {
                                        @RequestParam(required = false, defaultValue = "0") int page,
                                        @RequestParam(required = false, defaultValue = "0") int size) {
         log.info("Меттод getAllByCourseId " + courseId);
-        return newServise.getAllByCourseId(courseId);
+        return newServise.getAllByCourseId(courseId, page, size);
     }
 
     @PatchMapping
