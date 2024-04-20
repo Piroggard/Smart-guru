@@ -1,6 +1,8 @@
 package org.example.review.db;
 ;
 import org.example.review.model.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +17,5 @@ public interface JpaReviewRepository extends JpaRepository<Review, Long> {
 
     void deleteReviewById(Long reviewId);
 
-    List<Review> getAllReviewsByUserId(Long userId);
+    Page<Review> getAllReviewsByUserId(Long userId, Pageable pageable);
 }

@@ -6,6 +6,8 @@ import org.example.review.dto.ReviewDto;
 import org.example.review.dto.ReviewMapper;
 import org.example.review.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -41,11 +43,8 @@ public class ReviewStorage {
         jpaReviewRepository.deleteReviewById(reviewId);
     }
 
-    public List<ReviewDto> getAllReviewsByUserId(Long userId) {
-        List<Review> reviewList = jpaReviewRepository.getAllReviewsByUserId(userId);
-        List<ReviewDto> reviewDtoList = reviewList.stream()
-                .map(review -> reviewMapper.toDto(review))
-                .collect(Collectors.toList());
-        return reviewDtoList;
+    public Page<ReviewDto> getAllReviewsByUserId(Long userId, Pageable pageable) {
+        Page<Review> reviewPage = jpaReviewRepository.getAllReviewsByUserId(userId, pageable);
+        return reviewPage.map(reviewMapper::toDto);
     }
 }

@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.review.db.ReviewStorage;
 import org.example.review.dto.ReviewDto;
 import org.example.review.exception.BadRequestException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,7 +40,8 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
         }
     }
 
-    public List<ReviewDto> getAllReviewsByUserId(Long userId) {
-        return reviewStorage.getAllReviewsByUserId(userId);
+    public Page<ReviewDto> getAllReviewsByUserId(Long userId, Pageable pageable) {
+        Page<ReviewDto> reviews = reviewStorage.getAllReviewsByUserId(userId,pageable);
+        return reviews;
     }
 }

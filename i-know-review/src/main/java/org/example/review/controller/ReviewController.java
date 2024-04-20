@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.review.dto.ReviewDto;
 import org.example.review.service.ReviewServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,14 +23,20 @@ public class ReviewController {
 
    private final ReviewServiceImpl reviewService;
    @GetMapping("/{id}")
-    public ReviewDto getReviewById(@PathVariable("id") Long reviewId) {
+    public ReviewDto getReviewById(@PathVariable("id") Long reviewId,
+                                   @RequestParam(required = false, defaultValue = "0") int page,
+                                   @RequestParam(required = false, defaultValue = "0") int size) {
       log.info("Getting review by id " + reviewId);
       return reviewService.getReviewById(reviewId);
    }
     @GetMapping("/user/{userId}")
-    public List<ReviewDto> getReviewsByUserId(@PathVariable Long userId) {
-        log.info("Getting all reviews from user " + userId);
-        return reviewService.getAllReviewsByUserId(userId);
+    public ResponseEntity<Page<ReviewDto>> getReviewsByUserId(
+            @PathVariable("userId") Long userId,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        log.info("Getting reviews for user id " + userId);
+        Page<ReviewDto> reviews = reviewService.getAllReviewsByUserId(userId, PageRequest.of(page, size));
+        return ResponseEntity.ok(reviews);
     }
 
 
