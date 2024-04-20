@@ -44,6 +44,9 @@ public class ReviewController {
     public ReviewDto addReview(@RequestBody @Valid ReviewDto reviewDto) {
       log.info("Adding review " + reviewDto.getTitle());
       return reviewService.addReview(reviewDto);
+
+
+
    }
 
    @PatchMapping("/{id}")
