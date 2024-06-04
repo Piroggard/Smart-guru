@@ -20,8 +20,6 @@ public class NewServise {
     private final NewsRepository newsRepository;
 
 
-
-
     public News addNews(NewsDto newsDto) {
 
         News news = News.builder()
@@ -42,10 +40,9 @@ public class NewServise {
         return null;
     }
 
+
     public List<News> getAllByCourseId(Long courseId, int page, int size) {
         return newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
-        //return newsRepository.findByCourseId(courseId);
-        //return mappingNewsToNewsDtoResponse(listNews);
 
     }
 
@@ -64,14 +61,13 @@ public class NewServise {
         return newsDtoResponses;
     }
 
-    public News patchNews (News news){
+    public News patchNews(News news) {
         return newsRepository.save(news);
     }
 
-    public List<News> deleteNews (Long newsId, Long courseId){
+    public List<News> deleteNews(Long newsId, Long courseId) {
         newsRepository.deleteById(newsId);
         log.info("Удаляем - " + newsId + "из курса " + courseId);
         return newsRepository.findByCourseId(courseId);
-
     }
 }

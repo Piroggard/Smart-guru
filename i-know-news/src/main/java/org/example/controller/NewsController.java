@@ -1,14 +1,12 @@
 package org.example.controller;
 
 import dto.NewsDto;
-import dto.NewsDtoResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.News;
 import org.example.servise.NewServise;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 
