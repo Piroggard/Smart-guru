@@ -4,6 +4,7 @@ import dto.NewsDto;
 import dto.NewsDtoResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.mappers.NewsMapper;
 import org.example.model.News;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,19 +20,10 @@ import java.util.List;
 public class NewServise {
     private final NewsRepository newsRepository;
 
-
     public News addNews(NewsDto newsDto) {
-
-        News news = News.builder()
-                .courseId(newsDto.getCourseId())
-                .publicationDate(LocalDateTime.now())
-                .image(newsDto.getImage())
-                .description(newsDto.getDescription())
-                .heading(newsDto.getHeading())
-                .direction(newsDto.getDirection())
-                .build();
+        News news = NewsMapper.INSTANCE.toNews(newsDto);
+        news.setPublicationDate(LocalDateTime.now());
         log.info("Маппинг в model" + news);
-
         try {
             return newsRepository.save(news);
         } catch (Exception e) {
@@ -40,25 +32,9 @@ public class NewServise {
         return null;
     }
 
-
     public List<News> getAllByCourseId(Long courseId, int page, int size) {
         return newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
 
-    }
-
-    public List<NewsDtoResponse> mappingNewsToNewsDtoResponse(List<News> newsList) {
-        List<NewsDtoResponse> newsDtoResponses = new ArrayList<>();
-        for (News news : newsList) {
-            newsDtoResponses.add(NewsDtoResponse.builder()
-                    .courseId(news.getCourseId())
-                    .direction(news.getDirection())
-                    .image(news.getImage())
-                    .heading(news.getHeading())
-                    .description(news.getDescription())
-                    .publicationDate(news.getPublicationDate())
-                    .build());
-        }
-        return newsDtoResponses;
     }
 
     public News patchNews(News news) {
