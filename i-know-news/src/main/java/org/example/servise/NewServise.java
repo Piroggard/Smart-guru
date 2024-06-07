@@ -19,19 +19,15 @@ import java.util.List;
 @Service
 public class NewServise {
     private final NewsRepository newsRepository;
+    private final NewsMapper newsMapper;
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, timeout = 30, rollbackFor = Exception.class)
-    public News addNews(NewsDto newsDto) {
-        NewsMapper newsMapper = new NewsMapperImpl();
+    public Long addNews(NewsDto newsDto) {
         News news = newsMapper.toDto(newsDto);
         news.setPublicationDate(LocalDateTime.now());
         log.info("Маппинг в model" + news);
-        try {
-            return newsRepository.save(news);
-        } catch (Exception e) {
-            log.error("Ошибка записи в базу - " + e.getMessage());
-        }
-        return null;
+        return newsRepository.save(news).getNewsId();
+
     }
 
     public List<News> getAllByCourseId(Long courseId, int page, int size) {
@@ -42,9 +38,9 @@ public class NewServise {
         return newsRepository.save(news);
     }
 
-    public List<News> deleteNews(Long newsId, Long courseId) {
+    public void deleteNews(Long newsId, Long courseId) {
         newsRepository.deleteById(newsId);
         log.info("Удаляем - " + newsId + "из курса " + courseId);
-        return newsRepository.findByCourseId(courseId);
+        newsRepository.findByCourseId(courseId);
     }
 }
