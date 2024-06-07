@@ -1,4 +1,5 @@
 package org.example.servise;
+import org.example.mappers.NewsMapperImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,7 +22,8 @@ public class NewServise {
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, timeout = 30, rollbackFor = Exception.class)
     public News addNews(NewsDto newsDto) {
-        News news = NewsMapper.INSTANCE.toNews(newsDto);
+        NewsMapper newsMapper = new NewsMapperImpl();
+        News news = newsMapper.toDto(newsDto);
         news.setPublicationDate(LocalDateTime.now());
         log.info("Маппинг в model" + news);
         try {

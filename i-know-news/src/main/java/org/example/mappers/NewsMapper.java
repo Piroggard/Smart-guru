@@ -1,13 +1,14 @@
 package org.example.mappers;
 
 import dto.NewsDto;
+import dto.NewsDtoResponse;
 import org.example.model.News;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface NewsMapper {
-    NewsMapper INSTANCE = Mappers.getMapper(NewsMapper.class);
+    News toDto(NewsDto newsDto);
 
-    News toNews(NewsDto newsDto);
+    NewsDtoResponse toEntity(News news);
 }
