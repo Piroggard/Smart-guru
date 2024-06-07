@@ -2,6 +2,7 @@ package org.example.controller;
 
 import dto.NewsDto;
 
+import dto.NewsDtoResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.News;
@@ -29,15 +30,15 @@ public class NewsController {
     }
 
     @GetMapping("{courseId}")
-    public List<News> getAllByCourseId(@PathVariable Long courseId,
-                                       @RequestParam(required = false, defaultValue = "0") int page,
-                                       @RequestParam(required = false, defaultValue = "0") int size) {
+    public List<NewsDtoResponse> getAllByCourseId(@PathVariable Long courseId,
+                                                  @RequestParam(required = false, defaultValue = "0") int page,
+                                                  @RequestParam(required = false, defaultValue = "0") int size) {
         log.info("Метод getAllByCourseId " + courseId);
         return newServise.getAllByCourseId(courseId, page, size);
     }
 
     @PatchMapping
-    public News patchNews(@RequestBody News news) {
+    public NewsDtoResponse patchNews(@RequestBody News news) {
         log.info("Меттод patch " + news);
         return newServise.patchNews(news);
     }

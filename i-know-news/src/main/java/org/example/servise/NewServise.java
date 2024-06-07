@@ -1,4 +1,5 @@
 package org.example.servise;
+import dto.NewsDtoResponse;
 import org.example.mappers.NewsMapperImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.example.model.News;
 import org.springframework.data.domain.PageRequest;
 import org.example.repository.NewsRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -30,12 +32,19 @@ public class NewServise {
 
     }
 
-    public List<News> getAllByCourseId(Long courseId, int page, int size) {
-        return newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
+    public List<NewsDtoResponse> getAllByCourseId(Long courseId, int page, int size) {
+        List<News> newsList = newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
+        List<NewsDtoResponse> newsDtoResponses = new ArrayList<>();
+        for (News news : newsList) {
+            NewsDtoResponse newsDtoResponse = newsMapper.toEntity(news);
+            newsDtoResponses.add(newsDtoResponse);
+        }
+        return newsDtoResponses;
     }
 
-    public News patchNews(News news) {
-        return newsRepository.save(news);
+    public NewsDtoResponse patchNews(News news) {
+        return newsMapper.toEntity(newsRepository.save(news));
+
     }
 
     public void deleteNews(Long newsId, Long courseId) {
