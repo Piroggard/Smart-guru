@@ -23,17 +23,17 @@ public class ReviewStorage {
 
 
     public ReviewDto getReviewById(Long reviewId) {
-        return reviewMapper.toDto(jpaReviewRepository.getReviewById(reviewId));
+        return reviewMapper.INSTANCE.toDto(jpaReviewRepository.getReviewById(reviewId));
     }
 
     public ReviewDto addReview(ReviewDto reviewDto) {
-        Review review = ReviewMapper.toEntity(reviewDto);
-        return reviewMapper.toDto(jpaReviewRepository.save(review));
+        Review review = ReviewMapper.INSTANCE.toEntity(reviewDto);
+        return reviewMapper.INSTANCE.toDto(jpaReviewRepository.save(review));
     }
 
     public ReviewDto updateReview(ReviewDto reviewDto) {
-        Review review = ReviewMapper.toEntity(reviewDto);
-        return reviewMapper.toDto(jpaReviewRepository.save(review));
+        Review review = ReviewMapper.INSTANCE.toEntity(reviewDto);
+        return reviewMapper.INSTANCE.toDto(jpaReviewRepository.save(review));
     }
 
     @Transactional

@@ -1,0 +1,12 @@
+server:
+  port: 9089
+
+spring:
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:h2:file:./db-news/i-know
+    driverClassName: org.h2.Driver
+    username: user
+    password: user
