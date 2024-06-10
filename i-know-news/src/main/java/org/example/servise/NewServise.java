@@ -23,9 +23,9 @@ public class NewServise {
     private final NewsRepository newsRepository;
     private final NewsMapper newsMapper;
 
-    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, timeout = 30, rollbackFor = Exception.class)
-    public Long addNews(NewsDto newsDto) {
-        News news = newsMapper.toDto(newsDto);
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public Long createNews (NewsDto newsDto) {
+        News news = newsMapper.toEntity(newsDto);
         news.setPublicationDate(LocalDateTime.now());
         log.info("Маппинг в model" + news);
         return newsRepository.save(news).getNewsId();
@@ -36,14 +36,14 @@ public class NewServise {
         List<News> newsList = newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
         List<NewsDtoResponse> newsDtoResponses = new ArrayList<>();
         for (News news : newsList) {
-            NewsDtoResponse newsDtoResponse = newsMapper.toEntity(news);
+            NewsDtoResponse newsDtoResponse = newsMapper.toDTO(news);
             newsDtoResponses.add(newsDtoResponse);
         }
         return newsDtoResponses;
     }
 
     public NewsDtoResponse patchNews(News news) {
-        return newsMapper.toEntity(newsRepository.save(news));
+        return newsMapper.toDTO(newsRepository.save(news));
 
     }
 

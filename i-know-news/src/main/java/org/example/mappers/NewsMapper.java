@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface NewsMapper {
-    News toDto(NewsDto newsDto);
-
-    NewsDtoResponse toEntity(News news);
+    News toEntity(NewsDto newsDto);
+    NewsDtoResponse toDTO(News news);
 }
+

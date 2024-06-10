@@ -24,12 +24,12 @@ public class NewsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long addNews(@Valid @RequestBody NewsDto newsDto) {
+    public Long createNews (@Valid @RequestBody NewsDto newsDto) {
         log.info("Меттод get " + newsDto);
-        return newServise.addNews(newsDto);
+        return newServise.createNews (newsDto);
     }
 
-    @GetMapping("{courseId}")
+    @GetMapping("/{courseId}")
     public List<NewsDtoResponse> getAllByCourseId(@PathVariable Long courseId,
                                                   @RequestParam(required = false, defaultValue = "0") int page,
                                                   @RequestParam(required = false, defaultValue = "0") int size) {
@@ -43,7 +43,7 @@ public class NewsController {
         return newServise.patchNews(news);
     }
 
-    @DeleteMapping("{newsId}/{courseId}")
+    @DeleteMapping("/{newsId}/{courseId}")
     public void deleteNews(@PathVariable Long newsId, @PathVariable Long courseId) {
         log.info("Удаление новости " + newsId);
         newServise.deleteNews(newsId, courseId);
