@@ -1,10 +1,14 @@
-package controller;
+package org.example.contriller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import model.Status;
-import org.springframework.web.bind.annotation.*;
-import servise.CurseService;
+import org.example.dto.StatusDTOResponse;
+import org.example.model.Status;
+import org.example.servise.CurseService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 
@@ -16,7 +20,7 @@ public class CourseController {
     private final CurseService curseService;
 
     @GetMapping("/status")
-    public List<Status> getStatus() {
+    public List<StatusDTOResponse> getStatus() {
         log.info("Метод getStatus");
         return curseService.getStatus();
     }
