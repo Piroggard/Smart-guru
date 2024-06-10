@@ -2,6 +2,7 @@ package org.example.contriller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.dto.DirectionDTOResponse;
 import org.example.dto.StatusDTOResponse;
 import org.example.servise.CurseService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,12 @@ public class CourseController {
     public List<StatusDTOResponse> getStatus() {
         log.info("Метод getStatus");
         return curseService.getStatus();
+    }
+
+    @GetMapping("/direction")
+    public List<DirectionDTOResponse> getDirection() {
+        log.info("Метод getDirection");
+        return curseService.getDirection();
     }
 
     @GetMapping()

@@ -20,7 +20,7 @@
     <module>i-know-users-app</module>
       <module>i-know-news</module>
       <module>i-know-review</module>
-      <module>i-know-CourseService</module>
+
     <module>Course</module>
   </modules>
 
