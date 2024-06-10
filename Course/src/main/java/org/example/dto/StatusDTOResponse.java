@@ -13,6 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatusDTOResponse {
-    UUID id;
-    StatusEnum name;
+    private UUID id;
+    private String name;
 }

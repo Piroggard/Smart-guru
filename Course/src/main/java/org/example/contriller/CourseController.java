@@ -3,7 +3,6 @@ package org.example.contriller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.StatusDTOResponse;
-import org.example.model.Status;
 import org.example.servise.CurseService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

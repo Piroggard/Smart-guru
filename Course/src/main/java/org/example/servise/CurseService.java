@@ -21,10 +21,11 @@ public class CurseService {
     private final MapperCurse mapperCurse;
     public List<StatusDTOResponse> getStatus (){
         List<Status> list = repositoryStatus.findAll();
+        log.info("Получение данных из БД" + list);
         List<StatusDTOResponse> statusDTOResponseList = new ArrayList<>();
         for (Status status : list) {
-            StatusDTOResponse statusDTOResponse = mapperCurse.toStatusDTO(status);
-            statusDTOResponseList.add(statusDTOResponse);
+            statusDTOResponseList.add(mapperCurse.toStatusDTO(status));
+            log.info("Данные после маппинга " + statusDTOResponseList);
         }
         return statusDTOResponseList;
     }
