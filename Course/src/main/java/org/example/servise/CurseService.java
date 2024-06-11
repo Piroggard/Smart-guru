@@ -53,6 +53,7 @@ public class CurseService {
 
     }
     public Course createCourse (Course course){
+        log.info("Данные которые сохраняем в БД" + course);
        return repositoryCourse.save(course);
     }
 }

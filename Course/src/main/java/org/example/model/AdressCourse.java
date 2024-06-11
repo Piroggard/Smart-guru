@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "address")
+@Table(name = "adress")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
