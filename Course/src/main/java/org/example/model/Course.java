@@ -28,48 +28,43 @@ public class Course {
     String name; // Название курса
     @Column(name = "url", nullable = false)
     String url; // не обязательное поле
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Type", referencedColumnName = "id")
-    //@Column(name = "type", nullable = false)
     Type type; //Тип курса
     @Column(name = "number_seats", nullable = false)
-    Long number_seats; // количество мест
+    Long numberSeats; // количество мест
     @Column(name = "price", nullable = false)
     Long price; //Цена курса
-    @Column(name = "photo_profile", nullable = false)
-    String photo_profile; // фото профиля
+    @Column(name = "photoProfile", nullable = false)
+    String photoProfile; // фото профиля
     @Column(name = "description", nullable = false)
     String description; // Описание курса
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "direction_id", referencedColumnName = "id")
-    //@Column(name = "direction_id", nullable = false)
-    Direction direction_id; // Направление
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "directionId", referencedColumnName = "id")
+    Direction directionId; // Направление
     @Column(name = "duration", nullable = false)
     String duration; // продолжительность
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "organizer_id", referencedColumnName = "id")
-    //@Column(name = "organizer_id", nullable = false)
-    Organizer organizer_id; // ID организации
+    Organizer organizerId; // ID организации
     @Column(name = "certificate", nullable = false)
     Boolean certificate; //Сертификат
     @Column(name = "date_create", nullable = false)
-    LocalDateTime date_create; //Дата создания курса
+    LocalDateTime dateCreate; //Дата создания курса
     @Column(name = "date_start_course", nullable = false)
-    LocalDateTime date_start_course; //Дата начала курса
+    LocalDateTime dateStartCourse; //Дата начала курса
     @Column(name = "date_finish_course", nullable = false)
-    LocalDateTime date_finish_course; //Дата окончания курса
+    LocalDateTime dateFinishCourse; //Дата окончания курса
     @Column(name = "delete", nullable = false)
     Boolean delete; //Признак удаленности
     @Column(name = "date_delete", nullable = false)
-    LocalDateTime date_delete;// Время удаления
+    LocalDateTime dateDelete;// Время удаления
     @Column(name = "date_update", nullable = false)
-    LocalDateTime date_update;// Время обновления
-    @OneToOne(cascade = CascadeType.ALL)
+    LocalDateTime dateUpdate;// Время обновления
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "status_id", referencedColumnName = "id")
-    //@Column(name = "status_id", nullable = false)
-    Status status_id;
-    @OneToOne(cascade = CascadeType.ALL)
+    Status statusId;
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "adress_id", referencedColumnName = "id")
-    //@Column(name = "adress_id", nullable = false)
-    AdressCourse adress_id;
+    AdressCourse addressId;
 }

@@ -2,6 +2,8 @@ package org.example.contriller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.dto.CourseRequestDTO;
+import org.example.dto.CourseResponseDTO;
 import org.example.dto.DirectionDTOResponse;
 import org.example.dto.StatusDTOResponse;
 import org.example.model.Course;
@@ -36,8 +38,8 @@ public class CourseController {
         return "OK";
     }
     @PostMapping()
-    public Course createCourse(@RequestBody Course course) {
-        log.info("Метод createCourse");
+    public Course createCourse(@RequestBody CourseRequestDTO  course) {
+        log.info("Метод createCourse" + course);
         return curseService.createCourse(course);
     }
 }

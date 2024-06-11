@@ -3,10 +3,13 @@ package org.example.servise;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.example.dto.CourseRequestDTO;
+import org.example.dto.CourseResponseDTO;
 import org.example.dto.DirectionDTOResponse;
 import org.example.dto.StatusDTOResponse;
 import org.example.enam.StatusEnum;
 import org.example.mappers.MapperCurse;
+import org.example.mappers.MapperCurseDB;
 import org.example.mappers.MapperDirection;
 import org.example.model.Course;
 import org.example.model.Direction;
@@ -15,6 +18,7 @@ import org.example.repository.RepositoryCourse;
 import org.example.repository.RepositoryDirection;
 import org.example.repository.RepositoryStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ public class CurseService {
     private final RepositoryCourse repositoryCourse;
     private final MapperCurse mapperCurse;
     private final MapperDirection mapperDirection;
+    private final MapperCurseDB mapperCurseDB;
 
     public List<StatusDTOResponse> getStatus() {
         List<Status> list = repositoryStatus.findAll();
@@ -52,8 +57,9 @@ public class CurseService {
         return directionDTOResponses;
 
     }
-    public Course createCourse (Course course){
-        log.info("Данные которые сохраняем в БД" + course);
-       return repositoryCourse.save(course);
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public Course createCourse (CourseRequestDTO courseRequestDTO){
+        log.info("Данные которые сохраняем в БД" + courseRequestDTO);
+       return repositoryCourse.save(mapperCurseDB.toCourseDTO(courseRequestDTO));
     }
 }
