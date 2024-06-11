@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewsDtoResponse {
-    Long courseId;
-    String direction;
-    String image;
-    String heading;
-    String description;
-    LocalDateTime publicationDate;
+    private Long courseId;
+    private String direction;
+    private String image;
+    private String heading;
+    private String description;
+    private LocalDateTime publicationDate;
 }
