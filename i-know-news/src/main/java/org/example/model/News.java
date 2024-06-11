@@ -1,9 +1,13 @@
 package org.example.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,28 +19,27 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @Table(name = "news")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class News {
+
     @Id
-    @Column(name = "news_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long newsId;
+    private Long newsId;
 
     @Column(name = "course_id", nullable = false)
-    Long courseId;
+    private Long courseId;
 
     @Column(name = "direction", nullable = false) //Направление
-    String direction;
+    private String direction;
 
     @Column(name = "publication_date", nullable = false)
-    LocalDateTime publicationDate;
+    private LocalDateTime publicationDate;
 
     @Column(name = "image", nullable = false)
-    String image;
+    private String image;
 
     @Column(name = "heading", nullable = false)
-    String heading;
+    private String heading;
 
     @Column(name = "description", nullable = false)
-    String description;
+    private String description;
 }

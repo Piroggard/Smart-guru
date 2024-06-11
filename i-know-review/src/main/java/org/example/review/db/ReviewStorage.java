@@ -7,8 +7,8 @@ import org.example.review.dto.ReviewMapper;
 import org.example.review.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 

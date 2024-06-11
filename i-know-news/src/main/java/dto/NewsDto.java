@@ -1,31 +1,31 @@
 package dto;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewsDto {
+
     @NotNull(message = "Идентификатор курса не должен быть пустым")
-    Long courseId;
+    private Long courseId;
 
     @NotBlank(message = "Направление не должно быть пустым")
-    String direction;
+    private String direction;
 
     @NotBlank(message = "Изображение не должно быть пустым")
-    String image;
+    private String image;
 
     @NotBlank(message = "Заголовок не должен быть пустым")
-    String heading;
+    private String heading;
 
     @NotBlank(message = "Описание не должно быть пустым")
-    String description;
+    private String description;
 }
