@@ -1,14 +1,17 @@
 package org.example.servise;
-
-import dto.NewsDto;
 import dto.NewsDtoResponse;
+import org.example.mappers.NewsMapperImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Isolation;
+import dto.NewsDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.mappers.NewsMapper;
 import org.example.model.News;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 import org.example.repository.NewsRepository;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,60 +21,35 @@ import java.util.List;
 @Service
 public class NewServise {
     private final NewsRepository newsRepository;
+    private final NewsMapper newsMapper;
 
-
-
-
-    public News addNews(NewsDto newsDto) {
-
-        News news = News.builder()
-                .courseId(newsDto.getCourseId())
-                .publicationDate(LocalDateTime.now())
-                .image(newsDto.getImage())
-                .description(newsDto.getDescription())
-                .heading(newsDto.getHeading())
-                .direction(newsDto.getDirection())
-                .build();
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public Long createNews (NewsDto newsDto) {
+        News news = newsMapper.toEntity(newsDto);
+        news.setPublicationDate(LocalDateTime.now());
         log.info("Маппинг в model" + news);
-
-        try {
-            return newsRepository.save(news);
-        } catch (Exception e) {
-            log.error("Ошибка записи в базу - " + e.getMessage());
-        }
-        return null;
-    }
-
-    public List<News> getAllByCourseId(Long courseId, int page, int size) {
-        return newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
-        //return newsRepository.findByCourseId(courseId);
-        //return mappingNewsToNewsDtoResponse(listNews);
+        return newsRepository.save(news).getNewsId();
 
     }
 
-    public List<NewsDtoResponse> mappingNewsToNewsDtoResponse(List<News> newsList) {
+    public List<NewsDtoResponse> getAllByCourseId(Long courseId, int page, int size) {
+        List<News> newsList = newsRepository.findByCourseId(courseId, PageRequest.of(page, size));
         List<NewsDtoResponse> newsDtoResponses = new ArrayList<>();
         for (News news : newsList) {
-            newsDtoResponses.add(NewsDtoResponse.builder()
-                    .courseId(news.getCourseId())
-                    .direction(news.getDirection())
-                    .image(news.getImage())
-                    .heading(news.getHeading())
-                    .description(news.getDescription())
-                    .publicationDate(news.getPublicationDate())
-                    .build());
+            NewsDtoResponse newsDtoResponse = newsMapper.toDTO(news);
+            newsDtoResponses.add(newsDtoResponse);
         }
         return newsDtoResponses;
     }
 
-    public News patchNews (News news){
-        return newsRepository.save(news);
+    public NewsDtoResponse patchNews(News news) {
+        return newsMapper.toDTO(newsRepository.save(news));
+
     }
 
-    public List<News> deleteNews (Long newsId, Long courseId){
+    public void deleteNews(Long newsId, Long courseId) {
         newsRepository.deleteById(newsId);
         log.info("Удаляем - " + newsId + "из курса " + courseId);
-        return newsRepository.findByCourseId(courseId);
-
+        newsRepository.findByCourseId(courseId);
     }
 }
