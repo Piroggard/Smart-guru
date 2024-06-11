@@ -5,10 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.example.dto.DirectionDTOResponse;
 import org.example.dto.StatusDTOResponse;
+import org.example.enam.StatusEnum;
 import org.example.mappers.MapperCurse;
 import org.example.mappers.MapperDirection;
+import org.example.model.Course;
 import org.example.model.Direction;
 import org.example.model.Status;
+import org.example.repository.RepositoryCourse;
 import org.example.repository.RepositoryDirection;
 import org.example.repository.RepositoryStatus;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ import java.util.List;
 public class CurseService {
     private final RepositoryStatus repositoryStatus;
     private final RepositoryDirection repositoryDirection;
+    private final RepositoryCourse repositoryCourse;
     private final MapperCurse mapperCurse;
     private final MapperDirection mapperDirection;
 
@@ -47,5 +51,8 @@ public class CurseService {
         }
         return directionDTOResponses;
 
+    }
+    public Course createCourse (Course course){
+       return repositoryCourse.save(course);
     }
 }

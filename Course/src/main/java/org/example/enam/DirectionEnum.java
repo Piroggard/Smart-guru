@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enam;
 
 public enum DirectionEnum {
     Разработка,

@@ -4,7 +4,8 @@ import java.util.UUID;
 
 public class Technology {
     UUID id;
-    Enum name;
+    String name;
     String photo;
+    UUID course_id;
 
 }

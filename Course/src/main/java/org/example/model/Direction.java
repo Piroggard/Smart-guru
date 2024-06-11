@@ -2,6 +2,7 @@ package org.example.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.example.enam.DirectionEnum;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,4 +25,5 @@ public class Direction {
     UUID id;
     @Enumerated(EnumType.STRING)
     DirectionEnum name;
+
 }
