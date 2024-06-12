@@ -6,7 +6,7 @@ spring:
     init:
       mode: always
   datasource:
-    url: jdbc:h2:file:./db-news/i-know
-    driverClassName: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
     username: user
     password: user

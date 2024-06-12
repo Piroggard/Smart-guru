@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.review.dto.ReviewDto;
 import org.example.review.service.ReviewServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,13 +30,13 @@ public class ReviewController {
 
 
    @PostMapping
-    public ReviewDto addReview(@RequestBody @Valid ReviewDto reviewDto) {
+    public ReviewDto addReview(@RequestBody @Validated ReviewDto reviewDto) {
       log.info("Adding review " + reviewDto.getTitle());
       return reviewService.addReview(reviewDto);
    }
 
    @PatchMapping("/{id}")
-    public ReviewDto updateReview(@RequestBody @Valid ReviewDto reviewDto, @PathVariable("id") Long reviewId) {
+    public ReviewDto updateReview(@RequestBody @Validated ReviewDto reviewDto, @PathVariable("id") Long reviewId) {
         log.info("Updating review " + reviewId);
         return reviewService.updateReview(reviewDto, reviewId);
    }
@@ -48,7 +46,4 @@ public class ReviewController {
        log.info("Deleting review " + reviewId);
        reviewService.deleteReview(reviewId);
    }
-
-
-
 }

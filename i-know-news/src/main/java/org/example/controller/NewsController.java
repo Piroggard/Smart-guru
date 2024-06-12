@@ -3,6 +3,7 @@ package org.example.controller;
 import dto.NewsDto;
 
 import dto.NewsDtoResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.News;
@@ -10,8 +11,6 @@ import org.example.servise.NewServise;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/news")
