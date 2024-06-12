@@ -17,7 +17,7 @@
     <packaging>pom</packaging>
 
 
-  <name>I-know</name>
+  <name>smart-guru</name>
   <url>http://maven.apache.org</url>
   <modules>
     <module>i-know-users-app</module>
