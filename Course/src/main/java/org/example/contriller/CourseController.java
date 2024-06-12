@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping
+@RequestMapping("/course")
 public class CourseController {
     private final CurseService curseService;
 
@@ -37,9 +38,22 @@ public class CourseController {
         log.info("Метод getStatus");
         return "OK";
     }
+
     @PostMapping()
-    public Course createCourse(@RequestBody CourseRequestDTO  course) {
+    public UUID createCourse(@RequestBody CourseRequestDTO course) {
         log.info("Метод createCourse" + course);
         return curseService.createCourse(course);
+    }
+
+    @PatchMapping()
+    public UUID patchCourse(@RequestBody CourseRequestDTO course) {
+        log.info("Метод patchCourse " + course);
+        return curseService.patchCourse(course);
+    }
+
+    @DeleteMapping ("/{courseId}")
+    public void deleteCourse(@PathVariable Enum courseId) {
+        log.info("Метод patchCourse " + courseId);
+        curseService.deleteCourse(courseId);
     }
 }

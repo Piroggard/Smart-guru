@@ -19,10 +19,12 @@ import org.example.repository.RepositoryDirection;
 import org.example.repository.RepositoryStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -55,11 +57,22 @@ public class CurseService {
             log.info("Данные после маппинга " + directionDTOResponses);
         }
         return directionDTOResponses;
-
     }
+
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public Course createCourse (CourseRequestDTO courseRequestDTO){
+    public UUID createCourse(CourseRequestDTO courseRequestDTO) {
         log.info("Данные которые сохраняем в БД" + courseRequestDTO);
-       return repositoryCourse.save(mapperCurseDB.toCourseDTO(courseRequestDTO));
+        return repositoryCourse.save(mapperCurseDB.toCourseDTO(courseRequestDTO)).getId();
+    }
+
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public UUID patchCourse(CourseRequestDTO courseRequestDTO) {
+        log.info("Данные которые обновляются в БД" + courseRequestDTO);
+        return repositoryCourse.save(mapperCurseDB.toCourseDTO(courseRequestDTO)).getId();
+    }
+
+    public void deleteCourse(@PathVariable Enum courseId) {
+            log.info("Метод deleteCourse " + courseId);
+        repositoryCourse.deleteById(courseId);
     }
 }

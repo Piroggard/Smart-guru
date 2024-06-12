@@ -39,7 +39,7 @@ public class NewsController {
 
     @PatchMapping
     public NewsDtoResponse patchNews(@RequestBody News news) {
-        log.info("Меттод patch " + news);
+        log.info("Метод patch " + news);
         return newServise.patchNews(news);
     }
 
