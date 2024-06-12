@@ -1,11 +1,12 @@
 package org.example.model;
 
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.example.enam.StatusEnum;
 import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 
