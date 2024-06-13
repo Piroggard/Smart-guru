@@ -29,6 +29,7 @@
         <module>i-know-news</module>
         <module>i-know-review</module>
         <module>i-know-notifications</module>
+        <module>i-know-certificates</module>
     </modules>
 
     <dependencyManagement>
