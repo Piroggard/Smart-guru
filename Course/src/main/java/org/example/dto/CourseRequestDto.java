@@ -1,23 +1,23 @@
 package org.example.dto;
 
 import lombok.*;
-
 import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequestDTO {
+public class CourseRequestDto {
     private String name;
     private String url;
-    private TypeDTO type;
+    private TypeDto type;
     private int numberSeats;
     private double price;
     private String photoProfile;
     private String description;
-    private DirectionDTO directionId;
+    private DirectionDto directionId;
     private String duration;
-    private OrganizerDTO organizerId;
+    private OrganizerDto organizerId;
     private boolean certificate;
     private LocalDateTime dateCreate;
     private LocalDateTime dateStartCourse;
@@ -25,7 +25,7 @@ public class CourseRequestDTO {
     private boolean delete;
     private LocalDateTime dateDelete;
     private LocalDateTime dateUpdate;
-    private StatusDTO statusId;
-    private AddressDTO addressId;
+    private StatusDto statusId;
+    private AddressDto addressId;
 
 }

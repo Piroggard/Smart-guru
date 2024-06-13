@@ -4,9 +4,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.example.enam.TypeEnum;
 import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.*;
 import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -22,7 +22,8 @@ public class Type {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
-    UUID id;
+    private UUID id;
+
     @Enumerated(EnumType.STRING)
-    TypeEnum name;
+    private TypeEnum name;
 }

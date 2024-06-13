@@ -3,7 +3,6 @@ package org.example.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.*;
 import java.util.UUID;
 
@@ -17,21 +16,25 @@ import java.util.UUID;
 @Table(name = "adress")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
 public class AdressCourse {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
-    UUID id;
+    private UUID id;
+
     @Column(name = "country", nullable = false)
-    String country;
+    private String country;
+
     @Column(name = "city", nullable = false)
-    String city;
+    private String city;
+
     @Column(name = "street", nullable = false)
-    String street;
+    private String street;
+
     @Column(name = "house", nullable = false)
-    String house;
+    private String house;
+
     @Column(name = "district", nullable = false)
-    String district;
+    private String district;
 }

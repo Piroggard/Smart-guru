@@ -3,7 +3,7 @@ package org.example.model;
 import java.util.UUID;
 
 public class PhotosCourse {
-    UUID id;
-    String photos;
-    UUID course_id;
+    private UUID id;
+    private String photos;
+    private UUID course_id;
 }

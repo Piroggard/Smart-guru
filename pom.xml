@@ -16,10 +16,7 @@
     <name>smart-guru</name>
     <packaging>pom</packaging>
 
-
-
   <url>http://maven.apache.org</url>
-
 
     <properties>
         <java.version>17</java.version>
@@ -28,7 +25,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
-
 
     <modules>
         <module>i-know-users-app</module>

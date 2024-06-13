@@ -3,10 +3,10 @@ package org.example.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -22,19 +22,26 @@ public class Organizer {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
-    UUID id;
+    private UUID id;
+
     @Column(name = "name", nullable = false)
-    String name;
+    private String name;
+
     @Column(name = "email", nullable = false)
-    String email;
+    private String email;
+
     @Column(name = "password", nullable = false)
-    String password;
+    private String password;
+
     @Column(name = "role", nullable = false)
-    String role;
+    private String role;
+
     @Column(name = "date_create", nullable = false)
-    LocalDateTime date_create; //Дата создания курса
+    private LocalDateTime date_create; //Дата создания курса
+
     @Column(name = "date_update", nullable = false)
-    LocalDateTime date_update;// Время обновления
+    private LocalDateTime date_update;// Время обновления
+
     @Column(name = "detelete", nullable = false)
-    Boolean detelete;
+    private Boolean detelete;
 }

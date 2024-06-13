@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DirectionDTORequest {
-    Enum name;
+public class AddressDto {
+    private String country;
 }

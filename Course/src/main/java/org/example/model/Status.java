@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import org.example.enam.StatusEnum;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 
@@ -25,7 +24,7 @@ public class Status {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
-    UUID id;
+    private UUID id;
     @Enumerated(EnumType.STRING)
-    StatusEnum name;
+    private StatusEnum name;
 }
