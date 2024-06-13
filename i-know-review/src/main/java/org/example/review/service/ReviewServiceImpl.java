@@ -10,7 +10,7 @@ import org.example.review.model.Review;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,19 +25,23 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
 
     @Transactional
     public ReviewDto getReviewById(Long reviewId) {
+        log.info("Получаем отзыв по ID: {}", reviewId);
         return reviewMapper.toDto(jpaReviewRepository.getReviewById(reviewId));
     }
 
     @Transactional
     public ReviewDto addReview(ReviewDto reviewDto) {
+        log.info("Добавляем отзыв: {}", reviewDto);
         Review review = reviewMapper.toEntity(reviewDto);
         return reviewMapper.toDto(jpaReviewRepository.save(review));
     }
 
     @Transactional
     public ReviewDto updateReview(ReviewDto reviewDto, Long reviewId) {
+        log.info("Обновляем отзыв с ID: {}", reviewId);
         if(jpaReviewRepository.getReviewById(reviewId).equals(null)) {
-            throw new BadRequestException(HttpStatus.BAD_REQUEST, "Такого отзыва не существует" + reviewId);
+            log.error("Отзыва с ID {} не существует", reviewId);
+            throw new BadRequestException(HttpStatus.NOT_FOUND, "Такого отзыва не существует" + reviewId);
         }
         Review review = reviewMapper.toEntity(reviewDto);
         return reviewMapper.toDto(jpaReviewRepository.save(review));
@@ -45,7 +49,9 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
 
     @Transactional
     public void deleteReview(Long reviewId) {
+        log.info("Удаляем отзыв с ID: {}", reviewId);
         if(jpaReviewRepository.getReviewById(reviewId).equals(null)) {
+            log.error("Отзыва с ID {} не существует", reviewId);
             throw new BadRequestException(HttpStatus.BAD_REQUEST, "Такого отзыва не существует" + reviewId);
         } else {
             jpaReviewRepository.deleteReviewById(reviewId);
@@ -54,6 +60,7 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
 
     @Transactional
     public List<ReviewDto> getAllReviewsByUserId(Long userId) {
+        log.info("Получаем все отзывы пользователя с ID: {}", userId);
         List<Review> reviewList = jpaReviewRepository.getAllReviewsByUserId(userId);
         return reviewList.stream()
                 .map(reviewMapper::toDto)
