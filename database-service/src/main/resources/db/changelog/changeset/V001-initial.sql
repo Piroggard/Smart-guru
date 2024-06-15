@@ -117,7 +117,7 @@ CREATE TABLE users_courses
 --    id                UUID GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     course_id         BIGINT REFERENCES courses (id) ON DELETE SET NULL,
     user_id           BIGINT REFERENCES "users" (id) ON DELETE SET NULL,
-    UNIQUE (course_id, user_id),
+    PRIMARY KEY (course_id, user_id),
     date_registration TIMESTAMP,
     user_status       INT
 );
