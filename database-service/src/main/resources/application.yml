@@ -1,9 +1,12 @@
+server:
+  port: 9099
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/smart_guru
-    username: postgres
-    password: java
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: smart-guru
+    password: i-know-pass
 
   liquibase:
-    change-log: db/changelog/changelog-master.yml
+    change-log: classpath:db/changelog/db.changelog-master.yml
