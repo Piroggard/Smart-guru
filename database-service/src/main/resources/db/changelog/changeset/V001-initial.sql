@@ -4,150 +4,176 @@
 CREATE TABLE organizers
 (
     id          UUID PRIMARY KEY,
-    name        VARCHAR(100) NOT NULL,
-    email       VARCHAR(100) NOT NULL UNIQUE,
-    password    VARCHAR(100) NOT NULL,
-    role        VARCHAR      NOT NULL,
+    name        VARCHAR(128) NOT NULL,
+    email       VARCHAR(128) NOT NULL UNIQUE,
+    password    VARCHAR(128) NOT NULL,
+    role        VARCHAR(128) NOT NULL,
+    delete      BOOLEAN,
     date_create TIMESTAMP,
-    date_delete TIMESTAMP,
-    delete      BOOLEAN
+    date_update TIMESTAMP,
+    date_delete TIMESTAMP
 );
 
 CREATE TABLE courses
 (
     id                 UUID PRIMARY KEY,
-    name               VARCHAR(100)                 NOT NULL,
-    url                VARCHAR UNIQUE,
-    type               VARCHAR                      NOT NULL,
-    number_seats       INT CHECK (number_seats > 0) NOT NULL,
-    price              INT                          NOT NULL,
-    photo_profile      VARCHAR UNIQUE,
-    description        VARCHAR                      NOT NULL,
-    direction          VARCHAR                      NOT NULL,
-    duration           VARCHAR,
-    organizer_id       UUID                         NOT NULL REFERENCES organizers (id) ON DELETE CASCADE,
+    name               VARCHAR(128) NOT NULL,
+    url                VARCHAR(128) UNIQUE,
+    type               VARCHAR(128) NOT NULL,
+    number_seats       INT          NOT NULL,
+    price              INT          NOT NULL,
+    photo_profile      VARCHAR(256) UNIQUE ,
+    description        VARCHAR(4096)NOT NULL,
+    direction          VARCHAR(128) NOT NULL,
+    duration           VARCHAR(128),
+    organizer_id       UUID         NOT NULL,
     certificate        BOOLEAN,
-    about_technology   VARCHAR                      NOT NULL,
-    date_create        TIMESTAMP,
+    status             VARCHAR(128) NOT NULL,
+    delete             BOOLEAN,
     date_start_course  DATE,
     date_finish_course DATE,
-    delete             BOOLEAN,
+    date_create        TIMESTAMP,
     date_delete        TIMESTAMP,
     date_update        TIMESTAMP,
-    status             VARCHAR                      NOT NULL
+
+    CONSTRAINT fk_organizers FOREIGN KEY (organizer_id) REFERENCES organizers (id) ON DELETE CASCADE
+);
+
+CREATE TABLE technologies
+(
+    id                 UUID PRIMARY KEY,
+    name               VARCHAR(128) NOT NULL,
+    photo              VARCHAR(256) UNIQUE,
+    course_id          UUID NOT NULL,
+
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
 
 CREATE TABLE news
 (
     id               UUID PRIMARY KEY,
-    course_id        UUID         NOT NULL REFERENCES courses (id) ON DELETE CASCADE,
-    direction        VARCHAR      NOT NULL,
+    course_id        UUID         NOT NULL,
+    direction        VARCHAR(128) NOT NULL,
+    image            VARCHAR(256),
+    title            VARCHAR(128) NOT NULL,
+    description      VARCHAR(4096) NOT NULL,
+    delete           BOOLEAN,
     date_create      TIMESTAMP,
     date_publication TIMESTAMP,
     date_update      TIMESTAMP,
-    image            VARCHAR,
-    title            VARCHAR(100) NOT NULL,
-    description      VARCHAR      NOT NULL,
-    delete           BOOLEAN
-);
+    date_delete      TIMESTAMP,
 
-CREATE TABLE technologies
-(
-    id        UUID PRIMARY KEY,
-    name      VARCHAR(100) NOT NULL,
-    photo     VARCHAR      NOT NULL,
-    course_id UUID         NOT NULL REFERENCES courses (id) ON DELETE SET NULL
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
 
 CREATE TABLE address_courses
 (
     id          UUID PRIMARY KEY,
-    course_id   UUID         NOT NULL UNIQUE REFERENCES courses (id) ON DELETE CASCADE,
-    country     VARCHAR(100) NOT NULL,
-    city        VARCHAR(100) NOT NULL,
-    street      VARCHAR(100),
-    house       VARCHAR(100),
-    district    VARCHAR,
+    course_id   UUID NOT NULL,
+    country     VARCHAR(128) NOT NULL,
+    city        VARCHAR(128) NOT NULL,
+    street      VARCHAR(128),
+    house       VARCHAR(128),
+    district    VARCHAR(128),
+    delete      BOOLEAN,
     date_create TIMESTAMP,
     date_update TIMESTAMP,
-    delete      BOOLEAN
+    date_delete TIMESTAMP,
+
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
 
 CREATE TABLE photos_courses
 (
     id        UUID PRIMARY KEY,
-    photos    VARCHAR NOT NULL,
-    course_id UUID    NOT NULL REFERENCES courses (id) ON DELETE CASCADE
+    photo     VARCHAR(256) NOT NULL,
+    course_id UUID NOT NULL,
+
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
 
 CREATE TABLE address_organizations
 (
     id              UUID PRIMARY KEY,
-    organization_id UUID         NOT NULL REFERENCES organizers (id) ON DELETE CASCADE,
-    country         VARCHAR(100) NOT NULL,
-    city            VARCHAR(100) NOT NULL,
-    street          VARCHAR(100),
-    house           VARCHAR(100),
-    district        VARCHAR,
+    organizer_id    UUID NOT NULL,
+    country         VARCHAR(128) NOT NULL,
+    city            VARCHAR(128) NOT NULL,
+    street          VARCHAR(128),
+    house           VARCHAR(128),
+    district        VARCHAR(128),
+    delete          BOOLEAN,
     date_create     TIMESTAMP,
     date_update     TIMESTAMP,
-    delete          BOOLEAN
+    date_delete     TIMESTAMP,
+
+    CONSTRAINT fk_organizers FOREIGN KEY (organizer_id) REFERENCES organizers (id) ON DELETE CASCADE
 );
 
-CREATE TABLE "users"
+CREATE TABLE users
 (
     id             UUID PRIMARY KEY,
-    firstname      VARCHAR(100) NOT NULL,
-    lastname       VARCHAR(100) NOT NULL,
-    middlename     VARCHAR(100),
-    photo          VARCHAR,
-    email          VARCHAR(100) NOT NULL UNIQUE,
-    role           VARCHAR      NOT NULL,
-    password       VARCHAR      NOT NULL,
+    firstname      VARCHAR(128) NOT NULL,
+    lastname       VARCHAR(128) NOT NULL,
+    middle_name    VARCHAR(128),
+    email          VARCHAR(128) NOT NULL UNIQUE,
+    photo          VARCHAR(256),
+    password       VARCHAR(1024) NOT NULL,
+    role           VARCHAR(128) NOT NULL,
+    delete         BOOLEAN,
+    date_reg_course TIMESTAMP,
     date_create    TIMESTAMP,
     date_update    TIMESTAMP,
-    date_regcourse TIMESTAMP,
-    date_delete    TIMESTAMP,
-    delete         BOOLEAN
+    date_delete    TIMESTAMP
 );
 
 CREATE TABLE users_courses
 (
     id                UUID PRIMARY KEY,
-    course_id         UUID REFERENCES courses (id) ON DELETE SET NULL,
-    user_id           UUID REFERENCES "users" (id) ON DELETE SET NULL,
-    UNIQUE (course_id, user_id),
+    course_id         UUID NOT NULL,
+    user_id           UUID NOT NULL,
+    user_status       VARCHAR(128) NOT NULL,
     date_registration TIMESTAMP,
-    user_status       INT
+
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE,
+    CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    UNIQUE (course_id, user_id)
 );
 
 CREATE TABLE reviews
 (
     id               UUID PRIMARY KEY,
-    title            VARCHAR(100) NOT NULL,
-    description      VARCHAR      NOT NULL,
-    date_publication TIMESTAMP,
-    date_update      TIMESTAMP,
-    course_id        UUID         NOT NULL REFERENCES courses (id) ON DELETE CASCADE,
-    user_id          UUID         NOT NULL REFERENCES "users" (id) ON DELETE SET NULL,
-    date_delete      TIMESTAMP,
-    date_moderation  TIMESTAMP,
+    title            VARCHAR(128) NOT NULL,
+    description      VARCHAR(512) NOT NULL,
+    course_id        UUID         NOT NULL,
+    user_id          UUID         NOT NULL,
+    reyting          INT,
     delete           BOOLEAN,
     moderation       BOOLEAN,
-    raiting          INT
+    date_moderation  TIMESTAMP,
+    date_publication TIMESTAMP,
+    date_create    TIMESTAMP,
+    date_update    TIMESTAMP,
+    date_delete    TIMESTAMP,
+
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE,
+    CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE certificates
 (
     id                UUID PRIMARY KEY,
-    course_id         UUID         NOT NULL REFERENCES courses (id) ON DELETE SET NULL,
-    organizer_id      UUID         NOT NULL REFERENCES organizers (id) ON DELETE SET NULL,
-    user_id           UUID         NOT NULL REFERENCES "users" (id) ON DELETE CASCADE,
-    name              VARCHAR(100) NOT NULL,
-    number            VARCHAR(100) NOT NULL,
-    photo_certificate VARCHAR      NOT NULL,
+    name              VARCHAR(128) NOT NULL,
+    number            VARCHAR(128) NOT NULL,
+    photo_certificate VARCHAR(256) NOT NULL,
+    course_id         UUID NOT NULL,
+    user_id           UUID NOT NULL,
+    organizer_id      UUID NOT NULL,
+    delete            BOOLEAN,
     date_issuing      DATE,
     date_create       TIMESTAMP,
     date_update       TIMESTAMP,
-    delete            BOOLEAN
+
+    CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE,
+    CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT fk_organizers FOREIGN KEY (organizer_id) REFERENCES organizers (id) ON DELETE CASCADE
 );
