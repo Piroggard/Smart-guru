@@ -1,7 +1,7 @@
 package com.org.example.dto;
 
 
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +9,11 @@ import java.util.UUID;
 
 
 @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class CertificateDto {
     private UUID certificateId;
     private UUID userId;

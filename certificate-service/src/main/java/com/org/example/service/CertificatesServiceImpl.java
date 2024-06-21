@@ -2,6 +2,7 @@ package com.org.example.service;
 
 import com.org.example.db.JpaCertificateRepository;
 import com.org.example.dto.CertificateDto;
+import com.org.example.exceptions.DuplicateCertificateException;
 import com.org.example.exceptions.NotFoundException;
 import com.org.example.mapper.CertificateMapper;
 import com.org.example.model.Certificate;
@@ -24,7 +25,14 @@ public class CertificatesServiceImpl implements CertificatesService {
     public CertificateDto addCertificate(CertificateDto certificateDto) {
         log.info("Adding certificate: {}", certificateDto);
         Certificate certificate = certificateMapper.toEntity(certificateDto);
-        return certificateMapper.toDto(certificateRepository.save(certificate));
+
+        if(certificateRepository.findById(certificateDto.getCertificateId()).isPresent()) {
+            throw new DuplicateCertificateException("Certificate with ID " + certificateDto.getCertificateId()
+                    + " already exists.");
+        } else {
+            return certificateMapper.toDto(certificateRepository.save(certificate));
+        }
+
     }
     @Transactional
     @Override
