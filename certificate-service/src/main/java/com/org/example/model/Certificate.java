@@ -29,6 +29,7 @@ public class Certificate {
     private UUID userId;
     @Column(name = "course_id", nullable = false)
     private  UUID courseId;
+
     @Column(name = "name", nullable = false, length = 128)
     private String name;
     @Column(name = "number", nullable = false, length = 128)
