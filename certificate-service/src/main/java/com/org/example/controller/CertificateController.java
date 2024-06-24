@@ -24,7 +24,7 @@ public class CertificateController {
     @PostMapping
     public CertificateDto create(@RequestBody CertificateDto certificateDto) {
         log.info("Creating certificate " + certificateDto);
-        return certificateService.addCertificate(certificateDto);
+        return certificateService.saveCertificate(certificateDto);
     }
 
     @PatchMapping("{/id}")
