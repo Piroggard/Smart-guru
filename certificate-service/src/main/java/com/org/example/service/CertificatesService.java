@@ -6,8 +6,11 @@ import java.util.UUID;
 
 public interface CertificatesService {
     CertificateDto getCertificate(UUID certificateId);
-    CertificateDto addCertificate(CertificateDto certificateDto);
+
+    CertificateDto saveCertificate(CertificateDto certificateDto);
+
     CertificateDto updateCertificate(CertificateDto certificateDto);
+
     void deleteCertificate(UUID certificateId);
 
 }

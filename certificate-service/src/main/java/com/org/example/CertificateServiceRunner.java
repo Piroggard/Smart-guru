@@ -3,8 +3,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CertificatesServiceRunner {
+public class CertificateServiceRunner {
     public static void main(String[] args) {
-        SpringApplication.run(CertificatesServiceRunner.class, args);
+        SpringApplication.run(CertificateServiceRunner.class, args);
     }
 }

@@ -1,10 +1,6 @@
 package com.org.example.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -24,24 +20,32 @@ public class Certificate {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private UUID certificateId;
+    private UUID id;
+
     @Column(name = "user_id", nullable = false)
     private UUID userId;
+
     @Column(name = "course_id", nullable = false)
     private  UUID courseId;
 
     @Column(name = "name", nullable = false, length = 128)
     private String name;
+
     @Column(name = "number", nullable = false, length = 128)
     private String number;
+
     @Column(name = "photo_certificate", nullable = false, length = 256)
     private String photoCertificate;
+
     @Column(name = "delete")
     private Boolean delete;
+
     @Column(name = "date_issuing")
     private LocalDate dateOfIssue;
+
     @Column(name = "date_create")
     private LocalDateTime dateOfCreate;
+
     @Column(name = "date_update")
     private LocalDateTime dateOfUpdate;
 }

@@ -9,13 +9,12 @@ import java.util.UUID;
 
 
 @ToString
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 public class CertificateDto {
-    private UUID certificateId;
+    private UUID id;
     private UUID userId;
     private  UUID courseId;
     private String name;

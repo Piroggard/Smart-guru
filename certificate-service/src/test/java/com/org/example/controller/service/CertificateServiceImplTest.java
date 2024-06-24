@@ -1,6 +1,6 @@
 package com.org.example.controller.service;
 
-import com.org.example.db.JpaCertificateRepository;
+import com.org.example.db.CertificateRepository;
 import com.org.example.dto.CertificateDto;
 import com.org.example.exceptions.DuplicateCertificateException;
 import com.org.example.exceptions.NotFoundException;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 public class CertificateServiceImplTest {
     @Mock
-    private JpaCertificateRepository jpaCertificateRepository;
+    private CertificateRepository certificateRepository;
     @Mock
     private CertificateMapper certificateMapper;
     @InjectMocks
@@ -54,13 +54,13 @@ public class CertificateServiceImplTest {
 
     @Test
     public void testGetCertificate() {
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId))
+        when(certificateRepository.getCertificateByCertificateId(certificateId))
                 .thenReturn(certificate);
         when(certificateMapper.toDto(certificate)).thenReturn(certificateDto);
 
         CertificateDto foundCertificateDto = certificatesServiceImpl.getCertificate(certificateId);
 
-        verify(jpaCertificateRepository).getCertificateByCertificateId(certificateId);
+        verify(certificateRepository).getCertificateByCertificateId(certificateId);
         verify(certificateMapper).toDto(certificate);
 
         assertNotNull(foundCertificateDto);
@@ -68,7 +68,7 @@ public class CertificateServiceImplTest {
     }
     @Test
     public void testGetCertificateById_NotFound() {
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(null);
+        when(certificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(null);
 
         assertThrows(NotFoundException.class, () -> {
             certificatesServiceImpl.getCertificate(certificateId);
@@ -77,13 +77,13 @@ public class CertificateServiceImplTest {
     @Test
     public void testAddCertificate() {
         when(certificateMapper.toEntity(certificateDto)).thenReturn(certificate);
-        when(jpaCertificateRepository.save(certificate)).thenReturn(certificate);
+        when(certificateRepository.save(certificate)).thenReturn(certificate);
         when(certificateMapper.toDto(certificate)).thenReturn(certificateDto);
 
         CertificateDto result = certificatesServiceImpl.addCertificate(certificateDto);
 
         verify(certificateMapper).toEntity(certificateDto);
-        verify(jpaCertificateRepository).save(certificate);
+        verify(certificateRepository).save(certificate);
         verify(certificateMapper).toDto(certificate);
 
         assertNotNull(result);
@@ -92,28 +92,28 @@ public class CertificateServiceImplTest {
 
     @Test
     public void testAddCertificate_ShouldThrowDuplicateCertificateException_WhenCertificateIsDuplicate() {
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(certificate);
+        when(certificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(certificate);
 
         assertThrows(DuplicateCertificateException.class, () -> {
             certificatesServiceImpl.addCertificate(certificateDto);
         });
 
-        verify(jpaCertificateRepository).getCertificateByCertificateId(certificateId);
-        verify(jpaCertificateRepository, never()).save(any(Certificate.class));
+        verify(certificateRepository).getCertificateByCertificateId(certificateId);
+        verify(certificateRepository, never()).save(any(Certificate.class));
 
     }
     @Test
     public void updateCertificate_ShouldReturnUpdatedCertificateDto_WhenCertificateExists() {
         when(certificateMapper.toEntity(certificateDto)).thenReturn(certificate);
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(certificate);
-        when(jpaCertificateRepository.save(certificate)).thenReturn(certificate);
+        when(certificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(certificate);
+        when(certificateRepository.save(certificate)).thenReturn(certificate);
         when(certificateMapper.toDto(certificate)).thenReturn(certificateDto);
 
         CertificateDto result = certificatesServiceImpl.updateCertificate(certificateDto);
 
         verify(certificateMapper).toEntity(certificateDto);
-        verify(jpaCertificateRepository).getCertificateByCertificateId(certificateId);
-        verify(jpaCertificateRepository).save(certificate);
+        verify(certificateRepository).getCertificateByCertificateId(certificateId);
+        verify(certificateRepository).save(certificate);
         verify(certificateMapper).toDto(certificate);
 
         assertNotNull(result);
@@ -123,37 +123,37 @@ public class CertificateServiceImplTest {
     @Test
     public void updateCertificate_ShouldThrowNotFoundException_WhenCertificateDoesNotExist() {
         when(certificateMapper.toEntity(certificateDto)).thenReturn(certificate);
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(null);
+        when(certificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(null);
 
         assertThrows(NotFoundException.class, () -> {
             certificatesServiceImpl.updateCertificate(certificateDto);});
 
         verify(certificateMapper).toEntity(certificateDto);
-        verify(jpaCertificateRepository).getCertificateByCertificateId(certificateId);
-        verify(jpaCertificateRepository, never()).save(any(Certificate.class));
+        verify(certificateRepository).getCertificateByCertificateId(certificateId);
+        verify(certificateRepository, never()).save(any(Certificate.class));
         verify(certificateMapper, never()).toDto(any(Certificate.class));
     }
 
     @Test
     public void deleteCertificate_ShouldThrowNotFoundException_WhenCertificateDoesNotExist() {
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(null);
+        when(certificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(null);
 
         assertThrows(NotFoundException.class, () -> {
             certificatesServiceImpl.deleteCertificate(certificateId);
         });
 
-        verify(jpaCertificateRepository).getCertificateByCertificateId(certificateId);
-        verify(jpaCertificateRepository, never()).delete(any(Certificate.class));
+        verify(certificateRepository).getCertificateByCertificateId(certificateId);
+        verify(certificateRepository, never()).delete(any(Certificate.class));
     }
 
     @Test
     public void deleteCertificate_ShouldDeleteCertificate_WhenCertificateExists() {
-        when(jpaCertificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(certificate);
+        when(certificateRepository.getCertificateByCertificateId(certificateId)).thenReturn(certificate);
 
         certificatesServiceImpl.deleteCertificate(certificateId);
 
-        verify(jpaCertificateRepository).getCertificateByCertificateId(certificateId);
-        verify(jpaCertificateRepository).delete(certificate);
+        verify(certificateRepository).getCertificateByCertificateId(certificateId);
+        verify(certificateRepository).delete(certificate);
     }
 
 
