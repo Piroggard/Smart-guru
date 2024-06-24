@@ -56,7 +56,7 @@ public class CertificateServiceImplTest {
     @Test
     public void testGetCertificate() {
         when(certificateRepository.findById(certificateId))
-                .thenReturn(certificate);
+                .thenReturn(Optional.ofNullable(certificate));
         when(certificateMapper.toDto(certificate)).thenReturn(certificateDto);
 
         CertificateDto foundCertificateDto = certificatesServiceImpl.getCertificate(certificateId);
