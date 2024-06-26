@@ -2,6 +2,3 @@ databaseChangeLog:
   - include:
       file: changeset/V001__initial_tables.sql
       relativeToChangelogFile: true
-  - include:
-      file: changeset/V002__update_courses_add_what_learn.sql
-      relativeToChangelogFile: true
