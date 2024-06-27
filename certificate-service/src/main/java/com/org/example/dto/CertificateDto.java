@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class CertificateDto {
     private UUID id;
     private UUID userId;
