@@ -2,6 +2,7 @@ package com.org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,8 +19,7 @@ import java.util.UUID;
 @Builder
 public class Certificate {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "user_id", nullable = false)

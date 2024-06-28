@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
-    driverClassName: org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
     username: smart-guru
     password: i-know-pass
 
@@ -12,3 +12,6 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
