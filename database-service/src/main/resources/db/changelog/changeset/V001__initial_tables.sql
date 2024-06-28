@@ -17,34 +17,34 @@ CREATE TABLE organizers
 CREATE TABLE courses
 (
     id                 UUID PRIMARY KEY,
-    name               VARCHAR(128) NOT NULL,
+    name               VARCHAR(128)  NOT NULL,
     url                VARCHAR(128) UNIQUE,
-    type               VARCHAR(128) NOT NULL,
-    number_seats       INT          NOT NULL,
-    price              INT          NOT NULL,
-    photo_profile      VARCHAR(256) UNIQUE ,
-    description        VARCHAR(4096)NOT NULL,
-    direction          VARCHAR(128) NOT NULL,
+    type               VARCHAR(128)  NOT NULL,
+    number_seats       INT           NOT NULL,
+    price              INT           NOT NULL,
+    photo_profile      VARCHAR(256) UNIQUE,
+    description        VARCHAR(4096) NOT NULL,
+    direction          VARCHAR(128)  NOT NULL,
     duration           VARCHAR(128),
-    organizer_id       UUID         NOT NULL,
+    organizer_id       UUID          NOT NULL,
     certificate        BOOLEAN,
-    status             VARCHAR(128) NOT NULL,
+    status             VARCHAR(128)  NOT NULL,
+    what_learn         VARCHAR(4096) NOT NULL,
     delete             BOOLEAN,
     date_start_course  DATE,
     date_finish_course DATE,
     date_create        TIMESTAMP,
     date_delete        TIMESTAMP,
     date_update        TIMESTAMP,
-
     CONSTRAINT fk_organizers FOREIGN KEY (organizer_id) REFERENCES organizers (id) ON DELETE CASCADE
 );
 
 CREATE TABLE technologies
 (
-    id                 UUID PRIMARY KEY,
-    name               VARCHAR(128) NOT NULL,
-    photo              VARCHAR(256) UNIQUE,
-    course_id          UUID NOT NULL,
+    id        UUID PRIMARY KEY,
+    name      VARCHAR(128) NOT NULL,
+    photo     VARCHAR(256) UNIQUE,
+    course_id UUID         NOT NULL,
 
     CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
