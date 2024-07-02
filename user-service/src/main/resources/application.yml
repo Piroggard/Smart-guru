@@ -1,3 +1,23 @@
 server:
   port: 9094
 
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: smart-guru
+    password: i-know-pass
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: pZ8eE0Krxu7g7/yh5hsRkQb8Q1wbDVWv6gXRf3F26HDLw/lKo9fwBH9xQwd8N3ww
+  lifetime: 240m
+
