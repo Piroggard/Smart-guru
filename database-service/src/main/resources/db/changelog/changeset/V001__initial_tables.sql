@@ -46,12 +46,12 @@ CREATE TABLE courses
     certificate        BOOLEAN,
     status             VARCHAR(128)  NOT NULL,
     delete             BOOLEAN       NOT NULL DEFAULT FALSE,
+    what_learn         VARCHAR(4096) NOT NULL,
     date_start_course  DATE,
     date_finish_course DATE,
     date_create        TIMESTAMP,
     date_delete        TIMESTAMP,
     date_update        TIMESTAMP,
-
     CONSTRAINT fk_organizers FOREIGN KEY (organizer_id) REFERENCES organizers (id) ON DELETE CASCADE
 );
 
