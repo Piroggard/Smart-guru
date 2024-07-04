@@ -18,6 +18,6 @@ public class ControllerStatus {
     @GetMapping
     public List<StatusDtoResponse> getStatus() {
         log.info("Метод getStatus");
-        return curseService.getStatus();
+        return null;
     }
 }

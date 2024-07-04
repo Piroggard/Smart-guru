@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -37,4 +39,17 @@ public class AdressCourse {
 
     @Column(name = "district", nullable = false)
     private String district;
+
+    @Column(name = "delete", nullable = false)
+    private Boolean delete;
+
+    @Column(name = "date_delete", nullable = false)
+    private LocalDateTime dateDelete;
+
+    @Column(name = "date_update", nullable = false)
+    private LocalDateTime dateUpdate;
+
+    @Column(name = "date_create", nullable = false)
+    private LocalDateTime dateCreate;
+
 }

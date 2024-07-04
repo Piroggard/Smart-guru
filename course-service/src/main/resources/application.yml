@@ -6,7 +6,9 @@ spring:
     init:
       mode: always
   datasource:
-    url: jdbc:postgresql://localhost:5432/smart-guru
-    driverClassName: org.postgresql.Driver
-    username: admin
-    password: admin
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: smart-guru
+    password: i-know-pass
+
+
