@@ -23,19 +23,19 @@ public class CurseService {
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID createCourse(CourseRequestDto courseRequestDTO) {
-        log.info("Данные которые сохраняем в БД" + courseRequestDTO);
+        log.info("Данные которые сохраняем в БД{}", courseRequestDTO);
         return repositoryCourse.save(mapperCurseDB.toCourseDTO(courseRequestDTO)).getId();
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID updateCourse(CourseRequestDto courseRequestDTO) {
-        log.info("Данные которые обновляются в БД" + courseRequestDTO);
+        log.info("Данные которые обновляются в БД{}", courseRequestDTO);
         return repositoryCourse.save(mapperCurseDB.toCourseDTO(courseRequestDTO)).getId();
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void deleteCourse(@PathVariable Enum courseId) {
-            log.info("Метод deleteCourse " + courseId);
+        log.info("Метод deleteCourse {}", courseId);
         repositoryCourse.deleteById(courseId);
     }
 }
