@@ -23,7 +23,7 @@ import java.util.UUID;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class CurseService {
+public class CourseService {
 
     private final RepositoryStatus repositoryStatus;
     private final RepositoryDirection repositoryDirection;
@@ -67,7 +67,7 @@ public class CurseService {
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public void deleteCourse(@PathVariable Enum courseId) {
+    public void deleteCourse(@PathVariable UUID courseId) {
             log.info("Метод deleteCourse " + courseId);
         repositoryCourse.deleteById(courseId);
     }
