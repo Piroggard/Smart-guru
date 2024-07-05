@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
-    Course toCourseDTO (CourseRequestDto courseRequestDTO);
+    Course toCourse(CourseRequestDto courseRequestDto);
 }

@@ -12,5 +12,4 @@ import java.util.UUID;
 @NoArgsConstructor
 public class OrganizerDto {
     private UUID id;
-
 }

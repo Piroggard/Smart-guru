@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -46,10 +48,12 @@ public class AdressCourse {
     @Column(name = "date_delete", nullable = false)
     private LocalDateTime dateDelete;
 
+    @LastModifiedDate
     @Column(name = "date_update", nullable = false)
     private LocalDateTime dateUpdate;
 
-    @Column(name = "date_create", nullable = false)
+    @CreatedDate
+    @Column(name = "date_create", nullable = false, updatable = false)
     private LocalDateTime dateCreate;
 
 }

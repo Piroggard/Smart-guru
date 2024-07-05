@@ -20,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "course")
+@Table(name = "courses")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
@@ -38,7 +38,7 @@ public class Course {
     private String url; // не обязательное поле
 
     @JoinColumn(name = "type", nullable = false)
-    private String type; //Тип курса
+    private TypeEnum type; //Тип курса
 
     @Column(name = "number_seats", nullable = false)
     private Long numberSeats; // количество мест
@@ -46,20 +46,20 @@ public class Course {
     @Column(name = "price", nullable = false)
     private Long price; //Цена курса
 
-    @Column(name = "photo_profile", nullable = false)
+    @Column(name = "photo_profile", nullable = true)
     private String photoProfile; // фото профиля
 
     @Column(name = "description", nullable = false)
     private String description; // Описание курса
 
     @Column(name = "direction", nullable = false)
-    private String direction; // направление
+    private DirectionEnum direction; // направление
 
     @Column(name = "duration", nullable = false)
     private String duration; // продолжительность
 
     @Column(name = "status", nullable = false)
-    private String status; // статус
+    private StatusEnum status; // статус
 
     @Column(name = "what_learn", nullable = false)
     private String whatLearn; // Чему научусь
@@ -68,30 +68,27 @@ public class Course {
     @JoinColumn(name = "organizer_id", referencedColumnName = "id")
     private Organizer organizerId; // ID организации
 
-    @Column(name = "certificate", nullable = false)
+    @Column(name = "certificate", nullable = true)
     private Boolean certificate; //Сертификат
 
-    @Column(name = "date_start_course", nullable = false)
+    @Column(name = "date_start_course", nullable = true)
     private LocalDateTime dateStartCourse; //Дата начала курса
 
-    @Column(name = "date_finish_course", nullable = false)
+    @Column(name = "date_finish_course", nullable = true)
     private LocalDateTime dateFinishCourse; //Дата окончания курса
 
-    @Column(name = "delete", nullable = false)
+    @Column(name = "delete", nullable = true)
     private Boolean delete; //Признак удаленности
 
-    @Column(name = "date_delete", nullable = false)
+    @Column(name = "date_delete", nullable = true)
     private LocalDateTime dateDelete;// Время удаления
 
     @CreatedDate
-    @Column(name = "date_create", nullable = false, updatable = false)
+    @Column(name = "date_create", nullable = true, updatable = false)
     private LocalDateTime dateCreate; //Дата создания курса\
 
     @LastModifiedDate
-    @Column(name = "date_update", nullable = false)
+    @Column(name = "date_update", nullable = true)
     private LocalDateTime dateUpdate;// Время обновления
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "adress_id", referencedColumnName = "id")
-    private AdressCourse addressId;
 }
