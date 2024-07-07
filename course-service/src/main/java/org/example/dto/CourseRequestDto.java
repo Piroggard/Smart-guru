@@ -12,16 +12,16 @@ import org.example.enam.TypeEnum;
 public class CourseRequestDto {
     private String name;
     private String url;
-    //private TypeEnum type;
+    private TypeEnum type;
     private Long numberSeats;
     private Long price;
     private String photoProfile;
     private String description;
-    //private DirectionEnum direction;
+    private DirectionEnum direction;
     private String duration;
-    //private StatusEnum status;
+    private StatusEnum status;
     private String whatLearn;
-    //private OrganizerDto organizerId;
+    private OrganizerDto organizerId;
     private Boolean certificate;
     private Boolean delete;
 }

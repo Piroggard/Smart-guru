@@ -2,9 +2,7 @@ package org.example.servise;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.dto.test1;
 import org.example.dto.CourseRequestDto;
-import org.example.dto.test2;
 import org.example.mapper.CourseMapper;
 import org.example.model.Course;
 import org.example.repository.RepositoryCourse;
@@ -27,13 +25,6 @@ public class CurseService {
         log.info("Данные которые сохраняем в БД{}", courseRequestDTO);
         try {
             Course course = mapperCurseDB.toCourse(courseRequestDTO);
-            test1 test1 = new test1();
-            test1.setAnInt(1);
-            test1.setString("test");
-            test1.setALong(1000000000L);
-            log.info("До маппинга {}", test1);
-
-
             log.info("Данные которые сохраняем в БД после маппинга {}", course);
         } catch (Exception e){
             System.out.printf("Ошибка - " + e.getMessage());
