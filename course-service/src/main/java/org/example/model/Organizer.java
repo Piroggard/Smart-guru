@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "Organizer")
+@Table(name = "organizers")
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Organizer {
@@ -42,6 +42,6 @@ public class Organizer {
     @Column(name = "date_update", nullable = false)
     private LocalDateTime date_update;// Время обновления
 
-    @Column(name = "detelete", nullable = false)
+    @Column(name = "delete", nullable = false)
     private Boolean detelete;
 }

@@ -3,6 +3,7 @@ package org.example.contriller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.CourseRequestDto;
+import org.example.dto.CourseRequestUpdateDto;
 import org.example.servise.CurseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,14 @@ public class CourseController {
     }
 
     @PatchMapping
-    public UUID updateCourse(@RequestBody CourseRequestDto course) {
-        log.info("Метод patchCourse " + course);
-        return curseService.updateCourse(course);
+    public UUID updateCourse(@RequestBody CourseRequestUpdateDto courseRequestUpdateDto) {
+        log.info("Метод updateCourse{}", courseRequestUpdateDto);
+        return curseService.updateCourse(courseRequestUpdateDto);
     }
 
     @DeleteMapping("/{courseId}")
-    public void deleteCourse(@PathVariable Enum courseId) {
-        log.info("Метод patchCourse " + courseId);
+    public void deleteCourse(@PathVariable UUID courseId) {
+        log.info("Метод deleteCourse " + courseId);
         curseService.deleteCourse(courseId);
     }
 }
