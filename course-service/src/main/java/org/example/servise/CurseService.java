@@ -27,7 +27,7 @@ public class CurseService {
             Course course = mapperCurseDB.toCourse(courseRequestDTO);
             log.info("Данные которые сохраняем в БД после маппинга {}", course);
         } catch (Exception e){
-            System.out.printf("Ошибка - " + e.getMessage());
+            log.error(e.getMessage());
         }
 
         return repositoryCourse.save(mapperCurseDB.toCourse(courseRequestDTO)).getId();

@@ -37,6 +37,7 @@ public class Course {
     @Column(name = "url", nullable = false)
     private String url; // не обязательное поле
 
+    @Enumerated(EnumType.STRING)
     @JoinColumn(name = "type", nullable = false)
     private TypeEnum type; //Тип курса
 
@@ -52,12 +53,14 @@ public class Course {
     @Column(name = "description", nullable = false)
     private String description; // Описание курса
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "direction", nullable = false)
     private DirectionEnum direction; // направление
 
     @Column(name = "duration", nullable = false)
     private String duration; // продолжительность
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private StatusEnum status; // статус
 
@@ -90,5 +93,4 @@ public class Course {
     @LastModifiedDate
     @Column(name = "date_update", nullable = true)
     private LocalDateTime dateUpdate;// Время обновления
-
 }
