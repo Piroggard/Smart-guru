@@ -15,8 +15,8 @@ public class StatusService {
     public List<StatusEnum> getStatus() {
         log.info("Метод getStatus");
         List<StatusEnum> statusEnumList = new ArrayList<>();
-        for (StatusEnum day : StatusEnum.values()) {
-            statusEnumList.add(day);
+        for (StatusEnum statusEnum : StatusEnum.values()) {
+            statusEnumList.add(statusEnum);
         }
         return statusEnumList;
     }
