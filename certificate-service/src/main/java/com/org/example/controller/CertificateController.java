@@ -15,7 +15,7 @@ import java.util.UUID;
 public class CertificateController {
     private final CertificatesService certificateService;
 
-    @GetMapping("{/id}")
+    @GetMapping("{id}")
     public CertificateDto findById(@PathVariable("id") UUID id) {
         log.info("Getting review by id " + id);
         return certificateService.getCertificate(id);
@@ -27,13 +27,13 @@ public class CertificateController {
         return certificateService.saveCertificate(certificateDto);
     }
 
-    @PatchMapping("{/id}")
+    @PatchMapping("{id}")
     public CertificateDto update(@RequestBody CertificateDto certificateDto, @PathVariable("id") UUID id) {
         log.info("Updating certificate " + certificateDto);
         return certificateService.updateCertificate(certificateDto);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable("id") UUID id) {
         log.info("Deleting certificate " + id);
         certificateService.deleteCertificate(id);
