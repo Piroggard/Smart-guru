@@ -3,17 +3,16 @@ package org.example.servise;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.*;
-import org.example.mapper.AddressMapper;
-import org.example.mapper.CourseMapper;
-import org.example.mapper.CourseMapperUpdate;
-import org.example.mapper.CourseResponseMapper;
+import org.example.mapper.*;
 import org.example.model.Course;
+import org.example.model.PhotosCourse;
 import org.example.repository.RepositoryAddress;
 import org.example.repository.RepositoryCourse;
+import org.example.repository.RepositoryPhotos;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,10 +22,12 @@ import java.util.UUID;
 public class CurseService {
     private final RepositoryCourse repositoryCourse;
     private final RepositoryAddress repositoryAddress;
+    private final RepositoryPhotos repositoryPhotos;
     private final CourseMapper mapperCurseDB;
     private final CourseMapperUpdate courseMapperUpdate;
     private final CourseResponseMapper courseResponseMapper;
     private final AddressMapper addressMapper;
+    private final PhotosMapper photosMapper;
 
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
@@ -35,9 +36,19 @@ public class CurseService {
         Course course = mapperCurseDB.toCourse(courseCreationDTO.getCourseRequestDto());
         log.info("Данные которые сохраняем в БД после маппинга {}", course);
         UUID idCourse = repositoryCourse.save(course).getId();
+
         AddressRequestDto addressRequestDto = courseCreationDTO.getAddressRequestDto();
         addressRequestDto.setCourseId(idCourse);
         repositoryAddress.save(addressMapper.toAdressCourse(addressRequestDto));
+
+        List<PhotosCourse> photosCourses = new ArrayList<>();
+        for (PhotosCourseDto photo : courseCreationDTO.getPhotos()) {
+            photo.setCourseId(idCourse);
+            photosCourses.add(photosMapper.toPhotosCourse(photo));
+        }
+
+        log.info("Данные фото которые сохраняем в БД {}", photosCourses);
+        repositoryPhotos.saveAll(photosCourses);
         return idCourse;
     }
 

@@ -22,8 +22,8 @@ public class PhotosCourse {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "photo", nullable = false)
+    private String photo;
     @Column(name = "course_id", nullable = false)
     private UUID courseId;
 }

@@ -6,13 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseCreationDTO {
-    CourseRequestDto courseRequestDto;
-    AddressRequestDto addressRequestDto;
-    List<PhotosCourseDto> photos;
+@Builder
+public class PhotosCourseDto {
+    private String photo;
+    private UUID courseId;
 }
