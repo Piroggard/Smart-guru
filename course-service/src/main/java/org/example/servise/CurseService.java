@@ -6,9 +6,11 @@ import org.example.dto.*;
 import org.example.mapper.*;
 import org.example.model.Course;
 import org.example.model.PhotosCourse;
+import org.example.model.Technology;
 import org.example.repository.RepositoryAddress;
 import org.example.repository.RepositoryCourse;
 import org.example.repository.RepositoryPhotos;
+import org.example.repository.RepositoryTechnology;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +25,13 @@ public class CurseService {
     private final RepositoryCourse repositoryCourse;
     private final RepositoryAddress repositoryAddress;
     private final RepositoryPhotos repositoryPhotos;
+    private final RepositoryTechnology repositoryTechnology;
     private final CourseMapper mapperCurseDB;
     private final CourseMapperUpdate courseMapperUpdate;
     private final CourseResponseMapper courseResponseMapper;
     private final AddressMapper addressMapper;
     private final PhotosMapper photosMapper;
+    private final TechnologyMapper technologyMapper;
 
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
@@ -49,6 +53,13 @@ public class CurseService {
 
         log.info("Данные фото которые сохраняем в БД {}", photosCourses);
         repositoryPhotos.saveAll(photosCourses);
+
+        TechnologyRequestDto technologyRequestDto = courseCreationDTO.getTechnology();
+        technologyRequestDto.setCourseId(idCourse);
+        log.info("Данные технологии до маппинга {}", technologyRequestDto);
+        Technology technology = technologyMapper.toTechnology(technologyRequestDto);
+        log.info("Данные технологии которые сохраняем в БД {}", technology);
+        repositoryTechnology.save(technology);
         return idCourse;
     }
 

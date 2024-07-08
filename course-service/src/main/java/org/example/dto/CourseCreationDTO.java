@@ -15,4 +15,5 @@ public class CourseCreationDTO {
     CourseRequestDto courseRequestDto;
     AddressRequestDto addressRequestDto;
     List<PhotosCourseDto> photos;
+    TechnologyRequestDto technology;
 }
