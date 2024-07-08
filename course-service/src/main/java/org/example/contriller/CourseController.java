@@ -2,6 +2,7 @@ package org.example.contriller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.dto.CourseCreationDTO;
 import org.example.dto.CourseRequestDto;
 import org.example.dto.CourseRequestUpdateDto;
 import org.example.dto.CourseResponseDto;
@@ -23,7 +24,7 @@ public class CourseController {
     private final CurseService curseService;
 
     @PostMapping
-    public UUID createCourse(@RequestBody CourseRequestDto course) {
+    public UUID createCourse(@RequestBody CourseCreationDTO course) {
         log.info("Метод createCourse" + course);
         return curseService.createCourse(course);
     }
