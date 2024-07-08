@@ -4,14 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.CourseRequestDto;
 import org.example.dto.CourseRequestUpdateDto;
+import org.example.dto.CourseResponseDto;
 import org.example.mapper.CourseMapper;
 import org.example.mapper.CourseMapperUpdate;
+import org.example.mapper.CourseResponseMapper;
 import org.example.model.Course;
 import org.example.repository.RepositoryCourse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -21,6 +24,7 @@ public class CurseService {
     private final RepositoryCourse repositoryCourse;
     private final CourseMapper mapperCurseDB;
     private final CourseMapperUpdate courseMapperUpdate;
+    private final CourseResponseMapper courseResponseMapper;
 
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
@@ -45,8 +49,16 @@ public class CurseService {
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public void deleteCourse(@PathVariable UUID courseId) {
+    public void deleteCourse(UUID courseId) {
         log.info("Метод deleteCourse {}", courseId);
         repositoryCourse.deleteById(courseId);
+    }
+
+    @Transactional
+    public CourseResponseDto getCourses (UUID courseId){
+        log.info("Метод getCourses {}", courseId);
+        CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(repositoryCourse.findById(courseId).get());
+        log.info("Данные которые получили с БД послек маппинга {}", courseResponseDto);
+        return courseResponseDto;
     }
 }

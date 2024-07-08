@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.CourseRequestDto;
 import org.example.dto.CourseRequestUpdateDto;
+import org.example.dto.CourseResponseDto;
 import org.example.servise.CurseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +38,11 @@ public class CourseController {
     public void deleteCourse(@PathVariable UUID courseId) {
         log.info("Метод deleteCourse " + courseId);
         curseService.deleteCourse(courseId);
+    }
+
+    @GetMapping("/{courseId}")
+    public CourseResponseDto getCourses(@PathVariable UUID courseId) {
+        log.info("Метод getCourses " + courseId);
+        return curseService.getCourses(courseId);
     }
 }

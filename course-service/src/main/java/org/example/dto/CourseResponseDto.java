@@ -9,12 +9,11 @@ import org.example.enam.StatusEnum;
 import org.example.enam.TypeEnum;
 
 import java.util.UUID;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequestUpdateDto {
+public class CourseResponseDto {
     private UUID id;
     private String name;
     private String url;
