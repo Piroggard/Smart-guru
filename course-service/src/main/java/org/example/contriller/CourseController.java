@@ -2,10 +2,7 @@ package org.example.contriller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.dto.CourseCreationDTO;
-import org.example.dto.CourseRequestDto;
-import org.example.dto.CourseRequestUpdateDto;
-import org.example.dto.CourseResponseDto;
+import org.example.dto.*;
 import org.example.servise.CurseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +27,9 @@ public class CourseController {
     }
 
     @PatchMapping
-    public UUID updateCourse(@RequestBody CourseRequestUpdateDto courseRequestUpdateDto) {
-        log.info("Метод updateCourse{}", courseRequestUpdateDto);
-        return curseService.updateCourse(courseRequestUpdateDto);
+    public UUID updateCourse(@RequestBody CourseUpdarionDto courseUpdarionDto) {
+        log.info("Метод updateCourse{}", courseUpdarionDto);
+        return curseService.updateCourse(courseUpdarionDto);
     }
 
     @DeleteMapping("/{courseId}")

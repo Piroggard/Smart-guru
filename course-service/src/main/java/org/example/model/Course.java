@@ -38,33 +38,33 @@ public class Course {
     private String url; // не обязательное поле
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "type", nullable = false)
+    @JoinColumn(name = "type", nullable = true)
     private TypeEnum type; //Тип курса
 
-    @Column(name = "number_seats", nullable = false)
+    @Column(name = "number_seats", nullable = true)
     private Long numberSeats; // количество мест
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = true)
     private Long price; //Цена курса
 
     @Column(name = "photo_profile", nullable = true)
     private String photoProfile; // фото профиля
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = true)
     private String description; // Описание курса
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "direction", nullable = false)
+    @Column(name = "direction", nullable = true)
     private DirectionEnum direction; // направление
 
-    @Column(name = "duration", nullable = false)
+    @Column(name = "duration", nullable = true)
     private String duration; // продолжительность
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = true)
     private StatusEnum status; // статус
 
-    @Column(name = "what_learn", nullable = false)
+    @Column(name = "what_learn", nullable = true)
     private String whatLearn; // Чему научусь
 
     @OneToOne(cascade = CascadeType.MERGE)
