@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CourseUpdarionDto {
     CourseUpdateDto courseUpdateDto;
-    AddressRequestDto addressRequestDto;
-    List<PhotosCourseDto> photos;
-    TechnologyRequestDto technology;
+    AddressUpdateRequestDto addressUpdateRequestDto;
+    List<PhotosUpdateCourseDto> photos;
+    TechnologyUpdateRequestDto technology;
 }

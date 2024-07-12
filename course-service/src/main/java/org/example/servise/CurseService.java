@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.*;
 import org.example.mapper.*;
-import org.example.model.Course;
-import org.example.model.Organizer;
-import org.example.model.PhotosCourse;
-import org.example.model.Technology;
+import org.example.model.*;
 import org.example.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,6 +83,35 @@ public class CurseService {
                 .organizerId(organizer.get())
                 .delete(courseUpdarionDto.getCourseUpdateDto().getDelete()).build();
         log.info("Данные которые сохраняем в БД после маппинга {}", course);
+        AdressCourse adressCourse = AdressCourse.builder()
+                .id(courseUpdarionDto.getAddressUpdateRequestDto().getId())
+                .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
+                .country(courseUpdarionDto.getAddressUpdateRequestDto().getCountry())
+                .city(courseUpdarionDto.getAddressUpdateRequestDto().getCity())
+                .street(courseUpdarionDto.getAddressUpdateRequestDto().getStreet())
+                .house(courseUpdarionDto.getAddressUpdateRequestDto().getHouse())
+                .district(courseUpdarionDto.getAddressUpdateRequestDto().getDistrict())
+                .delete(courseUpdarionDto.getAddressUpdateRequestDto().getDelete())
+                .build();
+        repositoryAddress.save(adressCourse);
+        Technology technology = Technology.builder()
+                .id(courseUpdarionDto.getTechnology().getId())
+                .name(courseUpdarionDto.getTechnology().getName())
+                .photo(courseUpdarionDto.getTechnology().getPhoto())
+                .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
+                .build();
+        repositoryTechnology.save(technology);
+
+        List<PhotosCourse> photosCourses = new ArrayList<>();
+        for (PhotosUpdateCourseDto photo : courseUpdarionDto.getPhotos()) {
+            PhotosCourse photosCourse = PhotosCourse.builder()
+                    .id(photo.getId())
+                    .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
+                    .photo(photo.getPhoto())
+                    .build();
+            photosCourses.add(photosCourse);
+        }
+        repositoryPhotos.saveAll(photosCourses);
         return repositoryCourse.save(course).getId();
     }
 
