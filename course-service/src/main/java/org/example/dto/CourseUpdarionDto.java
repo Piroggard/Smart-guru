@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseUpdarionDto {
+
     CourseUpdateDto courseUpdateDto;
     AddressUpdateRequestDto addressUpdateRequestDto;
     List<PhotosUpdateCourseDto> photos;

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Data
@@ -12,6 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class AddressUpdateRequestDto {
+
     private UUID id;
     private UUID courseId;
     private String country;

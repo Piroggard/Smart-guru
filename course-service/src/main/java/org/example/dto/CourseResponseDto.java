@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import org.example.enam.DirectionEnum;
 import org.example.enam.StatusEnum;
 import org.example.enam.TypeEnum;
-import org.example.model.Technology;
-
 import java.util.List;
 import java.util.UUID;
 @Data
@@ -16,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseResponseDto {
+
     private UUID id;
     private String name;
     private String url;

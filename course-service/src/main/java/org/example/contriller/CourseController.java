@@ -5,17 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.*;
 import org.example.servise.CurseService;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/courses")
-
 public class CourseController {
 
     private final CurseService curseService;

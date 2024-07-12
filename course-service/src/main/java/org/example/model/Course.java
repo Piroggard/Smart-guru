@@ -35,7 +35,7 @@ public class Course {
     private String name; // Название курса
 
     @Column(name = "url", nullable = false)
-    private String url; // не обязательное поле
+    private String url;
 
     @Enumerated(EnumType.STRING)
     @JoinColumn(name = "type", nullable = true)

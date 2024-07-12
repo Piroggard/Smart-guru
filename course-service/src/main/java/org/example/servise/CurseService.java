@@ -18,13 +18,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @Service
 public class CurseService {
+
     private final RepositoryCourse repositoryCourse;
     private final RepositoryAddress repositoryAddress;
     private final RepositoryPhotos repositoryPhotos;
     private final RepositoryTechnology repositoryTechnology;
     private final RepositoryOrganizer repositoryOrganizer;
     private final CourseMapper mapperCurseDB;
-    private final CourseMapperUpdate courseMapperUpdate;
     private final CourseResponseMapper courseResponseMapper;
     private final AddressMapper addressMapper;
     private final PhotosMapper photosMapper;
@@ -33,27 +33,22 @@ public class CurseService {
     private final PhotosResponseMapper photosResponseMapper;
     private final AddressResponseMapper addressResponseMapper;
 
-
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID createCourse(CourseCreationDTO courseCreationDTO) {
         log.info("Данные которые сохраняем в БД{}", courseCreationDTO);
         Course course = mapperCurseDB.toCourse(courseCreationDTO.getCourseRequestDto());
         log.info("Данные которые сохраняем в БД после маппинга {}", course);
         UUID idCourse = repositoryCourse.save(course).getId();
-
         AddressRequestDto addressRequestDto = courseCreationDTO.getAddressRequestDto();
         addressRequestDto.setCourseId(idCourse);
         repositoryAddress.save(addressMapper.toAdressCourse(addressRequestDto));
-
         List<PhotosCourse> photosCourses = new ArrayList<>();
         for (PhotosCourseDto photo : courseCreationDTO.getPhotos()) {
             photo.setCourseId(idCourse);
             photosCourses.add(photosMapper.toPhotosCourse(photo));
         }
-
         log.info("Данные фото которые сохраняем в БД {}", photosCourses);
         repositoryPhotos.saveAll(photosCourses);
-
         TechnologyRequestDto technologyRequestDto = courseCreationDTO.getTechnology();
         technologyRequestDto.setCourseId(idCourse);
         log.info("Данные технологии до маппинга {}", technologyRequestDto);
@@ -104,7 +99,6 @@ public class CurseService {
                 .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
                 .build();
         repositoryTechnology.save(technology);
-
         List<PhotosCourse> photosCourses = new ArrayList<>();
         for (PhotosUpdateCourseDto photo : courseUpdarionDto.getPhotos()) {
             PhotosCourse photosCourse = PhotosCourse.builder()
@@ -137,7 +131,6 @@ public class CurseService {
         }
         courseResponseDto.setPhotosCourseDtos(photosResponseDtos);
         log.info("Данные которые получили с БД послек маппинга {}", courseResponseDto);
-
         return courseResponseDto;
     }
 }

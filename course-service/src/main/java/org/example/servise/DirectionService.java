@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class DirectionService {
+
     public List<DirectionEnum> getDirection() {
         log.info("Метод getDirection");
         List<DirectionEnum> directionEnums = new ArrayList<>();

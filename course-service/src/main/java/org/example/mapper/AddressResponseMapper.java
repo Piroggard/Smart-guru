@@ -5,5 +5,6 @@ import org.example.model.AdressCourse;
 import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface AddressResponseMapper {
+
     AddressResponseDto toDto (AdressCourse adressCourse);
 }

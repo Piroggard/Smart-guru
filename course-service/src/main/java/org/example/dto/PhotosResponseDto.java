@@ -13,6 +13,7 @@ import java.util.UUID;
 @Builder
 
 public class PhotosResponseDto {
+
     private UUID id;
     private String photo;
 }

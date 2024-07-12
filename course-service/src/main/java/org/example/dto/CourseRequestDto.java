@@ -10,6 +10,7 @@ import org.example.enam.TypeEnum;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseRequestDto {
+
     private String name;
     private String url;
     private TypeEnum type;

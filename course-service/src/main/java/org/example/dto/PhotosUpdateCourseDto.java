@@ -12,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class PhotosUpdateCourseDto {
+
     private UUID id;
     private String photo;
 }

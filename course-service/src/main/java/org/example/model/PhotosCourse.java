@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
-
 import java.util.UUID;
 @Entity
 @Getter
@@ -17,13 +16,16 @@ import java.util.UUID;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PhotosCourse {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
+
     @Column(name = "photo", nullable = false)
     private String photo;
+
     @Column(name = "course_id", nullable = false)
     private UUID courseId;
 }

@@ -15,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseRequestUpdateDto {
+
     private UUID id;
     private String name;
     private String url;
