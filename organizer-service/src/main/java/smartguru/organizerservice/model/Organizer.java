@@ -1,4 +1,4 @@
-package org.example.model;
+package smartguru.organizerservice.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,11 +15,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.example.model.enums.Role;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import smartguru.organizerservice.model.enums.Role;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,48 +35,39 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
-public class User implements UserDetails {
+@Table(name = "organizers")
+public class Organizer implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @EqualsAndHashCode.Include
     private UUID id;
 
-    @Column(name = "firstname", length = 128, nullable = false)
-    private String firstname;
-
-    @Column(name = "lastname", length = 128, nullable = false)
-    private String lastname;
-
-    @Column(name = "middle_name", length = 128)
-    private String middleName;
+    @Column(name = "name", length = 128, nullable = false)
+    private String name;
 
     @Column(name = "email", length = 128, unique = true, nullable = false)
     private String email;
-
-    @Column(name = "photo", length = 256)
-    private String photo;
 
     @Column(name = "password", length = 1024, nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", length = 128)
+    @Column(name = "role", length = 128, nullable = false)
     private Role role;
 
-    @Column(name = "delete")
+    @Column(name = "delete", nullable = false)
     private boolean delete;
 
     @CreationTimestamp
-    @Column(name = "date_create")
+    @Column(name = "date_create", nullable = false)
     private LocalDateTime dateCreate;
 
     @UpdateTimestamp
-    @Column(name = "date_update")
+    @Column(name = "date_update", nullable = false)
     private LocalDateTime dateUpdate;
 
-    @Column(name = "date_delete")
+    @Column(name = "date_delete", nullable = false)
     private LocalDateTime dateDelete;
 
     @Override

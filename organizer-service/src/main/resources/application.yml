@@ -1,5 +1,5 @@
 server:
-  port: 9094
+  port: 9095
 
 spring:
   datasource:
@@ -17,7 +17,18 @@ spring:
       hibernate:
         format_sql: true
 
-jwt:
-  secret: pZ8eE0Krxu7g7/yh5hsRkQb8Q1wbDVWv6gXRf3F26HDLw/lKo9fwBH9xQwd8N3ww
-  lifetime: 240m
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enable: true
+  show-actuator: true
 
+logging:
+  level:
+    root: info
+
+jwt:
+  secret: 9SPHhNNj16Y00xLJ/xITNhG6JWdee49BjW2ql2QOcIcpFB7Fksg49sBa2pL2F4El
+  lifetime: 240m
