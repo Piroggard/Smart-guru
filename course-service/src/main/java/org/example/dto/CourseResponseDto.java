@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import org.example.enam.DirectionEnum;
 import org.example.enam.StatusEnum;
 import org.example.enam.TypeEnum;
+import org.example.model.Technology;
 
+import java.util.List;
 import java.util.UUID;
 @Data
 @Builder
@@ -29,4 +31,7 @@ public class CourseResponseDto {
     private OrganizerDto organizerId;
     private Boolean certificate;
     private Boolean delete;
+    private AddressResponseDto addressRequestDto;
+    private List<PhotosResponseDto> photosCourseDtos;
+    private TechnologyResponseDto technology;
 }

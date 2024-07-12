@@ -29,6 +29,9 @@ public class CurseService {
     private final AddressMapper addressMapper;
     private final PhotosMapper photosMapper;
     private final TechnologyMapper technologyMapper;
+    private final TechnologyResponseMapper technologyResponseMapper;
+    private final PhotosResponseMapper photosResponseMapper;
+    private final AddressResponseMapper addressResponseMapper;
 
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
@@ -125,7 +128,16 @@ public class CurseService {
     public CourseResponseDto getCourses(UUID courseId) {
         log.info("Метод getCourses {}", courseId);
         CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(repositoryCourse.findById(courseId).get());
+        courseResponseDto.setAddressRequestDto(addressResponseMapper.toDto(repositoryAddress.findAdressCourseByCourseId(courseId)));
+        courseResponseDto.setTechnology(technologyResponseMapper.toDto(repositoryTechnology.findTechnologiesByCourseId(courseId)));
+        List<PhotosCourse> photosCourse = repositoryPhotos.findAllByCourseId(courseId);
+        List<PhotosResponseDto> photosResponseDtos = new ArrayList<>();
+        for (PhotosCourse course : photosCourse) {
+            photosResponseDtos.add(photosResponseMapper.toDto(course));
+        }
+        courseResponseDto.setPhotosCourseDtos(photosResponseDtos);
         log.info("Данные которые получили с БД послек маппинга {}", courseResponseDto);
+
         return courseResponseDto;
     }
 }
