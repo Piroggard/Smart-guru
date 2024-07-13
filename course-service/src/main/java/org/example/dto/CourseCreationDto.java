@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseCreationDTO {
+public class CourseCreationDto {
 
     CourseRequestDto course;
     AddressRequestDto address;

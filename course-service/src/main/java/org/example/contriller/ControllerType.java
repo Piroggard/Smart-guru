@@ -20,7 +20,7 @@ public class ControllerType {
 
     @GetMapping
     public List<TypeEnum> getType() {
-        log.info("Метод getType");
+        log.info("Received a request for a list of Type");
         return typeService.getType();
     }
 }

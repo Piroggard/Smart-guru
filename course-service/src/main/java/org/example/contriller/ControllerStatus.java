@@ -20,7 +20,7 @@ public class ControllerStatus {
 
     @GetMapping
     public List<StatusEnum> getStatus() {
-        log.info("Метод getStatus");
+        log.info("Received a request for a list of Status");
         return statusService.getStatus();
     }
 }

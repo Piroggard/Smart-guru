@@ -34,10 +34,9 @@ public class CurseService {
     private final AddressResponseMapper addressResponseMapper;
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public UUID createCourse(CourseCreationDTO courseCreationDTO) {
-        log.info("Данные которые сохраняем в БД{}", courseCreationDTO);
+    public UUID createCourse(CourseCreationDto courseCreationDTO) {
         Course course = mapperCurseDB.toCourse(courseCreationDTO.getCourse());
-        log.info("Данные которые сохраняем в БД после маппинга {}", course);
+        log.info("Data that we save in the database after mapping {}", course);
         UUID idCourse = repositoryCourse.save(course).getId();
         AddressRequestDto addressRequestDto = courseCreationDTO.getAddress();
         addressRequestDto.setCourseId(idCourse);
@@ -47,23 +46,19 @@ public class CurseService {
             photo.setCourseId(idCourse);
             photosCourses.add(photosMapper.toPhotosCourse(photo));
         }
-        log.info("Данные фото которые сохраняем в БД {}", photosCourses);
         repositoryPhotos.saveAll(photosCourses);
         TechnologyRequestDto technologyRequestDto = courseCreationDTO.getTechnology();
         technologyRequestDto.setCourseId(idCourse);
-        log.info("Данные технологии до маппинга {}", technologyRequestDto);
+        log.info("Data that we save in the database after mapping {}", technologyRequestDto);
         Technology technology = technologyMapper.toTechnology(technologyRequestDto);
-        log.info("Данные технологии которые сохраняем в БД {}", technology);
         repositoryTechnology.save(technology);
         return idCourse;
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID updateCourse(CourseUpdarionDto courseUpdarionDto) {
-        log.info("Данные которые обновляются в БД{}", courseUpdarionDto);
         Optional<Course> course1 = repositoryCourse.findById(courseUpdarionDto.getCourse().getId());
         Optional<Organizer> organizer = repositoryOrganizer.findById(course1.get().getOrganizerId().getId());
-        log.info("Данные Организации  {}", organizer.get());
         Course course = Course.builder()
                 .id(courseUpdarionDto.getCourse().getId())
                 .name(courseUpdarionDto.getCourse().getName())
@@ -80,7 +75,7 @@ public class CurseService {
                 .certificate(courseUpdarionDto.getCourse().getCertificate())
                 .organizerId(organizer.get())
                 .delete(courseUpdarionDto.getCourse().getDelete()).build();
-        log.info("Данные которые сохраняем в БД после маппинга {}", course);
+        log.info("Data that we save in the database after mapping {}", course);
         AdressCourse adressCourse = AdressCourse.builder()
                 .id(courseUpdarionDto.getAddress().getId())
                 .courseId(courseUpdarionDto.getCourse().getId())
@@ -114,13 +109,11 @@ public class CurseService {
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void deleteCourse(UUID courseId) {
-        log.info("Метод deleteCourse {}", courseId);
         repositoryCourse.deleteById(courseId);
     }
 
     @Transactional
     public CourseResponseDto getCourses(UUID courseId) {
-        log.info("Метод getCourses {}", courseId);
         CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(repositoryCourse.findById(courseId).get());
         courseResponseDto.setAddress(addressResponseMapper.toDto(repositoryAddress.findAdressCourseByCourseId(courseId)));
         courseResponseDto.setTechnology(technologyResponseMapper.toDto(repositoryTechnology.findTechnologiesByCourseId(courseId)));
@@ -130,7 +123,7 @@ public class CurseService {
             photosResponseDtos.add(photosResponseMapper.toDto(course));
         }
         courseResponseDto.setPhotos(photosResponseDtos);
-        log.info("Данные которые получили с БД послек маппинга {}", courseResponseDto);
+        log.info("Data received from the database after mapping {}", courseResponseDto);
         return courseResponseDto;
     }
 }

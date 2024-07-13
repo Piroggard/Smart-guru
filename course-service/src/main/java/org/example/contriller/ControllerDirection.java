@@ -20,7 +20,7 @@ public class ControllerDirection {
 
     @GetMapping
     public List<DirectionEnum> getDirection() {
-        log.info("Метод getDirection");
+        log.info("Received a request for a list of Direction");
         return directionService.getDirection();
     }
 }
