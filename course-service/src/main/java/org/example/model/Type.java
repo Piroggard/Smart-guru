@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.example.enam.TypeEnum;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+
 import java.util.UUID;
 
 @Entity

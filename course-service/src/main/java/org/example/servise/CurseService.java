@@ -36,10 +36,10 @@ public class CurseService {
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID createCourse(CourseCreationDTO courseCreationDTO) {
         log.info("Данные которые сохраняем в БД{}", courseCreationDTO);
-        Course course = mapperCurseDB.toCourse(courseCreationDTO.getCourseRequestDto());
+        Course course = mapperCurseDB.toCourse(courseCreationDTO.getCourse());
         log.info("Данные которые сохраняем в БД после маппинга {}", course);
         UUID idCourse = repositoryCourse.save(course).getId();
-        AddressRequestDto addressRequestDto = courseCreationDTO.getAddressRequestDto();
+        AddressRequestDto addressRequestDto = courseCreationDTO.getAddress();
         addressRequestDto.setCourseId(idCourse);
         repositoryAddress.save(addressMapper.toAdressCourse(addressRequestDto));
         List<PhotosCourse> photosCourses = new ArrayList<>();
@@ -61,49 +61,49 @@ public class CurseService {
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID updateCourse(CourseUpdarionDto courseUpdarionDto) {
         log.info("Данные которые обновляются в БД{}", courseUpdarionDto);
-        Optional<Course> course1 = repositoryCourse.findById(courseUpdarionDto.getCourseUpdateDto().getId());
+        Optional<Course> course1 = repositoryCourse.findById(courseUpdarionDto.getCourse().getId());
         Optional<Organizer> organizer = repositoryOrganizer.findById(course1.get().getOrganizerId().getId());
         log.info("Данные Организации  {}", organizer.get());
         Course course = Course.builder()
-                .id(courseUpdarionDto.getCourseUpdateDto().getId())
-                .name(courseUpdarionDto.getCourseUpdateDto().getName())
-                .url(courseUpdarionDto.getCourseUpdateDto().getUrl())
-                .type(courseUpdarionDto.getCourseUpdateDto().getType())
-                .numberSeats(courseUpdarionDto.getCourseUpdateDto().getNumberSeats())
-                .price(courseUpdarionDto.getCourseUpdateDto().getPrice())
-                .photoProfile(courseUpdarionDto.getCourseUpdateDto().getPhotoProfile())
-                .direction(courseUpdarionDto.getCourseUpdateDto().getDirection())
-                .description(courseUpdarionDto.getCourseUpdateDto().getDescription())
-                .duration(courseUpdarionDto.getCourseUpdateDto().getDuration())
-                .status(courseUpdarionDto.getCourseUpdateDto().getStatus())
-                .whatLearn(courseUpdarionDto.getCourseUpdateDto().getWhatLearn())
-                .certificate(courseUpdarionDto.getCourseUpdateDto().getCertificate())
+                .id(courseUpdarionDto.getCourse().getId())
+                .name(courseUpdarionDto.getCourse().getName())
+                .url(courseUpdarionDto.getCourse().getUrl())
+                .type(courseUpdarionDto.getCourse().getType())
+                .numberSeats(courseUpdarionDto.getCourse().getNumberSeats())
+                .price(courseUpdarionDto.getCourse().getPrice())
+                .photoProfile(courseUpdarionDto.getCourse().getPhotoProfile())
+                .direction(courseUpdarionDto.getCourse().getDirection())
+                .description(courseUpdarionDto.getCourse().getDescription())
+                .duration(courseUpdarionDto.getCourse().getDuration())
+                .status(courseUpdarionDto.getCourse().getStatus())
+                .whatLearn(courseUpdarionDto.getCourse().getWhatLearn())
+                .certificate(courseUpdarionDto.getCourse().getCertificate())
                 .organizerId(organizer.get())
-                .delete(courseUpdarionDto.getCourseUpdateDto().getDelete()).build();
+                .delete(courseUpdarionDto.getCourse().getDelete()).build();
         log.info("Данные которые сохраняем в БД после маппинга {}", course);
         AdressCourse adressCourse = AdressCourse.builder()
-                .id(courseUpdarionDto.getAddressUpdateRequestDto().getId())
-                .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
-                .country(courseUpdarionDto.getAddressUpdateRequestDto().getCountry())
-                .city(courseUpdarionDto.getAddressUpdateRequestDto().getCity())
-                .street(courseUpdarionDto.getAddressUpdateRequestDto().getStreet())
-                .house(courseUpdarionDto.getAddressUpdateRequestDto().getHouse())
-                .district(courseUpdarionDto.getAddressUpdateRequestDto().getDistrict())
-                .delete(courseUpdarionDto.getAddressUpdateRequestDto().getDelete())
+                .id(courseUpdarionDto.getAddress().getId())
+                .courseId(courseUpdarionDto.getCourse().getId())
+                .country(courseUpdarionDto.getAddress().getCountry())
+                .city(courseUpdarionDto.getAddress().getCity())
+                .street(courseUpdarionDto.getAddress().getStreet())
+                .house(courseUpdarionDto.getAddress().getHouse())
+                .district(courseUpdarionDto.getAddress().getDistrict())
+                .delete(courseUpdarionDto.getAddress().getDelete())
                 .build();
         repositoryAddress.save(adressCourse);
         Technology technology = Technology.builder()
                 .id(courseUpdarionDto.getTechnology().getId())
                 .name(courseUpdarionDto.getTechnology().getName())
                 .photo(courseUpdarionDto.getTechnology().getPhoto())
-                .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
+                .courseId(courseUpdarionDto.getCourse().getId())
                 .build();
         repositoryTechnology.save(technology);
         List<PhotosCourse> photosCourses = new ArrayList<>();
         for (PhotosUpdateCourseDto photo : courseUpdarionDto.getPhotos()) {
             PhotosCourse photosCourse = PhotosCourse.builder()
                     .id(photo.getId())
-                    .courseId(courseUpdarionDto.getCourseUpdateDto().getId())
+                    .courseId(courseUpdarionDto.getCourse().getId())
                     .photo(photo.getPhoto())
                     .build();
             photosCourses.add(photosCourse);
@@ -122,14 +122,14 @@ public class CurseService {
     public CourseResponseDto getCourses(UUID courseId) {
         log.info("Метод getCourses {}", courseId);
         CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(repositoryCourse.findById(courseId).get());
-        courseResponseDto.setAddressRequestDto(addressResponseMapper.toDto(repositoryAddress.findAdressCourseByCourseId(courseId)));
+        courseResponseDto.setAddress(addressResponseMapper.toDto(repositoryAddress.findAdressCourseByCourseId(courseId)));
         courseResponseDto.setTechnology(technologyResponseMapper.toDto(repositoryTechnology.findTechnologiesByCourseId(courseId)));
         List<PhotosCourse> photosCourse = repositoryPhotos.findAllByCourseId(courseId);
         List<PhotosResponseDto> photosResponseDtos = new ArrayList<>();
         for (PhotosCourse course : photosCourse) {
             photosResponseDtos.add(photosResponseMapper.toDto(course));
         }
-        courseResponseDto.setPhotosCourseDtos(photosResponseDtos);
+        courseResponseDto.setPhotos(photosResponseDtos);
         log.info("Данные которые получили с БД послек маппинга {}", courseResponseDto);
         return courseResponseDto;
     }

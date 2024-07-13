@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 import org.example.enam.DirectionEnum;
 import org.example.enam.StatusEnum;
 import org.example.enam.TypeEnum;
+
 import java.util.List;
 import java.util.UUID;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class CourseResponseDto {
     private OrganizerDto organizerId;
     private Boolean certificate;
     private Boolean delete;
-    private AddressResponseDto addressRequestDto;
-    private List<PhotosResponseDto> photosCourseDtos;
+    private AddressResponseDto address;
+    private List<PhotosResponseDto> photos;
     private TechnologyResponseDto technology;
 }

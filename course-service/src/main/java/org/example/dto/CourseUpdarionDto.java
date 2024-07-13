@@ -6,14 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseUpdarionDto {
 
-    CourseUpdateDto courseUpdateDto;
-    AddressUpdateRequestDto addressUpdateRequestDto;
+    CourseUpdateDto course;
+    AddressUpdateRequestDto address;
     List<PhotosUpdateCourseDto> photos;
     TechnologyUpdateRequestDto technology;
 }

@@ -8,5 +8,5 @@ import org.mapstruct.Mapper;
 
 public interface PhotosResponseMapper {
 
-    PhotosResponseDto toDto (PhotosCourse photosCourse);
+    PhotosResponseDto toDto(PhotosCourse photosCourse);
 }

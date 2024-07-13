@@ -5,7 +5,7 @@ import org.example.model.Course;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CourseMapperUpdate {
+public interface CourseUpdateMapper {
 
     Course toCourse(CourseRequestUpdateDto courseRequestUpdateDto);
 }

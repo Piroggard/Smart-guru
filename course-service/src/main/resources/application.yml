@@ -11,4 +11,10 @@ spring:
     username: smart-guru
     password: i-know-pass
 
-
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enable: true
+  show-actuator: true

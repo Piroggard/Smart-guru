@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface TechnologyResponseMapper {
 
-    TechnologyResponseDto toDto (Technology technology);
+    TechnologyResponseDto toDto(Technology technology);
 }
