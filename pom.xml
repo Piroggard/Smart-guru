@@ -33,6 +33,7 @@
         <module>notification-service</module>
         <module>course-service</module>
         <module>database-service</module>
+        <module>certificate-service</module>
     </modules>
 
     <dependencyManagement>
