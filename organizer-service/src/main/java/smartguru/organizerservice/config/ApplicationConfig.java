@@ -1,7 +1,6 @@
-package org.example.config;
+package smartguru.organizerservice.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,13 +11,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
+import smartguru.organizerservice.repository.OrganizerRepository;
 
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserRepository userRepository;
+    private final OrganizerRepository organizerRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,10 +30,9 @@ public class ApplicationConfig {
     }
 
     @Bean
-    @Transactional(readOnly = true)
     public UserDetailsService userDetailsService() throws UsernameNotFoundException {
-        return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email=%s is not found in DB", username)));
+        return username -> organizerRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Organizer with email=%s is not found in DB", username)));
     }
 
     @Bean

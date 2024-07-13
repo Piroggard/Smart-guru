@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +42,7 @@ public class UserController {
 
     @Operation(summary = "Create user", description = "Method can be used by the admin",
             method = "POST")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UUID createUser(@Valid @RequestBody UserDto userDto) {
@@ -53,26 +54,25 @@ public class UserController {
             method = "GET")
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable UUID id) {
-        log.info("Received request to get user with uuid={}", id);
+        log.debug("Received request to get user with uuid={}", id);
         return userService.getUser(id);
     }
 
-    @Operation(summary = "Delete user by id", description = "Method can be used by the user himself or by the admin",
+    @Operation(summary = "Delete user by id",
+            description = "Method can be used by the user himself or by the admin. Uri has required param 'soft-delete'",
             method = "DELETE")
-    @PreAuthorize("hasRole('ADMIN') or @userAuthFacade.isIdMatch(#id)")
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable UUID id) {
+    public void deleteUser(@PathVariable UUID id, @RequestParam("soft-delete") boolean isSoftDelete) {
         log.info("Received request to delete user with uuid={}", id);
-        userService.deleteUser(id);
+        userService.deleteUser(id, isSoftDelete);
     }
 
     @Operation(summary = "Update user by id", description = "Method can be used by the user himself or by the admin",
             method = "PUT")
-    @PreAuthorize("hasRole('ADMIN') or @userAuthFacade.isIdMatch(#id)")
-    @PutMapping
-    public UserDto updateUser(@Valid @RequestBody UserDto userDto) {
-        log.info("Received request to update user with uuid={}", userDto.getId());
-        return userService.updateUser(userDto);
+    @PutMapping("/{id}")
+    public UserDto updateUser(@Valid @PathVariable UUID id, @RequestBody UserDto userDto) {
+        log.info("Received request to update user with uuid={}", id);
+        return userService.updateUser(id, userDto);
     }
 
     @Operation(summary = "Get all users", description = "Return list of users or empty list",
