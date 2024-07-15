@@ -18,6 +18,7 @@ public class CertificateDto {
     private UUID id;
     private UUID userId;
     private  UUID courseId;
+    private  UUID organizerId;
     private String name;
     private String number;
     private String photoCertificate;
