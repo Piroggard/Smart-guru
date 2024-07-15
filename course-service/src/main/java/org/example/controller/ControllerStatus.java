@@ -1,4 +1,4 @@
-package org.example.contriller;
+package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/status")
+@RequestMapping("/api/v1/statuses")
 public class ControllerStatus {
 
     private final StatusService statusService;

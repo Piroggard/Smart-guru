@@ -3,7 +3,6 @@ package org.example.servise;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.enam.DirectionEnum;
-import org.example.enam.StatusEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

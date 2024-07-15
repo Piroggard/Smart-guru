@@ -1,9 +1,9 @@
-package org.example.contriller;
+package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.*;
-import org.example.servise.CurseService;
+import org.example.servise.CourseService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -12,31 +12,31 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/courses")
-public class CourseController {
+public class ControllerCourse {
 
-    private final CurseService curseService;
+    private final CourseService courseService;
 
     @PostMapping
     public UUID createCourse(@RequestBody CourseCreationDto course) {
         log.info("Request to create a course received {}", course.getCourse().getName());
-        return curseService.createCourse(course);
+        return courseService.createCourse(course);
     }
 
     @PatchMapping
-    public UUID updateCourse(@RequestBody CourseUpdarionDto courseUpdarionDto) {
+    public UUID updateCourse(@RequestBody CourseUpdateRequestDto courseUpdarionDto) {
         log.info("Request for course update received {}", courseUpdarionDto.getCourse().getName());
-        return curseService.updateCourse(courseUpdarionDto);
+        return courseService.updateCourse(courseUpdarionDto);
     }
 
     @DeleteMapping("/{courseId}")
     public void deleteCourse(@PathVariable UUID courseId) {
         log.info("Received a request to delete a course {}", courseId);
-        curseService.deleteCourse(courseId);
+        courseService.deleteCourse(courseId);
     }
 
     @GetMapping("/{courseId}")
     public CourseResponseDto getCourses(@PathVariable UUID courseId) {
         log.info("Request for detailed course information received {}", courseId);
-        return curseService.getCourses(courseId);
+        return courseService.getCourses(courseId);
     }
 }

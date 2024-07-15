@@ -39,11 +39,11 @@ public class Organizer {
     private String role;
 
     @Column(name = "date_create", nullable = false)
-    private LocalDateTime date_create; //Дата создания курса
+    private LocalDateTime dateCreate; //Дата создания курса
 
     @Column(name = "date_update", nullable = false)
-    private LocalDateTime date_update;// Время обновления
+    private LocalDateTime dateUpdate; // Время обновления
 
     @Column(name = "delete", nullable = false)
-    private Boolean detelete;
+    private Boolean delete;
 }

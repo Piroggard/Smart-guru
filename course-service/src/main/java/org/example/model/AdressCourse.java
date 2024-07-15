@@ -28,8 +28,8 @@ public class AdressCourse {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "course_id", nullable = false)
-    private UUID courseId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    private Course course;
 
     @Column(name = "country", nullable = false)
     private String country;
@@ -59,5 +59,4 @@ public class AdressCourse {
     @CreatedDate
     @Column(name = "date_create", nullable = true, updatable = false)
     private LocalDateTime dateCreate;
-
 }

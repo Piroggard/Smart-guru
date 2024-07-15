@@ -17,13 +17,13 @@ import java.util.UUID;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class CurseService {
+public class CourseService {
 
-    private final RepositoryCourse repositoryCourse;
-    private final RepositoryAddress repositoryAddress;
-    private final RepositoryPhotos repositoryPhotos;
-    private final RepositoryTechnology repositoryTechnology;
-    private final RepositoryOrganizer repositoryOrganizer;
+    private final CourseRepository repositoryCourse;
+    private final AdressRepository repositoryAddress;
+    private final PhotosRepository repositoryPhotos;
+    private final TechnologyRepository repositoryTechnology;
+    private final OrganizerRepository repositoryOrganizer;
     private final CourseMapper mapperCurseDB;
     private final CourseResponseMapper courseResponseMapper;
     private final AddressMapper addressMapper;
@@ -36,11 +36,20 @@ public class CurseService {
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID createCourse(CourseCreationDto courseCreationDTO) {
         Course course = mapperCurseDB.toCourse(courseCreationDTO.getCourse());
-        log.info("Data that we save in the database after mapping {}", course);
+        //log.info("Data that we save in the database after mapping {}", course);
+        log.info("Данные курса для БД {}", course);
         UUID idCourse = repositoryCourse.save(course).getId();
+
+
         AddressRequestDto addressRequestDto = courseCreationDTO.getAddress();
-        addressRequestDto.setCourseId(idCourse);
-        repositoryAddress.save(addressMapper.toAdressCourse(addressRequestDto));
+        Optional<Course> cours = repositoryCourse.findById(idCourse);
+
+        AdressCourse adressCourse = addressMapper.toAdressCourse(addressRequestDto);
+        adressCourse.setCourse(cours.get());
+        log.info("Данные адресса для БД {}", adressCourse);
+        repositoryAddress.save(adressCourse);
+
+
         List<PhotosCourse> photosCourses = new ArrayList<>();
         for (PhotosCourseDto photo : courseCreationDTO.getPhotos()) {
             photo.setCourseId(idCourse);
@@ -56,8 +65,8 @@ public class CurseService {
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public UUID updateCourse(CourseUpdarionDto courseUpdarionDto) {
-        Optional<Course> course1 = repositoryCourse.findById(courseUpdarionDto.getCourse().getId());
+    public UUID updateCourse(CourseUpdateRequestDto courseUpdarionDto) {
+        /*Optional<Course> course1 = repositoryCourse.findById(courseUpdarionDto.getCourse().getId());
         Optional<Organizer> organizer = repositoryOrganizer.findById(course1.get().getOrganizerId().getId());
         Course course = Course.builder()
                 .id(courseUpdarionDto.getCourse().getId())
@@ -78,7 +87,7 @@ public class CurseService {
         log.info("Data that we save in the database after mapping {}", course);
         AdressCourse adressCourse = AdressCourse.builder()
                 .id(courseUpdarionDto.getAddress().getId())
-                .courseId(courseUpdarionDto.getCourse().getId())
+                //.courseId(courseUpdarionDto.getCourse().getId())
                 .country(courseUpdarionDto.getAddress().getCountry())
                 .city(courseUpdarionDto.getAddress().getCity())
                 .street(courseUpdarionDto.getAddress().getStreet())
@@ -104,18 +113,27 @@ public class CurseService {
             photosCourses.add(photosCourse);
         }
         repositoryPhotos.saveAll(photosCourses);
-        return repositoryCourse.save(course).getId();
+        return repositoryCourse.save(course).getId();*/
+        return null;
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void deleteCourse(UUID courseId) {
-        repositoryCourse.deleteById(courseId);
+        /*Optional<Course> course = repositoryCourse.findById(courseId);
+        course.get().setDelete(true);
+        repositoryCourse.save(course.get());
+        AdressCourse adressCourse = repositoryAddress.findAdressCourseByCourseId(course.get());
+        adressCourse.setDelete(true);
+        repositoryAddress.save(adressCourse);
+*/
+
     }
 
     @Transactional
     public CourseResponseDto getCourses(UUID courseId) {
+       /* Optional<Course> course2 = repositoryCourse.findById(courseId);
         CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(repositoryCourse.findById(courseId).get());
-        courseResponseDto.setAddress(addressResponseMapper.toDto(repositoryAddress.findAdressCourseByCourseId(courseId)));
+        courseResponseDto.setAddress(addressResponseMapper.toDto(repositoryAddress.findAdressCourseByCourseId(course2.get())));
         courseResponseDto.setTechnology(technologyResponseMapper.toDto(repositoryTechnology.findTechnologiesByCourseId(courseId)));
         List<PhotosCourse> photosCourse = repositoryPhotos.findAllByCourseId(courseId);
         List<PhotosResponseDto> photosResponseDtos = new ArrayList<>();
@@ -124,6 +142,8 @@ public class CurseService {
         }
         courseResponseDto.setPhotos(photosResponseDtos);
         log.info("Data received from the database after mapping {}", courseResponseDto);
-        return courseResponseDto;
+        return courseResponseDto;*/
+
+        return null;
     }
 }

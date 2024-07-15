@@ -28,7 +28,7 @@ public class CourseRequestUpdateDto {
     private String duration;
     private StatusEnum status;
     private String whatLearn;
-    private OrganizerDto organizerId;
+    private OrganizerDto organizer;
     private Boolean certificate;
     private Boolean delete;
 }
