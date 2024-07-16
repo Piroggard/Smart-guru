@@ -16,5 +16,4 @@ public class TechnologyUpdateRequestDto {
     private UUID id;
     private String name;
     private String photo;
-    private UUID courseId;
 }

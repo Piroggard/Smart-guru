@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface AdressRepository extends JpaRepository<AdressCourse, UUID> {
 
-    AdressCourse findAdressCourseByCourseId(Course course);
+    AdressCourse findAdressCourseByCourse(Course course);
 }

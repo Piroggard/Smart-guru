@@ -31,6 +31,6 @@ public class Technology {
     @Column(name = "photo", nullable = false)
     private String photo;
 
-    @Column(name = "course_id", nullable = false)
-    private UUID courseId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    private Course course;
 }

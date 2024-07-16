@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.model.Course;
 
 import java.util.UUID;
 
@@ -13,5 +14,5 @@ import java.util.UUID;
 @Builder
 public class PhotosCourseDto {
     private String photo;
-    private UUID courseId;
+    private Course course;
 }

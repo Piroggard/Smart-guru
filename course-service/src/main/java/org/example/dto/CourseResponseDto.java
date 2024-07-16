@@ -29,9 +29,7 @@ public class CourseResponseDto {
     private String duration;
     private StatusEnum status;
     private String whatLearn;
-    private OrganizerDto organizerId;
     private Boolean certificate;
-    private Boolean delete;
     private AddressResponseDto address;
     private List<PhotosResponseDto> photos;
     private TechnologyResponseDto technology;
