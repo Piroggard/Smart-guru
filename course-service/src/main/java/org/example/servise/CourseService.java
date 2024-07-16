@@ -9,10 +9,7 @@ import org.example.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @AllArgsConstructor
@@ -37,7 +34,7 @@ public class CourseService {
     public UUID createCourse(CourseCreationDto courseCreationDTO) {
         Course course = courseMapper.toCourse(courseCreationDTO.getCourse());
         log.info("Data that we save in the database after mapping {}", course);
-        Course savedCourse   = courseRepository.save(course);
+        Course savedCourse = courseRepository.save(course);
         AddressRequestDto addressRequestDto = courseCreationDTO.getAddress();
         AdressCourse adressCourse = addressMapper.toAdressCourse(addressRequestDto);
         adressCourse.setCourse(savedCourse);
@@ -58,8 +55,8 @@ public class CourseService {
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID updateCourse(CourseUpdateRequestDto courseUpdarionDto) {
-        Optional<Course> course1 = courseRepository.findById(courseUpdarionDto.getCourse().getId());
-        Optional<Organizer> organizer = repositoryOrganizer.findById(course1.get().getOrganizerId().getId());
+        Course existingCourse  = findCourseById(courseUpdarionDto.getCourse().getId());
+        Organizer organizer = findOrganizerById(existingCourse.getOrganizerId().getId());
         Course course = Course.builder()
                 .id(courseUpdarionDto.getCourse().getId())
                 .name(courseUpdarionDto.getCourse().getName())
@@ -74,7 +71,7 @@ public class CourseService {
                 .status(courseUpdarionDto.getCourse().getStatus())
                 .whatLearn(courseUpdarionDto.getCourse().getWhatLearn())
                 .certificate(courseUpdarionDto.getCourse().getCertificate())
-                .organizerId(organizer.get())
+                .organizerId(organizer)
                 .build();
         log.info("Data that we save in the database after mapping {}", course);
         AdressCourse adressCourse = AdressCourse.builder()
@@ -109,48 +106,42 @@ public class CourseService {
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void deleteCourse(UUID courseId) {
-        /*Optional<Course> course = repositoryCourse.findById(courseId);
-        course.get().setDelete(true);
-        repositoryCourse.save(course.get());
-        AdressCourse adressCourse = repositoryAddress.findAdressCourseByCourseId(course.get());
+        Course course = findCourseById(courseId);
+        course.setDelete(true);
+        courseRepository.save(course);
+        AdressCourse adressCourse = adressRepository.findAdressCourseByCourse(course);
         adressCourse.setDelete(true);
-        repositoryAddress.save(adressCourse);
-*/
-
+        adressRepository.save(adressCourse);
     }
 
     @Transactional
     public CourseResponseDto getCourses(UUID courseId) {
-        Optional<Course> course = courseRepository.findById(courseId);
+        Course course = findCourseById(courseId);
         CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(courseRepository.findById(courseId).get());
         log.info("Data received from the database after mapping {}", courseResponseDto);
-        AdressCourse adressCourse = adressRepository.findAdressCourseByCourse(course.get());
+        AdressCourse adressCourse = adressRepository.findAdressCourseByCourse(course);
         log.info("адрес с базы данных {}", adressCourse);
         courseResponseDto.setAddress(addressResponseMapper.toDto(adressCourse));
         log.info("адрес после маппинга {}", courseResponseDto);
-
-        courseResponseDto.setTechnology(technologyResponseMapper.toDto(technologyRepository.findTechnologiesByCourse(course.get())));
+        courseResponseDto.setTechnology(technologyResponseMapper.toDto(technologyRepository.findTechnologiesByCourse(course)));
         log.info("Data received from the database after mapping {}", courseResponseDto);
-        List<PhotosCourse> photosCourse = photosRepository.findAllByCourse(course.get());
-        List<PhotosResponseDto> photosResponseDtos = new ArrayList<>();
+        List<PhotosCourse> photosCourse = photosRepository.findAllByCourse(course);
+        List<PhotosResponseDto> photosResponseDto = new ArrayList<>();
         for (PhotosCourse photo : photosCourse) {
-            photosResponseDtos.add(photosResponseMapper.toDto(photo));
+            photosResponseDto.add(photosResponseMapper.toDto(photo));
         }
-        courseResponseDto.setPhotos(photosResponseDtos);
+        courseResponseDto.setPhotos(photosResponseDto);
         log.info("Data received from the database after mapping {}", courseResponseDto);
         return courseResponseDto;
+    }
 
+    private Course findCourseById(UUID id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Course not found with id: " + id));
+    }
+
+    private Organizer findOrganizerById(UUID id) {
+        return repositoryOrganizer.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Organizer not found with id: " + id));
     }
 }
-
-
-/*
-        courseResponseDto.setTechnology(technologyResponseMapper.toDto(technologyRepository.findTechnologiesByCourseId(courseId)));
-        log.info("Data received from the database after mapping {}", courseResponseDto);
-        List<PhotosCourse> photosCourse = photosRepository.findAllByCourseId(courseId);
-        List<PhotosResponseDto> photosResponseDtos = new ArrayList<>();
-        for (PhotosCourse photo : photosCourse) {
-            photosResponseDtos.add(photosResponseMapper.toDto(photo));
-        }
-        courseResponseDto.setPhotos(photosResponseDtos);
-        log.info("Data received from the database after mapping {}", courseResponseDto);*/
