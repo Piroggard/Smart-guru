@@ -31,7 +31,6 @@ public class AdresService {
                 .district(address.getDistrict())
                 .build();
         adressRepository.save(adressCourse);
-        log.info("Обновляем " , adressCourse);
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
@@ -51,7 +50,6 @@ public class AdresService {
         AdressCourse adressCourse = addressMapper.toAdressCourse(address);
         adressCourse.setCourse(course);
         adressCourse.setDelete(false);
-        log.info("Сохраняем " +  adressCourse);
         adressRepository.save(adressCourse);
     }
 }
