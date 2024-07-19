@@ -19,5 +19,4 @@ public class AddressResponseDto {
     private String street;
     private String house;
     private String district;
-    private Boolean delete;
 }

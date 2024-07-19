@@ -17,13 +17,12 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Table(name = "type")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Type {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false)
     private UUID id;
 
     @Enumerated(EnumType.STRING)

@@ -16,21 +16,21 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Table(name = "technologies")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Technology {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false)
     private UUID id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     private String photo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 }

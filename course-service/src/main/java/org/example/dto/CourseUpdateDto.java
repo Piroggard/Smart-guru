@@ -29,5 +29,4 @@ public class CourseUpdateDto {
     private StatusEnum status;
     private String whatLearn;
     private Boolean certificate;
-    private Boolean delete;
 }

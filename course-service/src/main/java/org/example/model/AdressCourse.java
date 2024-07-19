@@ -19,44 +19,43 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Table(name = "address_courses")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AdressCourse {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     private Course course;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country")
     private String country;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "street", nullable = true)
+    @Column(name = "street")
     private String street;
 
-    @Column(name = "house", nullable = true)
+    @Column(name = "house")
     private String house;
 
-    @Column(name = "district", nullable = true)
+    @Column(name = "district")
     private String district;
 
-    @Column(name = "delete", nullable = true)
+    @Column(name = "delete")
     private Boolean delete;
 
-    @Column(name = "date_delete", nullable = true)
+    @Column(name = "date_delete")
     private LocalDateTime dateDelete;
 
     @LastModifiedDate
-    @Column(name = "date_update", nullable = true)
+    @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
     @CreatedDate
-    @Column(name = "date_create", nullable = true, updatable = false)
+    @Column(name = "date_create", updatable = false)
     private LocalDateTime dateCreate;
 }

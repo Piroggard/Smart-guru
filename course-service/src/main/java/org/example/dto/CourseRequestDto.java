@@ -24,5 +24,4 @@ public class CourseRequestDto {
     private String whatLearn;
     private OrganizerDto organizerId;
     private Boolean certificate;
-    private Boolean delete;
 }

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.model.Course;
 
-import java.util.UUID;
 
 @Data
 @Builder
@@ -20,5 +19,4 @@ public class AddressRequestDto {
     private String street;
     private String house;
     private String district;
-    private Boolean delete;
 }

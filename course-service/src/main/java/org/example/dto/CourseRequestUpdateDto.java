@@ -30,5 +30,4 @@ public class CourseRequestUpdateDto {
     private String whatLearn;
     private OrganizerDto organizer;
     private Boolean certificate;
-    private Boolean delete;
 }

@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class CourseUpdateRequestDto {
 
-    CourseUpdateDto course;
-    AddressUpdateRequestDto address;
-    List<PhotosUpdateCourseDto> photos;
-    TechnologyUpdateRequestDto technology;
+    private CourseUpdateDto course;
+    private AddressUpdateRequestDto address;
+    private List<PhotosUpdateCourseDto> photos;
+    private TechnologyUpdateRequestDto technology;
 }

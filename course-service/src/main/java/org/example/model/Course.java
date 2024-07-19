@@ -5,8 +5,10 @@ import lombok.experimental.FieldDefaults;
 import org.example.enam.DirectionEnum;
 import org.example.enam.StatusEnum;
 import org.example.enam.TypeEnum;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -22,7 +24,6 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Table(name = "courses")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class Course {
     @Id
@@ -32,65 +33,65 @@ public class Course {
     private UUID id;
 
     @Column(name = "name", nullable = false)
-    private String name; // Название курса
+    private String name;
 
     @Column(name = "url", nullable = false)
     private String url;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "type", nullable = true)
-    private TypeEnum type; //Тип курса
+    @JoinColumn(name = "type")
+    private TypeEnum type;
 
-    @Column(name = "number_seats", nullable = true)
-    private Long numberSeats; // количество мест
+    @Column(name = "number_seats")
+    private Long numberSeats;
 
-    @Column(name = "price", nullable = true)
-    private Long price; //Цена курса
+    @Column(name = "price")
+    private Long price;
 
-    @Column(name = "photo_profile", nullable = true)
-    private String photoProfile; // фото профиля
+    @Column(name = "photo_profile")
+    private String photoProfile;
 
-    @Column(name = "description", nullable = true)
-    private String description; // Описание курса
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "direction", nullable = true)
-    private DirectionEnum direction; // направление
-
-    @Column(name = "duration", nullable = true)
-    private String duration; // продолжительность
+    @Column(name = "description")
+    private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = true)
-    private StatusEnum status; // статус
+    @Column(name = "direction")
+    private DirectionEnum direction;
 
-    @Column(name = "what_learn", nullable = true)
-    private String whatLearn; // Чему научусь
+    @Column(name = "duration")
+    private String duration;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusEnum status;
+
+    @Column(name = "what_learn")
+    private String whatLearn;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "organizer_id", referencedColumnName = "id")
-    private Organizer organizerId; // ID организации
+    private Organizer organizerId;
 
-    @Column(name = "certificate", nullable = true)
-    private Boolean certificate; //Сертификат
+    @Column(name = "certificate")
+    private Boolean certificate;
 
-    @Column(name = "date_start_course", nullable = true)
-    private LocalDateTime dateStartCourse; //Дата начала курса
+    @Column(name = "date_start_course")
+    private LocalDateTime dateStartCourse;
 
-    @Column(name = "date_finish_course", nullable = true)
-    private LocalDateTime dateFinishCourse; //Дата окончания курса
+    @Column(name = "date_finish_course")
+    private LocalDateTime dateFinishCourse;
 
-    @Column(name = "delete", nullable = true)
-    private Boolean delete; //Признак удаленности
+    @Column(name = "delete")
+    private Boolean delete;
 
-    @Column(name = "date_delete", nullable = true)
-    private LocalDateTime dateDelete;// Время удаления
+    @Column(name = "date_delete")
+    private LocalDateTime dateDelete;
 
-    @CreatedDate
-    @Column(name = "date_create", nullable = true, updatable = false)
-    private LocalDateTime dateCreate; //Дата создания курса\
+    @CreationTimestamp
+    @Column(name = "date_create", updatable = false)
+    private LocalDateTime dateCreate;
 
-    @LastModifiedDate
-    @Column(name = "date_update", nullable = true)
-    private LocalDateTime dateUpdate;// Время обновления
+    @UpdateTimestamp
+    @Column(name = "date_update")
+    private LocalDateTime dateUpdate;
 }

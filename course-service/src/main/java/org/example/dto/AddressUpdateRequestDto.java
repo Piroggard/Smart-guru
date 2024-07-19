@@ -21,5 +21,4 @@ public class AddressUpdateRequestDto {
     private String street;
     private String house;
     private String district;
-    private Boolean delete;
 }

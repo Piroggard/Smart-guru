@@ -16,18 +16,18 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Table(name = "photos_courses")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PhotosCourse {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false)
     private UUID id;
 
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     private String photo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 }
