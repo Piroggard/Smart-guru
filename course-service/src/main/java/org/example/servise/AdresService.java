@@ -40,7 +40,6 @@ public class AdresService {
     public void deleteAddress (UUID courseId){
         AdressCourse adressCourse = adressRepository.findByCourseId(courseId);
         adressCourse.setDelete(true);
-        adressRepository.save(adressCourse);
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
