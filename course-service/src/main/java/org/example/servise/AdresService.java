@@ -11,6 +11,8 @@ import org.example.repository.AdressRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -19,28 +21,24 @@ public class AdresService {
     private final AddressMapper addressMapper;
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public void updateAddress( AddressUpdateRequestDto address, Course course) {
-        AdressCourse adressCourse = adressRepository.findAdressCourseByCourse(course);
-        adressCourse = AdressCourse.builder()
-                .id(address.getId())
-                .course(course)
-                .country(address.getCountry())
-                .city(address.getCity())
-                .street(address.getStreet())
-                .house(address.getHouse())
-                .district(address.getDistrict())
-                .build();
+    public void updateAddress(AddressUpdateRequestDto address, UUID courseId) {
+        AdressCourse adressCourse = adressRepository.findByCourseId(courseId);
+        adressCourse.setCountry(address.getCountry());
+        adressCourse.setCity(address.getCity());
+        adressCourse.setCity(address.getStreet());
+        adressCourse.setHouse(address.getHouse());
+        adressCourse.setDistrict(address.getDistrict());
         adressRepository.save(adressCourse);
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public AdressCourse getAddress (Course course){
-        return adressRepository.findAdressCourseByCourse(course);
+        return adressRepository.findByCourseId(course.getId());
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public void deleteAddress (Course course){
-        AdressCourse adressCourse = adressRepository.findAdressCourseByCourse(course);
+    public void deleteAddress (UUID courseId){
+        AdressCourse adressCourse = adressRepository.findByCourseId(courseId);
         adressCourse.setDelete(true);
         adressRepository.save(adressCourse);
     }
@@ -50,6 +48,5 @@ public class AdresService {
         AdressCourse adressCourse = addressMapper.toAdressCourse(address);
         adressCourse.setCourse(course);
         adressCourse.setDelete(false);
-        adressRepository.save(adressCourse);
     }
 }

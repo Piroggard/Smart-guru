@@ -11,9 +11,11 @@ import org.example.model.Course;
 import org.example.model.PhotosCourse;
 import org.example.repository.PhotosRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,6 +26,7 @@ public class PhotoService {
     private final PhotosRepository photosRepository;
     private final PhotosResponseMapper photosResponseMapper;
 
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void createPhoto(List<PhotosCourseDto> photos, Course course) {
         List<PhotosCourse> photosCourses = new ArrayList<>();
         for (PhotosCourseDto photo : photos) {
@@ -33,6 +36,7 @@ public class PhotoService {
         photosRepository.saveAll(photosCourses);
     }
 
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void updatePhoto(List<PhotosUpdateCourseDto> photosUpdateCourseDto, Course course) {
         List<PhotosCourse> photosCourses = new ArrayList<>();
         for (PhotosUpdateCourseDto photo : photosUpdateCourseDto) {
@@ -46,8 +50,9 @@ public class PhotoService {
         photosRepository.saveAll(photosCourses);
     }
 
-    public List<PhotosResponseDto> getPhoto(Course course) {
-        List<PhotosCourse> photosCourse = photosRepository.findAllByCourse(course);
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public List<PhotosResponseDto> getPhoto(UUID courseId) {
+        List<PhotosCourse> photosCourse = photosRepository.findAllByCourseId(courseId);
         List<PhotosResponseDto> photosResponseDto = new ArrayList<>();
         for (PhotosCourse photo : photosCourse) {
             photosResponseDto.add(photosResponseMapper.toDto(photo));

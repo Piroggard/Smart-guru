@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface TechnologyRepository extends JpaRepository<Technology, UUID> {
 
-    Technology findTechnologiesByCourse(Course course);
+    Technology findTechnologiesByCourseId(UUID courseId);
 }

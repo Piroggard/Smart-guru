@@ -2,8 +2,10 @@ package org.example.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -51,11 +53,11 @@ public class AdressCourse {
     @Column(name = "date_delete")
     private LocalDateTime dateDelete;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "date_create", updatable = false)
     private LocalDateTime dateCreate;
 }

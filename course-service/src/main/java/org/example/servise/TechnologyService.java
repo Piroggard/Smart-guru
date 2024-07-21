@@ -11,6 +11,9 @@ import org.example.model.Course;
 import org.example.model.Technology;
 import org.example.repository.TechnologyRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -20,24 +23,21 @@ public class TechnologyService {
     private final TechnologyMapper technologyMapper;
     private final TechnologyRepository technologyRepository;
     private final TechnologyResponseMapper technologyResponseMapper;
-
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void createTechnology (TechnologyRequestDto technologyRequestDto, Course course){
         Technology technology = technologyMapper.toTechnology(technologyRequestDto);
         technology.setCourse(course);
         technologyRepository.save(technology);
     }
 
-    public void updateTechnology (TechnologyUpdateRequestDto technologyUpdateRequestDto, Course course){
-        Technology technology = Technology.builder()
-                .id(technologyUpdateRequestDto.getId())
-                .course(course)
-                .name(technologyUpdateRequestDto.getName())
-                .photo(technologyUpdateRequestDto.getPhoto())
-                .build();
-        technologyRepository.save(technology);
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public void updateTechnology (TechnologyUpdateRequestDto technologyUpdateRequestDto, UUID courseId){
+        Technology technology = technologyRepository.findTechnologiesByCourseId(courseId);
+        technology.setName(technologyUpdateRequestDto.getName());
+        technology.setPhoto(technologyUpdateRequestDto.getPhoto());
     }
-
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public TechnologyResponseDto getTechnology (Course course){
-        return (technologyResponseMapper.toDto(technologyRepository.findTechnologiesByCourse(course)));
+        return (technologyResponseMapper.toDto(technologyRepository.findTechnologiesByCourseId(course.getId())));
     }
 }

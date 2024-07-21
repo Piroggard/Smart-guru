@@ -18,7 +18,6 @@ import java.util.*;
 public class CourseService {
 
     private final CourseRepository courseRepository;
-    private final OrganizerRepository repositoryOrganizer;
     private final CourseMapper courseMapper;
     private final CourseResponseMapper courseResponseMapper;
     private final AddressResponseMapper addressResponseMapper;
@@ -27,24 +26,22 @@ public class CourseService {
     private final TechnologyService technologyService;
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
-    public UUID createCourse(CourseCreationDto courseCreationDTO) {
-        Course course = courseMapper.toCourse(courseCreationDTO.getCourse());
+    public UUID createCourse(CourseCreationDto courseCreationDto) {
+        Course course = courseMapper.toCourse(courseCreationDto.getCourse());
         course.setDelete(false);
         Course savedCourse = courseRepository.save(course);
-        adresService.createAddress(courseCreationDTO.getAddress(), savedCourse);
-        photoService.createPhoto(courseCreationDTO.getPhotos(), course);
-        technologyService.createTechnology(courseCreationDTO.getTechnology(), course);
+        adresService.createAddress(courseCreationDto.getAddress(), savedCourse);
+        photoService.createPhoto(courseCreationDto.getPhotos(), course);
+        technologyService.createTechnology(courseCreationDto.getTechnology(), course);
         return savedCourse.getId();
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID updateCourse(CourseUpdateRequestDto courseUpdarionDto) {
-        Course existingCourse = findCourseById(courseUpdarionDto.getCourse().getId());
-        Organizer organizer = findOrganizerById(existingCourse.getOrganizerId().getId());
-        Course course = getCourse(courseUpdarionDto.getCourse(), organizer);
+        Course course = updateCourse(courseUpdarionDto.getCourse());
         course.setDelete(false);
-        adresService.updateAddress(courseUpdarionDto.getAddress(), course);
-        technologyService.updateTechnology(courseUpdarionDto.getTechnology(), course);
+        adresService.updateAddress(courseUpdarionDto.getAddress(), course.getId());
+        technologyService.updateTechnology(courseUpdarionDto.getTechnology(), course.getId());
         photoService.updatePhoto(courseUpdarionDto.getPhotos(), course);
         return course.getId();
     }
@@ -52,48 +49,41 @@ public class CourseService {
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void deleteCourse(UUID courseId) {
         Course course = findCourseById(courseId);
+        course.setDelete(true);
         courseRepository.save(course);
-        adresService.deleteAddress(course);
+        adresService.deleteAddress(course.getId());
     }
 
-    @Transactional
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public CourseResponseDto getCourses(UUID courseId) {
         Course course = findCourseById(courseId);
         CourseResponseDto courseResponseDto = courseResponseMapper.toCourseDto(courseRepository.findById(courseId).get());
         AdressCourse adressCourse = adresService.getAddress(course);
         courseResponseDto.setAddress(addressResponseMapper.toDto(adressCourse));
         courseResponseDto.setTechnology(technologyService.getTechnology(course));
-        courseResponseDto.setPhotos(photoService.getPhoto(course));
+        courseResponseDto.setPhotos(photoService.getPhoto(course.getId()));
         return courseResponseDto;
+    }
+
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
+    public Course updateCourse(CourseUpdateDto courseUpdate) {
+        Course course = findCourseById(courseUpdate.getId());
+        course.setName(courseUpdate.getName());
+        course.setType(courseUpdate.getType());
+        course.setNumberSeats(courseUpdate.getNumberSeats());
+        course.setPrice(courseUpdate.getPrice());
+        course.setPhotoProfile(courseUpdate.getPhotoProfile());
+        course.setDirection(courseUpdate.getDirection());
+        course.setDescription(courseUpdate.getDescription());
+        course.setDuration(courseUpdate.getDuration());
+        course.setStatus(courseUpdate.getStatus());
+        course.setWhatLearn(courseUpdate.getWhatLearn());
+        course.setCertificate(courseUpdate.getCertificate());
+        return course;
     }
 
     private Course findCourseById(UUID id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
-    }
-
-    private Organizer findOrganizerById(UUID id) {
-        return repositoryOrganizer.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Organizer not found with id: " + id));
-    }
-
-    public Course getCourse(CourseUpdateDto courseUpdateDto, Organizer organizer) {
-        Course course = Course.builder()
-                .id(courseUpdateDto.getId())
-                .name(courseUpdateDto.getName())
-                .url(courseUpdateDto.getUrl())
-                .type(courseUpdateDto.getType())
-                .numberSeats(courseUpdateDto.getNumberSeats())
-                .price(courseUpdateDto.getPrice())
-                .photoProfile(courseUpdateDto.getPhotoProfile())
-                .direction(courseUpdateDto.getDirection())
-                .description(courseUpdateDto.getDescription())
-                .duration(courseUpdateDto.getDuration())
-                .status(courseUpdateDto.getStatus())
-                .whatLearn(courseUpdateDto.getWhatLearn())
-                .certificate(courseUpdateDto.getCertificate())
-                .organizerId(organizer)
-                .build();
-        return course;
     }
 }

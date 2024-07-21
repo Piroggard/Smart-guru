@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface PhotosRepository extends JpaRepository<PhotosCourse, UUID> {
 
-    List<PhotosCourse> findAllByCourse(Course course);
+    List<PhotosCourse> findAllByCourseId(UUID courseId);
 }
