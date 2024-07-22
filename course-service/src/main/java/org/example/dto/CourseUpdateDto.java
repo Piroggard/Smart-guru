@@ -8,14 +8,13 @@ import org.example.enam.DirectionEnum;
 import org.example.enam.StatusEnum;
 import org.example.enam.TypeEnum;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseResponseDto {
+public class CourseUpdateDto {
 
     private UUID id;
     private String name;
@@ -30,7 +29,4 @@ public class CourseResponseDto {
     private StatusEnum status;
     private String whatLearn;
     private Boolean certificate;
-    private AddressResponseDto address;
-    private List<PhotosResponseDto> photos;
-    private TechnologyResponseDto technology;
 }

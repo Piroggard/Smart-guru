@@ -8,10 +8,15 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrganizerDto {
+@Builder
+public class AddressResponseDto {
 
     private UUID id;
+    private String country;
+    private String city;
+    private String street;
+    private String house;
+    private String district;
 }
