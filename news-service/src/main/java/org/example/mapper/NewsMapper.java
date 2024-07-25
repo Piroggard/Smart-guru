@@ -1,13 +1,19 @@
 package org.example.mapper;
 
-import dto.NewsDto;
-import dto.NewsDtoResponse;
+import org.example.dto.NewsCreationDto;
+import org.example.dto.NewsResponseDto;
+import org.example.dto.NewsUpdateDto;
 import org.example.model.News;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface NewsMapper {
-    News toEntity(NewsDto newsDto);
-    NewsDtoResponse toDTO(News news);
+    @Mapping(target = "course.id", source = "courseId")
+    News toEntity(NewsCreationDto newsCreationDto);
+    @Mapping(target = "course.id", source = "courseId")
+    News toEntity(NewsUpdateDto newsUpdateDto);
+    @Mapping(target = "courseId", source = "course.id")
+    NewsResponseDto toDto(News news);
 }
 

@@ -1,14 +1,13 @@
 package org.example.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.example.enam.DirectionEnum;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -22,24 +21,41 @@ import java.time.LocalDateTime;
 public class News {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long newsId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @EqualsAndHashCode.Include
+    private UUID id;
 
-    @Column(name = "course_id", nullable = false)
-    private Long courseId;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 
-    @Column(name = "direction", nullable = false) //Направление
-    private String direction;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "direction", length = 128, nullable = false)
+    private DirectionEnum direction; // направление
 
-    @Column(name = "publication_date", nullable = false)
-    private LocalDateTime publicationDate;
+    @Column(name = "image", length = 256)
+    private String image; //изображение
 
-    @Column(name = "image", nullable = false)
-    private String image;
+    @Column(name = "title", length = 128, nullable = false)
+    private String title; //заголовок
 
-    @Column(name = "heading", nullable = false)
-    private String heading;
+    @Column(name = "description", length = 4096, nullable = false)
+    private String description; //описание
 
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "delete")
+    private Boolean delete; //признак удаленности
+
+    @CreationTimestamp
+    @Column(name = "date_create")
+    private LocalDateTime dateCreate; //время создания
+
+    @Column(name = "date_publication")
+    private LocalDateTime datePublication; //время публикации
+
+    @UpdateTimestamp
+    @Column(name = "date_update")
+    private LocalDateTime dateUpdate; //время обновления
+
+    @Column(name = "date_delete")
+    private LocalDateTime dateDelete; //время удаления
 }

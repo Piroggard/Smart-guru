@@ -1,50 +1,63 @@
 package org.example.controller;
 
-import dto.NewsDto;
-
-import dto.NewsDtoResponse;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.model.News;
-import org.example.servise.NewServise;
-import org.springframework.http.HttpStatus;
+import org.example.dto.NewsCreationDto;
+import org.example.dto.NewsResponseDto;
+import org.example.dto.NewsUpdateDto;
+import org.example.enam.DirectionEnum;
+import org.example.service.NewsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
-@RequestMapping("/news")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
+@RequestMapping("/news")
 public class NewsController {
-
-    NewServise newServise;
+    private final NewsService newsService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Long createNews (@Valid @RequestBody NewsDto newsDto) {
-        log.info("Меттод get " + newsDto);
-        return newServise.createNews (newsDto);
-    }
-
-    @GetMapping("/{courseId}")
-    public List<NewsDtoResponse> getAllByCourseId(@PathVariable Long courseId,
-                                                  @RequestParam(required = false, defaultValue = "0") int page,
-                                                  @RequestParam(required = false, defaultValue = "0") int size) {
-        log.info("Метод getAllByCourseId " + courseId);
-        return newServise.getAllByCourseId(courseId, page, size);
+    public UUID createNews(@RequestBody NewsCreationDto newsCreationDto) {
+        log.info("Received request to create news with title: '{}'", newsCreationDto.getTitle());
+        return newsService.createNews(newsCreationDto);
     }
 
     @PatchMapping
-    public NewsDtoResponse patchNews(@RequestBody News news) {
-        log.info("Метод patch " + news);
-        return newServise.patchNews(news);
+    public UUID updateNews(@RequestBody NewsUpdateDto newsUpdateDto) {
+        log.info("Received request to update news with ID: '{}'", newsUpdateDto.getId());
+        return newsService.updateNews(newsUpdateDto);
     }
 
-    @DeleteMapping("/{newsId}/{courseId}")
-    public void deleteNews(@PathVariable Long newsId, @PathVariable Long courseId) {
-        log.info("Удаление новости " + newsId);
-        newServise.deleteNews(newsId, courseId);
+    @DeleteMapping("/{newsId}")
+    public void deleteNews(@PathVariable UUID newsId) {
+        log.info("Received request to delete news with ID: '{}'", newsId);
+        newsService.deleteNews(newsId);
+    }
+
+    @GetMapping("/{newsId}")
+    public NewsResponseDto getNews(@PathVariable UUID newsId) {
+        log.info("Received request to get details for news with ID: '{}'", newsId);
+        return newsService.getNews(newsId);
+    }
+
+    @GetMapping
+    public List<NewsResponseDto> getAllNews() {
+        log.info("Received request to get all news");
+        return newsService.getAllNews();
+    }
+
+    @GetMapping("/direction/{direction}")
+    public List<NewsResponseDto> getNewsByDirection(@PathVariable DirectionEnum direction) {
+        log.info("Received request to get news by direction: '{}'", direction);
+        return newsService.getNewsByDirection(direction);
+    }
+
+    @GetMapping("/course/{courseId}")
+    public List<NewsResponseDto> getNewsByCourse(@PathVariable UUID courseId) {
+        log.info("Received request to get news by course with ID: '{}'", courseId);
+        return newsService.getNewsByCourse(courseId);
     }
 }
