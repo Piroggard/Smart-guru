@@ -1,24 +1,24 @@
 package com.org.example.controller.service;
 
-import com.org.example.db.CertificateRepository;
-import com.org.example.dto.CertificateDto;
-import com.org.example.exceptions.DuplicateCertificateException;
-import com.org.example.exceptions.NotFoundException;
-import com.org.example.mapper.CertificateMapper;
-import com.org.example.model.Certificate;
-import com.org.example.service.CertificatesServiceImpl;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+//import com.org.example.db.CertificateRepository;
+//import com.org.example.dto.CertificateDto;
+//import com.org.example.exceptions.DuplicateCertificateException;
+//import com.org.example.exceptions.NotFoundException;
+//import com.org.example.mapper.CertificateMapper;
+//import com.org.example.model.Certificate;
+//import com.org.example.service.CertificatesServiceImpl;
+//import org.junit.jupiter.api.AfterEach;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.MockitoAnnotations;
+//
+//import java.util.Optional;
+//import java.util.UUID;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//import static org.mockito.Mockito.*;
 
 //public class CertificateServiceImplTest {
 //    @Mock

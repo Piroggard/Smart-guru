@@ -9,8 +9,8 @@
 
     <artifactId>certificate-service</artifactId>
     <version>${parent.version}</version>
-    <name>course-service</name>
-    <description>Course service</description>
+    <name>certificate-service</name>
+    <description>Certificate service</description>
     <packaging>jar</packaging>
 
     <dependencies>

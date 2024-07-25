@@ -24,26 +24,38 @@ public class CertificatesServiceImpl implements CertificatesService {
         log.info("Adding certificate: {}", certificateDto);
         Certificate certificate = certificateMapper.toEntity(certificateDto);
         CertificateDto savedCertificate = certificateMapper.toDto(certificateRepository.save(certificate));
-        log.info("The certificate: {} is added", certificateDto);
+        log.info("The certificate: {} is added", savedCertificate);
         return savedCertificate;
     }
 
     @Transactional
     @Override
     public CertificateDto updateCertificate(CertificateDto certificateDto) {
+        existingCertificate(certificateDto.getId());
         log.info("Updating certificate: {}", certificateDto);
-        Certificate certificate = existingCertificate(certificateDto.getId());
-        certificateRepository.save(certificate);
-        log.info("The certificate: {} is updated", certificateDto);
-        return certificateMapper.toDto(certificate);
+        Certificate certificateToSave = certificateMapper.toEntity(certificateDto);
+        CertificateDto savedCertificate = certificateMapper.toDto(certificateRepository.save(certificateToSave));
+        log.info("The certificate: {} is updated", savedCertificate);
+        return savedCertificate;
     }
 
     @Transactional
     @Override
     public CertificateDto getCertificate(UUID certificateId) {
-        log.info("Getting certificate: {}", certificateId);
-        return certificateMapper.toDto(existingCertificate(certificateId));
+        if (certificateRepository.findById(certificateId).isPresent()) {
+            Certificate existingCertificate = certificateRepository.findById(certificateId).get();
+            if (existingCertificate.getDelete() != null) {
+                if (existingCertificate.getDelete()) {
+                    throw new NotFoundException("Certificate with id " + certificateId + " is deleted");
+                }
+            }
+            log.info("Getting certificate: {}", certificateId);
+            return certificateMapper.toDto(certificateRepository.findById(certificateId).get());
+        } else {
+            throw new NotFoundException("Certificate not found");
+        }
     }
+
 
     @Transactional
     @Override

@@ -6,16 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class ReviewDto {
-    private Long id;
+    private UUID id;
     private String title;
-    private String description;
-    private LocalDateTime postDate;
-    private Long courseId;
-    private Long userId;
+    private UUID courseId;
+    private UUID userId;
+    private int rating;
+    private boolean deleted;
+    private LocalDateTime dateModeration;
+    private LocalDateTime datePublication;
+    private LocalDateTime dateCreate;
+    private LocalDateTime dateUpdate;
+    private LocalDateTime dateDelete;
+
+
 }
