@@ -7,15 +7,16 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "organizers")
 @Builder
+
+@Entity
+@Table(name = "organizers")
 public class Organizer {
 
     @Id
