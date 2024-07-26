@@ -91,7 +91,4 @@ public class Course {
     @UpdateTimestamp
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
-
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<News> news;
 }
