@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface NewsMapper {
+
     @Mapping(target = "course.id", source = "courseId")
     News toEntity(NewsCreationDto newsCreationDto);
 

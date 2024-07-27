@@ -14,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewsResponseDto {
+
     private UUID id;
     private UUID courseId;
     private DirectionEnum direction;

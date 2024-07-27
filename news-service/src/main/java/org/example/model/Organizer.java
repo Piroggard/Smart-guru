@@ -14,7 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder
-
 @Entity
 @Table(name = "organizers")
 public class Organizer {
@@ -22,7 +21,7 @@ public class Organizer {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false)
+
     private UUID id;
 
     @Column(name = "name")

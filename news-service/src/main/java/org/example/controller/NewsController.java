@@ -15,10 +15,10 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-
 @RestController
 @RequestMapping("/api/v1/news")
 public class NewsController {
+
     private final NewsService newsService;
 
     @PostMapping

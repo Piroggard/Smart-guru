@@ -1,6 +1,7 @@
 package org.example.enam;
 
 public enum DirectionEnum {
+
     DIRECTION1("Description for Direction1"),
     DIRECTION2("Description for Direction2");
 

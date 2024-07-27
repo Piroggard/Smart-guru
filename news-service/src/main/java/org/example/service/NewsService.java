@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
-
 @Service
 @Transactional(readOnly = true)
 public class NewsService {
+
     private final NewsRepository newsRepository;
     private final NewsMapper newsMapper;
     private final NewsResponseMapper newsResponseMapper;
@@ -34,8 +34,6 @@ public class NewsService {
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public UUID createNews(NewsCreationDto newsCreationDto) {
-        /*Course course = courseRepository.findById(newsCreationDto.getCourseId())
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + newsCreationDto.getCourseId()));*/
         Course course = findCourseById(newsCreationDto.getCourseId());
         News news = newsMapper.toEntity(newsCreationDto);
         news.setCourse(course);
@@ -53,18 +51,6 @@ public class NewsService {
         return news.getId();
     }
 
-    private void updateNewsEntity(News news, NewsUpdateDto newsUpdateDto) {
-        /*Course course = courseRepository.findById(newsUpdateDto.getCourseId())
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + newsUpdateDto.getCourseId()));*/
-        Course course = findCourseById(newsUpdateDto.getCourseId());
-        news.setCourse(course);
-        news.setDirection(newsUpdateDto.getDirection());
-        news.setImage(newsUpdateDto.getImage());
-        news.setTitle(newsUpdateDto.getTitle());
-        news.setDescription(newsUpdateDto.getDescription());
-        news.setDatePublication(newsUpdateDto.getDatePublication());
-    }
-
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void deleteNews(UUID id) {
         News news = findNewsById(id);
@@ -80,15 +66,11 @@ public class NewsService {
     public List<NewsResponseDto> getAllNews(DirectionEnum direction, UUID courseId) {
         List<News> newsList;
         if (direction != null && courseId != null) {
-            /*Course course = courseRepository.findById(courseId)
-                    .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + courseId));*/
             Course course = findCourseById(courseId);
             newsList = newsRepository.findByDirectionAndCourse(direction, course);
         } else if (direction != null) {
             newsList = newsRepository.findByDirection(direction);
         } else if (courseId != null) {
-            /*Course course = courseRepository.findById(courseId)
-                    .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + courseId));*/
             Course course = findCourseById(courseId);
             newsList = newsRepository.findByCourse(course);
         } else {
@@ -97,6 +79,16 @@ public class NewsService {
         return newsList.stream()
                 .map(newsResponseMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    private void updateNewsEntity(News news, NewsUpdateDto newsUpdateDto) {
+        Course course = findCourseById(newsUpdateDto.getCourseId());
+        news.setCourse(course);
+        news.setDirection(newsUpdateDto.getDirection());
+        news.setImage(newsUpdateDto.getImage());
+        news.setTitle(newsUpdateDto.getTitle());
+        news.setDescription(newsUpdateDto.getDescription());
+        news.setDatePublication(newsUpdateDto.getDatePublication());
     }
 
     private News findNewsById(UUID id) {

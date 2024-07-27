@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface NewsResponseMapper {
+
     @Mapping(target = "courseId", source = "course.id")
     @Mapping(target = "directionDescription", expression = "java(news.getDirection().getDescription())")
     NewsResponseDto toDto(News news);

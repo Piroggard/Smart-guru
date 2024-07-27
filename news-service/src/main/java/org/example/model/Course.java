@@ -19,11 +19,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder
-
 @Entity
 @Table(name = "courses")
 
 public class Course {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
