@@ -7,43 +7,38 @@ import org.example.review.service.ReviewServiceImpl;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/api/v1/review")
 @AllArgsConstructor
 @Slf4j
 @Validated
 public class ReviewController {
 
    private final ReviewServiceImpl reviewService;
-   @GetMapping("/{id}")
-    public ReviewDto getReviewById(@PathVariable("id") Long reviewId) {
-      log.info("Getting review by id " + reviewId);
-      return reviewService.getReviewById(reviewId);
-   }
-    @GetMapping("/user/{userId}")
-    public List<ReviewDto> getReviewsByUserId(@PathVariable Long userId) {
-        log.info("Getting all reviews from user " + userId);
-        return reviewService.getAllReviewsByUserId(userId);
-    }
 
+   @GetMapping("{id}")
+    public ReviewDto getReviewById(@PathVariable("id") UUID id) {
+      log.info("Getting review by id " + id);
+      return reviewService.getReviewById(id);
+   }
 
    @PostMapping
-    public ReviewDto addReview(@RequestBody @Validated ReviewDto reviewDto) {
+    public ReviewDto addReview(@RequestBody ReviewDto reviewDto) {
       log.info("Adding review " + reviewDto.getTitle());
       return reviewService.addReview(reviewDto);
    }
 
-   @PatchMapping("/{id}")
-    public ReviewDto updateReview(@RequestBody @Validated ReviewDto reviewDto, @PathVariable("id") Long reviewId) {
+   @PatchMapping("{id}")
+    public ReviewDto updateReview(@RequestBody ReviewDto reviewDto, @PathVariable("id") UUID reviewId) {
         log.info("Updating review " + reviewId);
         return reviewService.updateReview(reviewDto, reviewId);
    }
 
-   @DeleteMapping("/{reviewId}")
-    public void deleteReview(@PathVariable Long reviewId) {
-       log.info("Deleting review " + reviewId);
-       reviewService.deleteReview(reviewId);
+   @DeleteMapping("{id}")
+    public void deleteReview(@PathVariable UUID id) {
+       log.info("Deleting review " + id);
+       reviewService.deleteReview(id);
    }
 }

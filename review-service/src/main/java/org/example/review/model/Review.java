@@ -27,6 +27,9 @@ public class Review {
     @Column(name = "title",nullable = false)
     private String title;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Column(name = "course_id", nullable = false)
     private UUID courseId;
 
