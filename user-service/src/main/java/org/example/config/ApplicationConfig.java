@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,9 +31,10 @@ public class ApplicationConfig {
     }
 
     @Bean
+    @Transactional(readOnly = true)
     public UserDetailsService userDetailsService() throws UsernameNotFoundException {
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with username=%s is not found in DB", username)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email=%s is not found in DB", username)));
     }
 
     @Bean

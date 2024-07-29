@@ -11,7 +11,7 @@
 
     <artifactId>database-service</artifactId>
     <version>${parent.version}</version>
-    <name>database-service</name>
+    <name>database  -service</name>
     <description>database-service</description>
     <packaging>jar</packaging>
 
