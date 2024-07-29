@@ -1,12 +1,26 @@
 server:
   port: 9091
 
-#spring:
-#  sql:
-#    init:
-#      mode: always
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/postgres
-#    driverClassName: org.postgresql.Driver
-#    username: user
-#    password: user
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: smart-guru
+    password: i-know-pass
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  show-actuator: true
