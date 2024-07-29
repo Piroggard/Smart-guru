@@ -2,8 +2,16 @@ package org.example.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.example.enam.DirectionEnum;
+import org.example.enam.StatusEnum;
+import org.example.enam.TypeEnum;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -14,9 +22,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "course")
+@Table(name = "courses")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class Course {
     @Id
@@ -26,64 +33,65 @@ public class Course {
     private UUID id;
 
     @Column(name = "name", nullable = false)
-    private String name; // Название курса
+    private String name;
 
     @Column(name = "url", nullable = false)
-    private String url; // не обязательное поле
+    private String url;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Type", referencedColumnName = "id")
-    private Type type; //Тип курса
+    @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "type")
+    private TypeEnum type;
 
-    @Column(name = "number_seats", nullable = false)
-    private Long numberSeats; // количество мест
+    @Column(name = "number_seats")
+    private Long numberSeats;
 
-    @Column(name = "price", nullable = false)
-    private Long price; //Цена курса
+    @Column(name = "price")
+    private Long price;
 
-    @Column(name = "photoProfile", nullable = false)
-    private String photoProfile; // фото профиля
+    @Column(name = "photo_profile")
+    private String photoProfile;
 
-    @Column(name = "description", nullable = false)
-    private String description; // Описание курса
+    @Column(name = "description")
+    private String description;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "directionId", referencedColumnName = "id")
-    private Direction directionId; // Направление
+    @Enumerated(EnumType.STRING)
+    @Column(name = "direction")
+    private DirectionEnum direction;
 
-    @Column(name = "duration", nullable = false)
-    private String duration; // продолжительность
+    @Column(name = "duration")
+    private String duration;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusEnum status;
+
+    @Column(name = "what_learn")
+    private String whatLearn;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "organizer_id", referencedColumnName = "id")
-    private Organizer organizerId; // ID организации
+    private Organizer organizerId;
 
-    @Column(name = "certificate", nullable = false)
-    private Boolean certificate; //Сертификат
+    @Column(name = "certificate")
+    private Boolean certificate;
 
-    @Column(name = "date_create", nullable = false)
-    private LocalDateTime dateCreate; //Дата создания курса
+    @Column(name = "date_start_course")
+    private LocalDateTime dateStartCourse;
 
-    @Column(name = "date_start_course", nullable = false)
-    private LocalDateTime dateStartCourse; //Дата начала курса
+    @Column(name = "date_finish_course")
+    private LocalDateTime dateFinishCourse;
 
-    @Column(name = "date_finish_course", nullable = false)
-    private LocalDateTime dateFinishCourse; //Дата окончания курса
+    @Column(name = "delete")
+    private Boolean delete;
 
-    @Column(name = "delete", nullable = false)
-    private Boolean delete; //Признак удаленности
+    @Column(name = "date_delete")
+    private LocalDateTime dateDelete;
 
-    @Column(name = "date_delete", nullable = false)
-    private LocalDateTime dateDelete;// Время удаления
+    @CreationTimestamp
+    @Column(name = "date_create", updatable = false)
+    private LocalDateTime dateCreate;
 
-    @Column(name = "date_update", nullable = false)
-    private LocalDateTime dateUpdate;// Время обновления
-
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
-    private Status statusId;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "adress_id", referencedColumnName = "id")
-    private AdressCourse addressId;
+    @UpdateTimestamp
+    @Column(name = "date_update")
+    private LocalDateTime dateUpdate;
 }

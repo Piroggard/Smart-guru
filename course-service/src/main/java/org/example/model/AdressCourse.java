@@ -2,8 +2,14 @@ package org.example.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -13,28 +19,45 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "adress")
+@Table(name = "address_courses")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AdressCourse {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false)
     private UUID id;
 
-    @Column(name = "country", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    private Course course;
+
+    @Column(name = "country")
     private String country;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "street", nullable = false)
+    @Column(name = "street")
     private String street;
 
-    @Column(name = "house", nullable = false)
+    @Column(name = "house")
     private String house;
 
-    @Column(name = "district", nullable = false)
+    @Column(name = "district")
     private String district;
+
+    @Column(name = "delete")
+    private Boolean delete;
+
+    @Column(name = "date_delete")
+    private LocalDateTime dateDelete;
+
+    @UpdateTimestamp
+    @Column(name = "date_update")
+    private LocalDateTime dateUpdate;
+
+    @CreationTimestamp
+    @Column(name = "date_create", updatable = false)
+    private LocalDateTime dateCreate;
 }
