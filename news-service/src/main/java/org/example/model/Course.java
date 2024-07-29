@@ -21,12 +21,10 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "courses")
-
 public class Course {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "name", nullable = false)
@@ -36,7 +34,7 @@ public class Course {
     private String url;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "type")
+    @Column(name = "type")
     private TypeEnum type;
 
     @Column(name = "number_seats")
@@ -70,7 +68,7 @@ public class Course {
     private Organizer organizerId;
 
     @Column(name = "certificate")
-    private Boolean certificate;
+    private boolean certificate;
 
     @Column(name = "date_start_course")
     private LocalDateTime dateStartCourse;
@@ -79,7 +77,7 @@ public class Course {
     private LocalDateTime dateFinishCourse;
 
     @Column(name = "delete")
-    private Boolean delete;
+    private boolean delete;
 
     @Column(name = "date_delete")
     private LocalDateTime dateDelete;

@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class NewsService {
 
     private final NewsRepository newsRepository;
@@ -37,7 +36,6 @@ public class NewsService {
         Course course = findCourseById(newsCreationDto.getCourseId());
         News news = newsMapper.toEntity(newsCreationDto);
         news.setCourse(course);
-        news.setDelete(false);
         News savedNews = newsRepository.save(news);
         return savedNews.getId();
     }
@@ -58,11 +56,13 @@ public class NewsService {
         news.setDateDelete(LocalDateTime.now());
     }
 
+    @Transactional(readOnly = true)
     public NewsResponseDto getNews(UUID id) {
         News news = findNewsById(id);
         return newsResponseMapper.toDto(news);
     }
 
+    @Transactional(readOnly = true)
     public List<NewsResponseDto> getAllNews(DirectionEnum direction, UUID courseId) {
         List<News> newsList;
         if (direction != null && courseId != null) {

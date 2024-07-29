@@ -19,9 +19,7 @@ import java.util.UUID;
 public class Organizer {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "name")
@@ -43,5 +41,5 @@ public class Organizer {
     private LocalDateTime dateUpdate;
 
     @Column(name = "delete", nullable = false)
-    private Boolean delete;
+    private boolean delete;
 }

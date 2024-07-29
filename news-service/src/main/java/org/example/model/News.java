@@ -43,7 +43,7 @@ public class News {
     private String description;
 
     @Column(name = "delete")
-    private Boolean delete;
+    private boolean delete;
 
     @CreationTimestamp
     @Column(name = "date_create")
