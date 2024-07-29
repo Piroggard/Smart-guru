@@ -102,7 +102,7 @@ public class OrganizerService {
     }
 
     private void checkCorrectnessUserAction(UUID organizerId) {
-        if (userContext.getUserId().equals(organizerId)) {
+        if (!userContext.getUserId().equals(organizerId)) {
             throw new IncorrectUserActionException("This operation can do only user himself or user with 'ADMIN' role");
         }
     }
