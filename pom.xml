@@ -16,7 +16,7 @@
     <name>smart-guru</name>
     <packaging>pom</packaging>
 
-    <url>http://maven.apache.org</url>
+  <url>http://maven.apache.org</url>
 
     <properties>
         <java.version>17</java.version>
@@ -34,8 +34,6 @@
         <module>review-service</module>
         <module>notification-service</module>
         <module>course-service</module>
-        <module>database-service</module>
-        <module>certificate-service</module>
     </modules>
 
     <dependencyManagement>
@@ -149,11 +147,8 @@
                             <path>
                                 <groupId>org.mapstruct</groupId>
                                 <artifactId>mapstruct-processor</artifactId>
-
-
                                 <version>1.5.2.Final</version>
                             </path>
-
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
