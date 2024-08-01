@@ -5,6 +5,7 @@
         <groupId>com.smart-guru</groupId>
         <artifactId>course-agregator</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+
     </parent>
 
     <artifactId>certificate-service</artifactId>
