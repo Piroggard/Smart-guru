@@ -32,3 +32,9 @@ logging:
 jwt:
   secret: 9SPHhNNj16Y00xLJ/xITNhG6JWdee49BjW2ql2QOcIcpFB7Fksg49sBa2pL2F4El
   lifetime: 240m
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

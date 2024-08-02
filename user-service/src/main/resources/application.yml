@@ -21,3 +21,9 @@ jwt:
   secret: pZ8eE0Krxu7g7/yh5hsRkQb8Q1wbDVWv6gXRf3F26HDLw/lKo9fwBH9xQwd8N3ww
   lifetime: 240m
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
