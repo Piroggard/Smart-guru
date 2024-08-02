@@ -32,3 +32,30 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  grafana:
+    image: grafana/grafana
+    build: './config/grafana'
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=smart-guru
+      - GF_SECURITY_ADMIN_PASSWORD=i-know-pass
+    networks:
+      monitoring:
+        - aliases:
+            - grafana
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9080:9080
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/prometheus
+    networks:
+      monitoring:
+        - aliases:
+            - prometheus
