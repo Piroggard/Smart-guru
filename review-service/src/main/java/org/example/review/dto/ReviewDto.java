@@ -13,6 +13,7 @@ import java.util.UUID;
 @Data
 @Builder
 public class ReviewDto {
+
     private UUID id;
     private String title;
     private String description;
@@ -25,6 +26,5 @@ public class ReviewDto {
     private LocalDateTime dateCreate;
     private LocalDateTime dateUpdate;
     private LocalDateTime dateDelete;
-
 
 }

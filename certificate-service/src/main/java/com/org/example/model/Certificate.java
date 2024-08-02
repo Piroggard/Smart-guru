@@ -2,7 +2,6 @@ package com.org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +17,7 @@ import java.util.UUID;
 @Table(name = "certificates")
 @Builder
 public class Certificate {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -51,4 +51,5 @@ public class Certificate {
 
     @Column(name = "date_update")
     private LocalDateTime dateOfUpdate;
+
 }

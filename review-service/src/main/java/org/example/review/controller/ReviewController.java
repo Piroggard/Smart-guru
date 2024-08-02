@@ -20,25 +20,25 @@ public class ReviewController {
 
    @GetMapping("{id}")
     public ReviewDto getReviewById(@PathVariable("id") UUID id) {
-      log.info("Getting review by id " + id);
+      log.info("Getting review by id {}", id);
       return reviewService.getReviewById(id);
    }
 
    @PostMapping
     public ReviewDto addReview(@RequestBody ReviewDto reviewDto) {
-      log.info("Adding review " + reviewDto.getTitle());
+      log.info("Adding review {}", reviewDto);
       return reviewService.addReview(reviewDto);
    }
 
    @PatchMapping("{id}")
     public ReviewDto updateReview(@RequestBody ReviewDto reviewDto, @PathVariable("id") UUID reviewId) {
-        log.info("Updating review " + reviewId);
+        log.info("Updating review {}",reviewDto);
         return reviewService.updateReview(reviewDto, reviewId);
    }
 
    @DeleteMapping("{id}")
     public void deleteReview(@PathVariable UUID id) {
-       log.info("Deleting review " + id);
+       log.info("Deleting review {}", id);
        reviewService.deleteReview(id);
    }
 }

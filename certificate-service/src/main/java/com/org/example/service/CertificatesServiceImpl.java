@@ -15,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class CertificatesServiceImpl implements CertificatesService {
+
     private final CertificateRepository certificateRepository;
     private final CertificateMapper certificateMapper;
 
@@ -61,7 +62,6 @@ public class CertificatesServiceImpl implements CertificatesService {
     @Override
     public void deleteCertificate(UUID certificateId) {
         log.info("Deleting certificate: {}", certificateId);
-        //Soft Delete
         Certificate deletedCertificate = existingCertificate(certificateId);
         deletedCertificate.setDelete(true);
         certificateRepository.save(deletedCertificate);

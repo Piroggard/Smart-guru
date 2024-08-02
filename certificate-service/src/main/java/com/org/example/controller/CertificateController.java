@@ -17,25 +17,25 @@ public class CertificateController {
 
     @GetMapping("{id}")
     public CertificateDto findById(@PathVariable("id") UUID id) {
-        log.info("Getting review by id " + id);
+        log.info("Getting certificate by id {}", id);
         return certificateService.getCertificate(id);
     }
 
     @PostMapping
     public CertificateDto create(@RequestBody CertificateDto certificateDto) {
-        log.info("Creating certificate " + certificateDto);
+        log.info("Creating certificate {} ", certificateDto);
         return certificateService.saveCertificate(certificateDto);
     }
 
     @PatchMapping("{id}")
     public CertificateDto update(@RequestBody CertificateDto certificateDto, @PathVariable("id") UUID id) {
-        log.info("Updating certificate " + certificateDto);
+        log.info("Updating certificate {} ", certificateDto);
         return certificateService.updateCertificate(certificateDto);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") UUID id) {
-        log.info("Deleting certificate " + id);
+        log.info("Deleting certificate {}", id);
         certificateService.deleteCertificate(id);
     }
 

@@ -17,10 +17,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class ReviewServiceImpl implements ReviewServiceInterface {
+
     private final ReviewRepository reviewRepository;
     private final ReviewMapper reviewMapper;
-
-
 
     @Transactional
     public ReviewDto getReviewById(UUID reviewId) {
