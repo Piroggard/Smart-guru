@@ -52,6 +52,7 @@ CREATE TABLE courses
     date_create        TIMESTAMP,
     date_delete        TIMESTAMP,
     date_update        TIMESTAMP,
+
     CONSTRAINT fk_organizers FOREIGN KEY (organizer_id) REFERENCES organizers (id) ON DELETE CASCADE
 );
 
@@ -61,6 +62,7 @@ CREATE TABLE technologies
     name      VARCHAR(128) NOT NULL,
     photo     VARCHAR(256) UNIQUE,
     course_id UUID         NOT NULL,
+    delete    BOOLEAN      NOT NULL DEFAULT FALSE,
 
     CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
