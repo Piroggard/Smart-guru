@@ -104,6 +104,7 @@ CREATE TABLE photos_courses
     id        UUID PRIMARY KEY,
     photo     VARCHAR(256) NOT NULL,
     course_id UUID         NOT NULL,
+    delete    BOOLEAN      NOT NULL DEFAULT FALSE,
 
     CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
 );
