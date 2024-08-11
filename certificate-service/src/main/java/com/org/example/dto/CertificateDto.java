@@ -23,8 +23,4 @@ public class CertificateDto {
     private String number;
     private String photoCertificate;
     private Boolean delete;
-    private LocalDate dateOfIssue;
-    private LocalDateTime dateOfCreate;
-    private LocalDateTime dateOfUpdate;
-
 }

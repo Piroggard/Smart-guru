@@ -2,6 +2,8 @@ package com.org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,12 +46,15 @@ public class Certificate {
     private Boolean delete;
 
     @Column(name = "date_issuing")
+    @CreationTimestamp
     private LocalDate dateOfIssue;
 
     @Column(name = "date_create")
+    @CreationTimestamp
     private LocalDateTime dateOfCreate;
 
     @Column(name = "date_update")
+    @UpdateTimestamp
     private LocalDateTime dateOfUpdate;
 
 }

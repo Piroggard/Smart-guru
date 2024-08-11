@@ -23,8 +23,6 @@ public class ReviewDto {
     private boolean deleted;
     private LocalDateTime dateModeration;
     private LocalDateTime datePublication;
-    private LocalDateTime dateCreate;
-    private LocalDateTime dateUpdate;
     private LocalDateTime dateDelete;
 
 }

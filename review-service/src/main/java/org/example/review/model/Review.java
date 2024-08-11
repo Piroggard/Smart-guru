@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -52,9 +54,11 @@ public class Review {
     private LocalDateTime datePublication;
 
     @Column(name = "date_create")
+    @CreationTimestamp
     private LocalDateTime dateCreate;
 
     @Column(name = "date_update")
+    @UpdateTimestamp
     private LocalDateTime dateUpdate;
 
     @Column(name = "date_delete")
