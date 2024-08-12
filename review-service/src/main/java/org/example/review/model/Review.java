@@ -7,8 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -20,18 +23,45 @@ import java.time.LocalDateTime;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(name = "title",nullable = false)
     private String title;
 
-    @Column(name = "description",nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "post_date",nullable = false)
-    private LocalDateTime postDate;
+    @Column(name = "course_id", nullable = false)
+    private UUID courseId;
 
-    @Column(name = "user_id",nullable = false)
-    private Long userId;
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
+
+    @Column(name = "reyting")
+    private int rating;
+
+    @Column(name = "delete")
+    private boolean deleted;
+
+    @Column(name = "moderation")
+    private boolean moderation;
+
+    @Column(name = "date_moderation")
+    private LocalDateTime dateModeration;
+
+    @Column(name = "date_publication")
+    private LocalDateTime datePublication;
+
+    @Column(name = "date_create")
+    @CreationTimestamp
+    private LocalDateTime dateCreate;
+
+    @Column(name = "date_update")
+    @UpdateTimestamp
+    private LocalDateTime dateUpdate;
+
+    @Column(name = "date_delete")
+    private LocalDateTime dateDelete;
+
 }

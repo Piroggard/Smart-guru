@@ -45,8 +45,6 @@ CREATE TABLE courses
     organizer_id       UUID          NOT NULL,
     certificate        BOOLEAN,
     status             VARCHAR(128)  NOT NULL,
-    delete             BOOLEAN       NOT NULL DEFAULT FALSE,
-    what_learn         VARCHAR(4096) NOT NULL,
     date_start_course  DATE,
     date_finish_course DATE,
     date_create        TIMESTAMP,

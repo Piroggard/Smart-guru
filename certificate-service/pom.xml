@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.smart-guru</groupId>
         <artifactId>course-agregator</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+
     </parent>
 
-    <artifactId>review-service</artifactId>
+    <artifactId>certificate-service</artifactId>
     <version>${parent.version}</version>
-    <name>review-service</name>
-    <description>Reviews service</description>
+    <name>certificate-service</name>
+    <description>Certificate service</description>
     <packaging>jar</packaging>
 
     <dependencies>

@@ -1,13 +1,12 @@
 package org.example.review.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,18 +14,15 @@ import java.time.LocalDateTime;
 @Builder
 public class ReviewDto {
 
-    @NotNull(message = "Идентификатор курса не должен быть пустым")
-    private Long id;
-
-    @NotBlank(message = "Название не должно быть пустым")
+    private UUID id;
     private String title;
-
-    @NotBlank(message = "Описание не должно быть пустым")
     private String description;
+    private UUID courseId;
+    private UUID userId;
+    private int rating;
+    private boolean deleted;
+    private LocalDateTime dateModeration;
+    private LocalDateTime datePublication;
+    private LocalDateTime dateDelete;
 
-    @NotBlank(message = "Время не должно быть пустым")
-    private LocalDateTime postDate;
-
-    @NotNull(message = "Идентификатор пользователя не должен быть пустым")
-    private Long userId;
 }

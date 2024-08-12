@@ -34,6 +34,7 @@
         <module>review-service</module>
         <module>notification-service</module>
         <module>course-service</module>
+        <module>certificate-service</module>
     </modules>
 
     <dependencyManagement>

@@ -2,9 +2,16 @@ package org.example.review.service;
 
 import org.example.review.dto.ReviewDto;
 
+import java.util.UUID;
+
 public interface ReviewServiceInterface {
-    ReviewDto getReviewById(Long reviewId);
+
+    ReviewDto getReviewById(UUID reviewId);
+
     ReviewDto addReview(ReviewDto reviewDto);
-    ReviewDto updateReview(ReviewDto reviewDto, Long reviewId);
-    public void deleteReview(Long reviewId);
+
+    ReviewDto updateReview(ReviewDto reviewDto, UUID reviewId);
+
+    void deleteReview(UUID reviewId);
+
 }
